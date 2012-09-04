@@ -1,6 +1,4 @@
 class ProdutosController < ApplicationController
-  before_filter :authenticate
-
   def get_clase                #
     @clase =  Clase.find(:first, :conditions =>  [ "id = ?", params[:campo_clase]])
     return render :text => "<script type='text/javascript'>

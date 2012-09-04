@@ -113,21 +113,6 @@ class ProdutosController < ApplicationController
   end
 
 
-  def index_print                #
-
-    @produtos = Produto.busca_produto(params)
-    pdf = render :layout => 'layer_relatorios'
-    kit = PDFKit.new(pdf,:page_size     => 'A4',
-                         :footer_right  => "Pagina [page] de [toPage]",
-                         :margin_top    => '0.20in',
-                         :margin_bottom  => '0.25in',
-                         :margin_left   => '0.10in',
-                         :margin_right  => '0.10in')
-      kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
-      send_data(kit.to_pdf, :filename => "Productos.pdf")
-    end
-
-
   #METHOD BASE
   def index                        #
     @prod = Produto.all(:select => 'id,nome', :conditions => ["nome LIKE ?","%#{params[:busca]}%"])
