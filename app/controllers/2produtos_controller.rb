@@ -1,10 +1,4 @@
 class ProdutosController < ApplicationController
-  def get_clase                #
-    @clase =  Clase.find(:first, :conditions =>  [ "id = ?", params[:campo_clase]])
-    return render :text => "<script type='text/javascript'>
-                    document.getElementById('busca_clase').value                = '#{@clase.id.to_i}';
-                            </script>"
-  end
 
   def get_grupo                #
     @grupo =  Grupo.find(:first, :conditions =>  [ "id = ?", params[:campo_grupo]])
