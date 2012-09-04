@@ -1,0 +1,29 @@
+development:     #
+  adapter: postgresql
+  encoding: unicode
+  database: th53698_pratic		
+  pool: 5
+  username: th53698_mairon	
+  password: di03051999
+  host: localhost				
+  port: 5432
+
+test:            #
+  adapter: postgresql
+  encoding: unicode
+  database: th53698_pratic
+  pool: 5
+  username: th53698_mairon	
+  password: di03051999
+  host: localhost
+  port: 5432
+
+production:      #
+  adapter: postgresql
+  encoding: unicode
+  database: th53698_pratic
+  pool: 5
+  username: th53698_mairon
+  password: di03051999
+  host: localhost
+  port: 5432

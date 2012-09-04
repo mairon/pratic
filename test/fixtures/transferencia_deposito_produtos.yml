@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  transferencia_deposito_id: 1
+  produto_id: 1
+  produto_nome: MyString
+  quantidade: 9.99
+  unitario_dolar: 9.99
+  unitario_guarani: 9.99
+  deposito_origem_id: 1
+  deposito_origem_nome: MyString
+  deposito_destino_id: 1
+  deposito_destino_nome: MyString
+
+two:
+  transferencia_deposito_id: 1
+  produto_id: 1
+  produto_nome: MyString
+  quantidade: 9.99
+  unitario_dolar: 9.99
+  unitario_guarani: 9.99
+  deposito_origem_id: 1
+  deposito_origem_nome: MyString
+  deposito_destino_id: 1
+  deposito_destino_nome: MyString

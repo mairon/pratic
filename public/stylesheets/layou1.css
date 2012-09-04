@@ -1,0 +1,488 @@
+
+
+
+
+html,body,div,table,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}img,body,html{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;}q:before,q:after{content:'';}.ext-el-mask
+{
+    z-index: 100;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.style3 {
+    font-family: Geneva, Arial;
+    font-weight: bold;
+    font-size: 65px;
+
+
+}
+
+#mydiv
+{
+    background-color: #e1e1e8;
+    width: 40%;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+    margin: 5px auto;
+
+}
+
+.Mensagem
+{
+    width: 80%;
+    background-color: #bdefbd;
+    margin: 5px auto;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    text-align:center;
+    color:white;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.RolagemMenu
+{
+    font-family: Arial,sans-serif;
+    border: 1px dotted #cccccc;
+    width: 240px;
+    height:180px;
+    font-size:12px;
+    overflow:auto;
+    padding: 1px 1px 1px 1px;
+}
+
+.rolagem
+{
+    font-family: Arial,sans-serif;
+    border: 1px dotted #cccccc;
+
+    height:250px;
+    font-size:14px;
+    overflow:auto;
+    padding: 1px 1px 1px 1px;
+}
+
+.cabeca_venda
+{
+    font-family: Arial,sans-serif;
+    font-size:10px;
+}
+
+.rolagemExtracto
+{
+    font-family: Arial,sans-serif;
+    border: 1px dotted #cccccc;
+    height:200px;
+    font-size:10px;
+    overflow:auto;
+    padding: 1px 1px 1px 1px;
+}
+
+
+.RolagemPedidoIndex
+{
+    font-family: Arial,sans-serif;
+    border: 1px dotted #cccccc;
+    height:89px;
+    font-size:12px;
+    overflow:auto;
+    padding: 1px 1px 1px 1px;
+}
+
+
+.RolagemPedidoShow
+{
+    font-family: Arial,sans-serif;
+    border: 1px dotted #cccccc;
+    height:89px;
+    font-size:12px;
+    overflow:auto;
+    padding: 1px 1px 1px 1px;
+}
+
+
+
+
+
+
+/*PAGINAÇAO--------------------------------------------------------------*/
+.pagination {
+    padding: 3px;
+    margin: 3px;
+}
+.pagination a {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px;
+    text-decoration: none;
+    color: #000099;
+}
+.pagination a {
+    border:#000099;
+    color: #000;
+}
+.pagination span.current {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #515fb6;
+    font-weight: bold;
+    background-color: #515fb6;
+    color: #FFF;
+}
+.pagination span.disabled {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 0px solid #eee;
+    color: #ddd;
+}
+/*FIM--------------------------------------------------------------*/
+
+
+
+/*VALIDAÇAO--------------------------------------------------------------*/
+.fieldWithErrors {
+    padding: 2px;
+    background-color: red;
+    display: table;
+}
+
+#flash_notice {
+    background-color: #CFC;
+    border: solid 1px #6C6;
+}
+
+#flash_notice, #flash_error {
+    padding: 5px 8px;
+    margin: 10px 0;
+}
+
+
+#errorExplanation {
+    width: 400px;
+    border: 2px solid red;
+    padding: 7px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    background-color: #c00;
+    color: #fff;
+}
+
+#errorExplanation p {
+    color: #333;
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+#errorExplanation ul li {
+    font-size: 12px;
+    list-style: square;
+}
+
+/*FIM VALIDAÇAO-----------------------------------------------------------------*/
+
+/*ZEBRADO-----------------------------------------------------------------------*/
+tr.cor2 {
+    background: #e1e1e8;
+}
+
+tr.cor1 {
+    background: #c7cce8;
+}
+/*FIM ZEBRADO-------------------------------------------------------------------*/
+
+
+
+
+/*LOGO MERCOSYS VIA-------------------------------------------------------------*/
+.style1 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #b1b5d0;
+    text-shadow: 1px 1px white, -1px -1px #666666;
+    font-weight: bold;
+    font-size: 24px;
+
+
+}
+
+.small {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #666666;
+
+
+}
+
+.style2 {
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: #666666;
+    text-shadow: 1px 1px white, -1px -1px #b1b5d0;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 10px 15px 0px;
+    float: right;
+
+}
+
+/*FIM MERCOSYS VIA--------------------------------------------------------------*/
+
+
+/*DETALHE USUARIO---------------------------------------------------------------*/
+.cabeca
+{
+
+    background: url(/images/wbg.gif) repeat-x top;
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0px 15px 0px;
+    margin: 0;
+}
+/*FIM DETALHE-------------------------------------------------------------------*/
+
+
+/*FIM TITULO PAGINA-------------------------------------------------------------*/
+h1#header
+{
+    background: url(/images/wbg.gif) repeat-x top;
+    color: white;
+    padding: 5px 15px 10px;
+    border: 1px solid #b1b5d0;
+
+}
+/*FIM TITULO--------------------------------------------------------------------*/
+
+div#contents
+{
+    margin: 10px;
+    font-family:verdana,geneva,arial,helvetica,sans-serif;
+    font-size:14px;
+    font-weight:bold;
+
+}
+div#contents h1
+{    
+    font-size: 120%;
+
+}
+
+/*FIM ALINHAMENTO---------------------------------------------------------------*/
+/*QUADRO CADASTRO---------------------------------------------------------------*/
+div.group_cd
+{
+    border: 1px solid #b1b5d0;
+    margin-bottom: 0px;
+    background: #e5e5e5;
+    font-family:verdana,geneva,arial,helvetica,sans-serif;
+    font-size:14px;
+    font-weight:bold;
+
+}
+
+div.group
+{
+    border: 1px solid #b1b5d0;
+    margin-bottom: 0px;
+    font-family:verdana,geneva,arial,helvetica,sans-serif;
+    font-size:14px;
+    font-weight:bold;
+
+}
+
+
+div.groupvenda
+{
+    border: 1px solid #b1b5d0;
+    margin-bottom: 1px;
+    font-family:verdana,geneva,arial,helvetica,sans-serif;
+    font-size:24px;
+    font-weight:bold;
+
+}
+div.groupvendacomprovante
+{
+    border: 1px solid #b1b5d0;
+    margin-bottom: 1px;
+    font-family:verdana,geneva,arial,helvetica,sans-serif;
+    font-size:32px;
+    font-weight:bold;
+
+}
+
+
+div.group h2
+{
+    padding: 5px;
+    margin: 0px;    
+    background: url(/images/fundo.gif);
+    font-size: 110%;
+}
+/*FIM QUADRO--------------------------------------------------------------------*/
+
+.view_venda{
+    float:left;
+}
+/*MENU -------------------------------------------------------------------------*/
+.menu{
+    font-family:verdana,geneva,arial,helvetica,sans-serif;
+    font-size:14px;
+    font-weight:bold;
+    
+    
+
+}
+
+.menu li{
+    float:left;
+}
+
+.menu li a {
+    color:#666666;    
+    display:block;
+    text-shadow: 1px 1px white, -1px -1px #c7cce8;
+    font-weight:bold;
+    line-height:25px;
+    padding:0px 15px;
+    text-align:center;
+    text-decoration:none;
+}
+
+.menu li a:hover{
+    color:#000000;    
+    text-decoration:none;
+}
+
+/*  QUADRO LINKS*/
+.menu li ul{
+    background:#e0e0e0;
+    border-left:2px solid #c7cce8;
+    border-right:2px solid #c7cce8;
+    border-bottom:2px solid #c7cce8;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    display:none;
+    height:auto;
+    position:absolute;
+    width:230px;
+    z-index:100;
+}
+
+.menu li:hover ul{
+    display:block;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+
+}
+
+.menu li li {
+    display:block;
+    float:none;    
+    width:230px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+
+}
+
+.menu li ul a{
+    display:block;    
+    font-size:12px;
+    font-style:normal;
+    padding:0px 10px 0px 15px;
+    text-align:left;
+}
+
+.menu li ul a:hover{
+    background:#949494;
+    text-shadow: 1px 1px #b1b5d0, -1px -1px #666666;
+    color:#666666;
+}
+
+/*FIM MENU----------------------------------------------------------------------*/
+
+.head_grid{
+    background: url(/images/wbg.gif) repeat-x top;        
+
+
+}
+
+
+   @media print {
+       body { background-color: #FFF; }
+     #container {
+           width: auto;
+           margin: 0;
+           padding: 0;
+           border: none;
+       }
+
+       #line_items {
+           page-break-before: always;           
+
+       }
+   }
+
+   #botao1{
+background:url(/images/botoes.png) -50px 10px no-repeat;
+}
+
+
+
+.bt_mes1 {
+  background: url(/images/tree/drop-yes.gif) no-repeat;
+}
+
+
+  <!--
+
+  #novo
+  {
+    left: 400px;
+    background: url(/images/drop-add.gif) top left  no-repeat;
+    padding-left: 15px;
+    white-space: nowrap;
+
+  }
+  -->
+
+thead{
+	cursor:pointer;
+	border-bottom:1px solid #ACA899;
+	border-right:1px solid #ACA899;
+	border-left:1px solid #FFF;
+	background-color: #ECE9D8;
+	font-family:arial;
+	font-size:12px;
+        width:500px;
+	border-top:2px solid #FFC83C;
+	background-color:#DBD8C5;
+	border-left:1px solid #ACA899;
+	border-right:1px solid #FFF;
+        	position:relative;
+
+}
+
+
+
+div.widget_tableDiv {
+	border:1px solid #ACA899;	/* Border around entire widget */
+	height: 100px;
+	overflow:auto;
+	overflow-y:auto;
+	overflow:-moz-scrollbars-vertical;
+	width:780px;
+
+}
+
+

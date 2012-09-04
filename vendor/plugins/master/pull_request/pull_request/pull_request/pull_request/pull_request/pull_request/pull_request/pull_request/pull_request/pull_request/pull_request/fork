@@ -1,0 +1,811 @@
+
+  
+  
+
+  
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <title>mislav's will_paginate at master - GitHub</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub" />
+    <link rel="fluid-icon" href="http://github.com/fluidicon.png" title="GitHub" />
+
+    <link href="http://assets0.github.com/stylesheets/bundle_common.css?9bd7e6bb814e47ea32cf9376990b95387261d25a" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://assets3.github.com/stylesheets/bundle_github.css?9bd7e6bb814e47ea32cf9376990b95387261d25a" media="screen" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" charset="utf-8">
+      var GitHub = {}
+      var github_user = null
+      
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <script src="http://assets2.github.com/javascripts/bundle_common.js?9bd7e6bb814e47ea32cf9376990b95387261d25a" type="text/javascript"></script>
+<script src="http://assets3.github.com/javascripts/bundle_github.js?9bd7e6bb814e47ea32cf9376990b95387261d25a" type="text/javascript"></script>
+
+        <script type="text/javascript" charset="utf-8">
+      GitHub.spy({
+        repo: "mislav/will_paginate"
+      })
+    </script>
+
+    
+  
+    
+  
+
+  <link href="http://github.com/mislav/will_paginate/commits/master.atom" rel="alternate" title="Recent Commits to will_paginate:master" type="application/atom+xml" />
+
+        <meta name="description" content="Adaptive pagination plugin for web frameworks and other applications" />
+    <script type="text/javascript">
+      GitHub.nameWithOwner = GitHub.nameWithOwner || "mislav/will_paginate";
+      GitHub.currentRef = "master";
+    </script>
+  
+
+            <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-3769691-2']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script');
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        ga.setAttribute('async', 'true');
+        document.documentElement.firstChild.appendChild(ga);
+      })();
+    </script>
+
+  </head>
+
+  
+
+  <body>
+    
+    
+
+    
+
+    <div class="subnavd" id="main">
+      <div id="header" class="pageheaded">
+        <div class="site">
+          <div class="logo">
+            <a href="http://github.com"><img src="/images/modules/header/logov3.png" alt="github" /></a>
+          </div>
+          
+          <div class="topsearch">
+  
+    <form action="/search" id="top_search_form" method="get">
+      <a href="/search" class="advanced-search tooltipped downwards" title="Advanced Search">Advanced Search</a>
+      <input type="search" class="search my_repos_autocompleter" name="q" results="5" placeholder="Search&hellip;" /> <input type="submit" value="Search" class="button" />
+      <input type="hidden" name="type" value="Everything" />
+      <input type="hidden" name="repo" value="" />
+      <input type="hidden" name="langOverride" value="" />
+      <input type="hidden" name="start_value" value="1" />
+    </form>
+  
+  
+    <ul class="nav logged_out">
+      
+        <li><a href="http://github.com">Home</a></li>
+        <li class="pricing"><a href="/plans">Pricing and Signup</a></li>
+        <li><a href="http://github.com/explore">Explore GitHub</a></li>
+        
+        <li><a href="/blog">Blog</a></li>
+      
+      <li><a href="https://github.com/login">Login</a></li>
+    </ul>
+  
+</div>
+
+        </div>
+      </div>
+
+      
+      
+        
+    <div class="site">
+      <div class="pagehead repohead vis-public   ">
+        <h1>
+          <a href="/mislav">mislav</a> / <strong><a href="http://github.com/mislav/will_paginate">will_paginate</a></strong>
+          
+          
+        </h1>
+
+        
+    <ul class="actions">
+      
+      
+        <li class="for-owner" style="display:none"><a href="https://github.com/mislav/will_paginate/edit" class="minibutton btn-admin "><span><span class="icon"></span>Admin</span></a></li>
+        <li>
+          <a href="/mislav/will_paginate/toggle_watch" class="minibutton btn-watch " id="watch_button" style="display:none"><span><span class="icon"></span>Watch</span></a>
+          <a href="/mislav/will_paginate/toggle_watch" class="minibutton btn-watch " id="unwatch_button" style="display:none"><span><span class="icon"></span>Unwatch</span></a>
+        </li>
+        
+          <li class="for-notforked" style="display:none"><a href="/mislav/will_paginate/fork" class="minibutton btn-fork " id="fork_button" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var s = document.createElement('input'); s.setAttribute('type', 'hidden'); s.setAttribute('name', 'authenticity_token'); s.setAttribute('value', '6e73fdfe112ccb509985966b98684ff223ebaece'); f.appendChild(s);f.submit();return false;"><span><span class="icon"></span>Fork</span></a></li>
+          <li class="for-hasfork" style="display:none"><a href="#" class="minibutton btn-fork " id="your_fork_button"><span><span class="icon"></span>Your Fork</span></a></li>
+          <li id="pull_request_item" style="display:none"><a href="/mislav/will_paginate/pull_request/" class="minibutton btn-pull-request "><span><span class="icon"></span>Pull Request</span></a></li>
+          <li><a href="#" class="minibutton btn-download " id="download_button"><span><span class="icon"></span>Download Source</span></a></li>
+        
+      
+      <li class="repostats">
+        <ul class="repo-stats">
+          <li class="watchers"><a href="/mislav/will_paginate/watchers" title="Watchers" class="tooltipped downwards">2,290</a></li>
+          <li class="forks"><a href="/mislav/will_paginate/network" title="Forks" class="tooltipped downwards">187</a></li>
+        </ul>
+      </li>
+    </ul>
+
+
+        <ul class="tabs">
+  <li><a href="http://github.com/mislav/will_paginate/tree/master" class="selected" highlight="repo_source">Source</a></li>
+  <li><a href="http://github.com/mislav/will_paginate/commits/master" highlight="repo_commits">Commits</a></li>
+
+  
+  <li><a href="/mislav/will_paginate/network" highlight="repo_network">Network (187)</a></li>
+
+  
+
+  
+    
+    <li><a href="/mislav/will_paginate/issues" highlight="issues">Issues (13)</a></li>
+  
+
+  
+    
+    <li><a href="/mislav/will_paginate/downloads">Downloads (19)</a></li>
+  
+
+  
+    
+    <li><a href="http://wiki.github.com/mislav/will_paginate/">Wiki (9)</a></li>
+  
+
+  <li><a href="/mislav/will_paginate/graphs" highlight="repo_graphs">Graphs</a></li>
+
+  <li class="contextswitch nochoices">
+    <span class="toggle leftwards" >
+      <em>Branch:</em>
+      <code>master</code>
+    </span>
+  </li>
+</ul>
+
+<div style="display:none" id="pl-description"><p><em class="placeholder">click here to add a description</em></p></div>
+<div style="display:none" id="pl-homepage"><p><em class="placeholder">click here to add a homepage</em></p></div>
+
+<div class="subnav-bar">
+  
+  <ul>
+    <li>
+      <a href="#" class="dropdown">Switch Branches (4)</a>
+      <ul>
+        
+          
+          
+            <li><a href="/mislav/will_paginate/tree/agnostic" action="show">agnostic</a></li>
+          
+        
+          
+          
+            <li><a href="/mislav/will_paginate/tree/gh-pages" action="show">gh-pages</a></li>
+          
+        
+          
+            <li><strong>master &#x2713;</strong></li>
+            
+          
+          
+            <li><a href="/mislav/will_paginate/tree/rails3" action="show">rails3</a></li>
+          
+        
+      </ul>
+    </li>
+    <li>
+      <a href="#" class="dropdown ">Switch Tags (19)</a>
+      
+        <ul>
+          
+            
+              <li><a href="/mislav/will_paginate/tree/v3.0.pre">v3.0.pre</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/v2.3.12">v2.3.12</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/v2.3.11">v2.3.11</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/v2.3.10">v2.3.10</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/v2.3.9">v2.3.9</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/v2.3.8">v2.3.8</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/v2.3.7">v2.3.7</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.3.6">2.3.6</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.3.5">2.3.5</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.3.4">2.3.4</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.3.3">2.3.3</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.3.2">2.3.2</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.3.1">2.3.1</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.3.0">2.3.0</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.2.3">2.2.3</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.2.2">2.2.2</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.2.1">2.2.1</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.2.0">2.2.0</a></li>
+            
+          
+            
+              <li><a href="/mislav/will_paginate/tree/2.1.0">2.1.0</a></li>
+            
+          
+        </ul>
+      
+    </li>
+    <li>
+    
+    <a href="/mislav/will_paginate/branches" class="manage">Branch List</a>
+    
+    </li>
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+        
+    <div id="repo_details" class="metabox clearfix ">
+      <div id="repo_details_loader" class="metabox-loader" style="display:none">Sending Request&hellip;</div>
+
+      
+        <div class="pledgie">
+          <a href='http://pledgie.com/campaigns/2974'><img alt='Click here to lend your support to: will_paginate and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/2974.png?skin_name=chrome' border='0' /></a>
+        </div>
+      
+
+      <div id="repository_description" rel="repository_description_edit">
+        
+          <p>Adaptive pagination plugin for web frameworks and other applications
+            <span id="read_more" style="display:none">&mdash; <a href="#readme">Read more</a></span>
+          </p>
+        
+      </div>
+      <div id="repository_description_edit" style="display:none;" class="inline-edit">
+        <form action="/mislav/will_paginate/edit/update" method="post"><div style="margin:0;padding:0"><input name="authenticity_token" type="hidden" value="6e73fdfe112ccb509985966b98684ff223ebaece" /></div>
+          <input type="hidden" name="field" value="repository_description">
+          <input type="text" class="textfield" name="value" value="Adaptive pagination plugin for web frameworks and other applications">
+          <div class="form-actions">
+            <button class="minibutton"><span>Save</span></button> &nbsp; <a href="#" class="cancel">Cancel</a>
+          </div>
+        </form>
+      </div>
+
+      
+      <div class="repository-homepage" id="repository_homepage" rel="repository_homepage_edit">
+        <p><a href="http://github.com/mislav/will_paginate/wikis" rel="nofollow">http://github.com/mislav/will_paginate/wikis</a></p>
+      </div>
+      <div id="repository_homepage_edit" style="display:none;" class="inline-edit">
+        <form action="/mislav/will_paginate/edit/update" method="post"><div style="margin:0;padding:0"><input name="authenticity_token" type="hidden" value="6e73fdfe112ccb509985966b98684ff223ebaece" /></div>
+          <input type="hidden" name="field" value="repository_homepage">
+          <input type="text" class="textfield" name="value" value="http://github.com/mislav/will_paginate/wikis">
+          <div class="form-actions">
+            <button class="minibutton"><span>Save</span></button> &nbsp; <a href="#" class="cancel">Cancel</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="rule "></div>
+
+      <div id="url_box" class="url-box">
+        <ul class="clone-urls">
+          <li id="private_clone_url" style="display:none"><a href="git@github.com:mislav/will_paginate.git" data-permissions="Read+Write">Private</a></li>
+          
+            <li id="public_clone_url"><a href="git://github.com/mislav/will_paginate.git" data-permissions="Read-Only">Read-Only</a></li>
+            <li id="http_clone_url"><a href="http://github.com/mislav/will_paginate.git" data-permissions="Read-Only">HTTP Read-Only</a></li>
+          
+        </ul>
+        <input type="text" spellcheck="false" id="url_field" class="url-field" />
+              <span style="display:none" id="url_box_clippy"></span>
+      <span id="clippy_tooltip_url_box_clippy" class="clippy-tooltip tooltipped" title="copy to clipboard">
+      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+              width="14"
+              height="14"
+              class="clippy"
+              id="clippy" >
+      <param name="movie" value="/flash/clippy.swf?v5"/>
+      <param name="allowScriptAccess" value="always" />
+      <param name="quality" value="high" />
+      <param name="scale" value="noscale" />
+      <param NAME="FlashVars" value="id=url_box_clippy&amp;copied=&amp;copyto=">
+      <param name="bgcolor" value="#FFFFFF">
+      <param name="wmode" value="opaque">
+      <embed src="/flash/clippy.swf?v5"
+             width="14"
+             height="14"
+             name="clippy"
+             quality="high"
+             allowScriptAccess="always"
+             type="application/x-shockwave-flash"
+             pluginspage="http://www.macromedia.com/go/getflashplayer"
+             FlashVars="id=url_box_clippy&amp;copied=&amp;copyto="
+             bgcolor="#FFFFFF"
+             wmode="opaque"
+      />
+      </object>
+      </span>
+
+        <p id="url_description">This URL has <strong>Read+Write</strong> access</p>
+      </div>
+    </div>
+
+
+        
+
+      </div><!-- /.pagehead -->
+
+      
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  GitHub.currentCommitRef = "master"
+  GitHub.currentRepoOwner = "mislav"
+  GitHub.currentRepo = "will_paginate"
+  GitHub.downloadRepo = '/mislav/will_paginate/archives/master'
+  
+
+  
+</script>
+
+
+
+
+
+
+
+
+
+
+  <div id="commit">
+    <div class="group">
+        
+  <div class="envelope commit">
+    <div class="human">
+      
+        <div class="message"><pre><a href="/mislav/will_paginate/commit/3d531e169db92a16a9a8974f0ae6edf52e52659e">read version number from &quot;will_paginate/version.rb&quot; when building gem</a> </pre></div>
+      
+
+      <div class="actor">
+        <div class="gravatar">
+          
+          <img alt="" height="30" src="http://www.gravatar.com/avatar/8f93a872e399bc1353cc8d4e791d5401?s=30&amp;d=http%3A%2F%2Fgithub.com%2Fimages%2Fgravatars%2Fgravatar-30.png" width="30" />
+        </div>
+        <div class="name"><a href="/mislav">mislav</a> <span>(author)</span></div>
+        <div class="date">
+          <abbr class="relatize" title="2010-01-22 11:05:03">Fri Jan 22 11:05:03 -0800 2010</abbr>
+        </div>
+      </div>
+
+      
+
+    </div>
+    <div class="machine">
+      <span>c</span>ommit&nbsp;&nbsp;<a href="/mislav/will_paginate/commit/3d531e169db92a16a9a8974f0ae6edf52e52659e" hotkey="c">3d531e169db92a16a9a8974f0ae6edf52e52659e</a><br />
+      <span>t</span>ree&nbsp;&nbsp;&nbsp;&nbsp;<a href="/mislav/will_paginate/tree/3d531e169db92a16a9a8974f0ae6edf52e52659e" hotkey="t">233c91cea7bc99e6a9300f987a1c9f7dc6e41266</a><br />
+      
+        <span>p</span>arent&nbsp;
+        
+        <a href="/mislav/will_paginate/tree/262419f88a12255dea5885a5e4e9046bb28d36a0" hotkey="p">262419f88a12255dea5885a5e4e9046bb28d36a0</a>
+      
+
+    </div>
+  </div>
+
+    </div>
+  </div>
+
+
+
+  
+    <div id="path">
+      <b><a href="/mislav/will_paginate/tree/master">will_paginate</a></b> / 
+    </div>
+
+    
+      
+
+  <script type="text/javascript">
+    GitHub.currentTreeSHA = "3d531e169db92a16a9a8974f0ae6edf52e52659e"
+    GitHub.commitSHA = "3d531e169db92a16a9a8974f0ae6edf52e52659e"
+    GitHub.currentPath = ""
+  </script>
+
+
+<div id="browser">
+  <table cellpadding="0" cellspacing="0">
+    <tr>
+      <th></th>
+      <th>name</th>
+      <th>age</th>
+      <th>
+        <div class="history">
+          <a href="/mislav/will_paginate/commits/master/">history</a>
+        </div>
+        message
+      </th>
+    </tr>
+
+    
+
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="file" src="http://assets3.github.com/images/icons/txt.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/blob/3d531e169db92a16a9a8974f0ae6edf52e52659e/.gitignore" id="2b437b91cec71513b6134c0217521f4a954d3977">.gitignore</a></td>
+        
+        <td class="age"> <span class="relatize">Sun Apr 06 20:02:06 -0700 2008</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/f4a23208344e28c1d89b9d1d2bd68729b7c01800" class="message" title="test with rcov and bring it up to 100% test coverage (yeah!!)">test with rcov and bring it up to 100% test cov...</a> [<a href="/mislav">mislav</a>] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="file" src="http://assets3.github.com/images/icons/txt.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/blob/3d531e169db92a16a9a8974f0ae6edf52e52659e/.manifest" id="c8074e6a791354336c4efcc831ffc734d04cd037">.manifest</a></td>
+        
+        <td class="age"> <span class="relatize">Tue Feb 10 14:35:20 -0800 2009</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/b9eef8961ae20a9afc75859876f50fbf082bc129" class="message" title="simplify manifest generation code by using `git ls-files`">simplify manifest generation code by using `git...</a> [<a href="/mislav">mislav</a>] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="file" src="http://assets3.github.com/images/icons/txt.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/blob/3d531e169db92a16a9a8974f0ae6edf52e52659e/CHANGELOG.rdoc" id="8c4d2c90c3f59a8b924f296ab7ef2159748498ad">CHANGELOG.rdoc</a></td>
+        
+        <td class="age"> <span class="relatize">Fri Jan 22 11:01:33 -0800 2010</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/7e02cfe215e8b41f1255da365dcdba343b373563" class="message" title="remove outdated link to online docs">remove outdated link to online docs</a> [<a href="/mislav">mislav</a>] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="file" src="http://assets3.github.com/images/icons/txt.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/blob/3d531e169db92a16a9a8974f0ae6edf52e52659e/LICENSE" id="96a48cb3f4f539916abba36a58e9ff9fa6646a7e">LICENSE</a></td>
+        
+        <td class="age"> <span class="relatize">Thu Aug 02 09:50:25 -0700 2007</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/3010c8e7a1813debb286d8bd30d728e83d18f69f" class="message" title="will_paginate: add license [#75 state:resolved]">will_paginate: add license [#75 state:resolved]...</a> [chris] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="file" src="http://assets3.github.com/images/icons/txt.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/blob/3d531e169db92a16a9a8974f0ae6edf52e52659e/README.rdoc" id="2a412f517bb8855bc316e4b738a50a808234e668">README.rdoc</a></td>
+        
+        <td class="age"> <span class="relatize">Tue Sep 16 03:03:26 -0700 2008</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/dd5cba24ec61345ab0d3fb2f6fbb45d1bc9a0865" class="message" title="remove gem dependency to activesupport; release 2.3.4">remove gem dependency to activesupport; release...</a> [<a href="/mislav">mislav</a>] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="file" src="http://assets3.github.com/images/icons/txt.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/blob/3d531e169db92a16a9a8974f0ae6edf52e52659e/Rakefile" id="6226b1b70f9ad89c885904f87db5a64353a6734a">Rakefile</a></td>
+        
+        <td class="age"> <span class="relatize">Tue Feb 10 14:35:20 -0800 2009</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/b9eef8961ae20a9afc75859876f50fbf082bc129" class="message" title="simplify manifest generation code by using `git ls-files`">simplify manifest generation code by using `git...</a> [<a href="/mislav">mislav</a>] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="directory" src="http://assets2.github.com/images/icons/dir.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/tree/3d531e169db92a16a9a8974f0ae6edf52e52659e/examples" id="13dff59f5cddda6817c393fe8e511a1ab52916bd">examples/</a></td>
+        
+        <td class="age"> <span class="relatize">Sun Apr 06 18:40:37 -0700 2008</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/3bda0baf122f6a6891ae263248f08474fc141659" class="message" title="added prev_page/next_page CSS classes on prev/next &quot;buttons&quot; in views">added prev_page/next_page CSS classes on prev/n...</a> [<a href="/mislav">mislav</a>] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="file" src="http://assets3.github.com/images/icons/txt.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/blob/3d531e169db92a16a9a8974f0ae6edf52e52659e/init.rb" id="838d30ecbf0f3d7458baf26caf1c728bba06ec7b">init.rb</a></td>
+        
+        <td class="age"> <span class="relatize">Sun Apr 06 20:57:03 -0700 2008</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/4ca58bb6863870d17413c21de047da0febd12af2" class="message" title="add CHANGELOG covering the 2.2.0 release">add CHANGELOG covering the 2.2.0 release</a> [<a href="/mislav">mislav</a>] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="directory" src="http://assets2.github.com/images/icons/dir.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/tree/3d531e169db92a16a9a8974f0ae6edf52e52659e/lib" id="dbf8645d5b9b5e0d7266eabdff6938e8019ba58e">lib/</a></td>
+        
+        <td class="age"> <span class="relatize">Fri Jan 22 11:02:17 -0800 2010</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/262419f88a12255dea5885a5e4e9046bb28d36a0" class="message" title="remove reference to &quot;mislav-will_paginate&quot; gem from docs">remove reference to &quot;mislav-will_paginate&quot; gem ...</a> [<a href="/mislav">mislav</a>] </td>
+      </tr>
+    
+      <tr class="">
+        <td class="icon"> <img alt="directory" src="http://assets2.github.com/images/icons/dir.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/tree/3d531e169db92a16a9a8974f0ae6edf52e52659e/test" id="d3324ba5c15370c257263cb763fecb4e1443a908">test/</a></td>
+        
+        <td class="age"> <span class="relatize">Thu Nov 05 03:05:45 -0800 2009</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/839d821041a4cfaa4dfbcc5719ea17ff196189c7" class="message" title="try to require mocha for testing without checks">try to require mocha for testing without checks</a> [<a href="/mislav">mislav</a>] </td>
+      </tr>
+    
+      <tr class="alt">
+        <td class="icon"> <img alt="file" src="http://assets3.github.com/images/icons/txt.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" /> </td>
+        <td class="content"> <a href="/mislav/will_paginate/blob/3d531e169db92a16a9a8974f0ae6edf52e52659e/will_paginate.gemspec" id="2cacd38442ab6ba820eea5abe025b6b0300498f3">will_paginate.gemspec</a></td>
+        
+        <td class="age"> <span class="relatize">Fri Jan 22 11:05:03 -0800 2010</span> </td>
+        <td class="message"> <a href="/mislav/will_paginate/commit/3d531e169db92a16a9a8974f0ae6edf52e52659e" class="message" title="read version number from &quot;will_paginate/version.rb&quot; when building gem">read version number from &quot;will_paginate/version...</a> [<a href="/mislav">mislav</a>] </td>
+      </tr>
+    
+  </table>
+</div>
+    
+
+  
+
+
+
+  
+
+
+
+  <div id="readme" class="announce"><span class="name">README.rdoc</span><div class="wikistyle"><h1>WillPaginate</h1>
+<p>
+Pagination is just limiting the number of records displayed. Why should you
+let it get in your way while developing, then? This plugin makes magic
+happen. Did you ever want to be able to do just this on a model:
+</p>
+<pre>
+  Post.paginate :page =&gt; 1, :order =&gt; 'created_at DESC'
+</pre>
+<p>
+&#8230; and then render the page links with a single view helper? Well, now
+you can.
+</p>
+<p>
+Some resources to get you started:
+</p>
+<ul>
+<li><a href="http://github.com/mislav/will_paginate/wikis/installation">Installation
+instructions</a> on <a href="http://github.com/mislav/will_paginate/wikis">the wiki</a>
+
+</li>
+<li>Your mind reels with questions? Join our <a href="http://groups.google.com/group/will_paginate">Google group</a>.
+
+</li>
+<li><a href="http://github.com/mislav/will_paginate/wikis/report-bugs">How to
+report bugs</a>
+
+</li>
+</ul>
+<h2>Example usage</h2>
+<p>
+Use a paginate finder in the controller:
+</p>
+<pre>
+  @posts = Post.paginate_by_board_id @board.id, :page =&gt; params[:page], :order =&gt; 'updated_at DESC'
+</pre>
+<p>
+Yeah, <tt>paginate</tt> works just like <tt>find</tt> &#8212; it just
+doesn&#8217;t fetch all the records. Don&#8217;t forget to tell it which
+page you want, or it will complain! Read more on
+WillPaginate::Finder::ClassMethods.
+</p>
+<p>
+Render the posts in your view like you would normally do. When you need to
+render pagination, just stick this in:
+</p>
+<pre>
+  &lt;%= will_paginate @posts %&gt;
+</pre>
+<p>
+You&#8217;re done. (You can find the option list at
+WillPaginate::ViewHelpers.)
+</p>
+<p>
+How does it know how much items to fetch per page? It asks your model by
+calling its <tt>per_page</tt> class method. You can define it like this:
+</p>
+<pre>
+  class Post &lt; ActiveRecord::Base
+    cattr_reader :per_page
+    @@per_page = 50
+  end
+</pre>
+<p>
+&#8230; or like this:
+</p>
+<pre>
+  class Post &lt; ActiveRecord::Base
+    def self.per_page
+      50
+    end
+  end
+</pre>
+<p>
+&#8230; or don&#8217;t worry about it at all. WillPaginate defines it to be
+<b>30</b> by default. But you can always specify the count explicitly when
+calling <tt>paginate</tt>:
+</p>
+<pre>
+  @posts = Post.paginate :page =&gt; params[:page], :per_page =&gt; 50
+</pre>
+<p>
+The <tt>paginate</tt> finder wraps the original finder and returns your
+resultset that now has some new properties. You can use the collection as
+you would with any ActiveRecord resultset. WillPaginate view helpers also
+need that object to be able to render pagination:
+</p>
+<pre>
+  &lt;ol&gt;
+    &lt;% for post in @posts -%&gt;
+      &lt;li&gt;Render `post` in some nice way.&lt;/li&gt;
+    &lt;% end -%&gt;
+  &lt;/ol&gt;
+
+  &lt;p&gt;Now let's render us some pagination!&lt;/p&gt;
+  &lt;%= will_paginate @posts %&gt;
+</pre>
+<p>
+More detailed documentation:
+</p>
+<ul>
+<li>WillPaginate::Finder::ClassMethods for pagination on your models;
+
+</li>
+<li>WillPaginate::ViewHelpers for your views.
+
+</li>
+</ul>
+<h2>Authors and credits</h2>
+<table>
+<tr><td>Authors:</td><td>Mislav Marohnić, PJ Hyett
+
+</td></tr>
+<tr><td>Original announcement:</td><td><a href="http://errtheblog.com/post/929">errtheblog.com/post/929</a>
+
+</td></tr>
+<tr><td>Original PHP source:</td><td><a href="http://www.strangerstudios.com/sandbox/pagination/diggstyle.php">www.strangerstudios.com/sandbox/pagination/diggstyle.php</a>
+
+</td></tr>
+</table>
+<p>
+All these people helped making will_paginate what it is now with their code
+contributions or just simply awesome ideas:
+</p>
+<p>
+Chris Wanstrath, Dr. Nic Williams, K. Adam Christensen, Mike Garey, Bence
+Golda, Matt Aimonetti, Charles Brian Quinn, Desi McAdam, James Coglan,
+Matijs van Zuijlen, Maria, Brendan Ribera, Todd Willey, Bryan Helmkamp, Jan
+Berkel, Lourens Naudé, Rick Olson, Russell Norris, Piotr Usewicz, Chris
+Eppstein, Denis Barushev, Ben Pickles.
+</p>
+<h2>Usable pagination in the UI</h2>
+<p>
+There are some CSS styles to get you started in the &quot;examples/&quot;
+directory. They are <a href="http://mislav.caboo.se/static/will_paginate/">showcased online
+here</a>.
+</p>
+<p>
+More reading about pagination as design pattern:
+</p>
+<ul>
+<li><a href="http://kurafire.net/log/archive/2007/06/22/pagination-101">Pagination
+101</a>
+
+</li>
+<li><a href="http://www.smashingmagazine.com/2007/11/16/pagination-gallery-examples-and-good-practices/">Pagination
+gallery</a>
+
+</li>
+<li><a href="http://developer.yahoo.com/ypatterns/parent.php?pattern=pagination">Pagination
+on Yahoo Design Pattern Library</a>
+
+</li>
+</ul>
+<p>
+Want to discuss, request features, ask questions? Join the <a href="http://groups.google.com/group/will_paginate">Google group</a>.
+</p>
+</div></div>
+
+
+
+
+    </div>
+  
+      
+
+      <div class="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="site">
+        <div class="info">
+          <div class="links">
+            <a href="http://github.com/blog"><b>Blog</b></a> |
+            <a href="http://support.github.com/">Support</a> |
+            <a href="http://github.com/training">Training</a> |
+            <a href="http://github.com/contact">Contact</a> |
+            <a href="http://develop.github.com">API</a> |
+            <a href="http://status.github.com">Status</a> |
+            <a href="http://twitter.com/github">Twitter</a> |
+            <a href="http://help.github.com">Help</a> |
+            <a href="http://github.com/security">Security</a>
+          </div>
+          <div class="company">
+            &copy;
+            2010
+            <span id="_rrt" title="0.43804s from fe1.rs.github.com">GitHub</span> Inc.
+            All rights reserved. |
+            <a href="/site/terms">Terms of Service</a> |
+            <a href="/site/privacy">Privacy Policy</a>
+          </div>
+        </div>
+        <div class="sponsor">
+          <div>
+            Powered by the <a href="http://www.rackspace.com ">Dedicated
+            Servers</a> and<br/> <a href="http://www.rackspacecloud.com">Cloud
+            Computing</a> of Rackspace Hosting<span>&reg;</span>
+          </div>
+          <a href="http://www.rackspace.com">
+            <img alt="Dedicated Server" src="http://assets2.github.com/images/modules/footer/rackspace_logo.png?9bd7e6bb814e47ea32cf9376990b95387261d25a" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>window._auth_token = "6e73fdfe112ccb509985966b98684ff223ebaece"</script>
+    
+    
+  </body>
+</html>
+

@@ -1,0 +1,184 @@
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Exiting!
+/usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require': /root/mercosys/pratic/app/models/stock.rb:165: syntax error, unexpected kEND, expecting $end (SyntaxError)
+	from /usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/activesupport-2.3.8/lib/active_support/dependencies.rb:158:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/activesupport-2.3.8/lib/active_support/dependencies.rb:265:in `require_or_load'
+	from /usr/lib/ruby/gems/1.8/gems/activesupport-2.3.8/lib/active_support/dependencies.rb:224:in `depend_on'
+	from /usr/lib/ruby/gems/1.8/gems/activesupport-2.3.8/lib/active_support/dependencies.rb:136:in `require_dependency'
+	from /usr/lib/ruby/gems/1.8/gems/rails-2.3.8/lib/initializer.rb:414:in `load_application_classes'
+	from /usr/lib/ruby/gems/1.8/gems/rails-2.3.8/lib/initializer.rb:413:in `each'
+	from /usr/lib/ruby/gems/1.8/gems/rails-2.3.8/lib/initializer.rb:413:in `load_application_classes'
+	from /usr/lib/ruby/gems/1.8/gems/rails-2.3.8/lib/initializer.rb:411:in `each'
+	from /usr/lib/ruby/gems/1.8/gems/rails-2.3.8/lib/initializer.rb:411:in `load_application_classes'
+	from /usr/lib/ruby/gems/1.8/gems/rails-2.3.8/lib/initializer.rb:197:in `process'
+	from /usr/lib/ruby/gems/1.8/gems/rails-2.3.8/lib/initializer.rb:113:in `send'
+	from /usr/lib/ruby/gems/1.8/gems/rails-2.3.8/lib/initializer.rb:113:in `run'
+	from /root/mercosys/pratic/config/environment.rb:6
+	from /usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	from /usr/local/lib/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/thin-1.3.1/lib/rack/adapter/rails.rb:37:in `load_application'
+	from /usr/lib/ruby/gems/1.8/gems/thin-1.3.1/lib/rack/adapter/rails.rb:23:in `initialize'
+	from /usr/lib/ruby/gems/1.8/gems/thin-1.3.1/lib/rack/adapter/loader.rb:48:in `new'
+	from /usr/lib/ruby/gems/1.8/gems/thin-1.3.1/lib/rack/adapter/loader.rb:48:in `for'
+	from /usr/lib/ruby/gems/1.8/gems/thin-1.3.1/lib/thin/controllers/controller.rb:169:in `load_adapter'
+	from /usr/lib/ruby/gems/1.8/gems/thin-1.3.1/lib/thin/controllers/controller.rb:73:in `start'
+	from /usr/lib/ruby/gems/1.8/gems/thin-1.3.1/lib/thin/runner.rb:185:in `send'
+	from /usr/lib/ruby/gems/1.8/gems/thin-1.3.1/lib/thin/runner.rb:185:in `run_command'
+	from /usr/lib/ruby/gems/1.8/gems/thin-1.3.1/lib/thin/runner.rb:151:in `run!'
+	from /usr/lib/ruby/gems/1.8/gems/thin-1.3.1/bin/thin:6
+	from /usr/bin/thin:19:in `load'
+	from /usr/bin/thin:19
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.3002.pid
+>> Using rails adapter
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.8/lib/action_controller/mime_type.rb:80: warning: already initialized constant PDF
+>> Thin web server (v1.3.1 codename Triple Espresso)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3002, CTRL+C to stop
