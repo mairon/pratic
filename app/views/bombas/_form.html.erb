@@ -1,0 +1,25 @@
+<h1 align="right" id="header">Picos</h1>
+Pico - Edicion
+<% form_for(@bomba) do |f| %>
+  <%= f.error_messages %>
+  <div class="group">
+    <table>
+      <tr>
+        <td>Tanque :</td>
+        <td><%= f.collection_select :deposito_id, Deposito.all(:order => '2'),:id,:nome %></td>
+      </tr>
+      <tr>
+        <td>Descripcion :</td>
+        <td><%= f.text_field :nome,
+                             :size      => 20,
+                             :onkeydown => "f(this)",
+                             :onkeyup   => "f(this)"%></td>
+
+      </tr>
+    </table>
+    
+  </div>
+<%= f.submit 'Grabar',:disable_with => "Aguarde..." %> |
+<%= link_to 'Volver', bombas_path %>
+<% end %>
+

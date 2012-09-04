@@ -1,0 +1,32 @@
+<h1 align="right" id="header">Facturas</h1>
+Facturas - Edicion
+
+<% form_for(@fatura) do |f| %>
+  <%= f.error_messages %>
+
+<div class="group_cd">
+   <table>
+      <tr>
+         <td>Factura :</td>
+         <td><%= f.text_field :documento_numero_01,
+                              :size => 3%>-
+         <%= f.text_field :documento_numero_02,
+                              :size => 3%>-
+         <%= f.text_field :documento_numero,
+                              :size => 15%>
+         </td>
+      </tr>
+       <tr>
+          <td></td>
+         <td>
+           <fieldset>
+             <%= f.radio_button :status, 0,  :Checked => "True"%> Activo
+             <%= f.radio_button :status, 1%> Anulado
+          </fieldset>
+         </td>
+       </tr>
+   </table>
+</div>
+    <%= f.submit "   Grabar    ",:disable_with => "Aguarde..."  %> | <%= link_to 'Volver', faturas_path %>
+<% end %>
+

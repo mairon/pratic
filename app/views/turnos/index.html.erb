@@ -1,0 +1,26 @@
+<h1 align="right" id="header">Turnos</h1>
+<%= link_to 'Nuevo', new_turno_path %>
+<div class="group">
+  <h2>Turnos</h2>
+  <table>
+    <tr>
+      <td width="70" align="center">Cod.</td>
+      <td width="250" align="center">Descripcion</td>
+
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+      <% for turno in @turnos %>
+        <tr class = "<%= cycle("cor1", "cor2")%>">
+          <td width="70" align="center"><%= turno.id%></td>
+          <td width="250" align="left"><%= turno.nome %></td>
+          <td><%= link_to 'Editar', edit_turno_path(turno) %></td>
+          <td><%= link_to 'Borrar', turno, :confirm => 'Tem certeza ?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+

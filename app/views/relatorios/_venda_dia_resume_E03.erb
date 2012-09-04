@@ -1,0 +1,81 @@
+   
+<div class="group">
+   <table>
+      <% qtd = 0 %>
+      <% tot = 0 %>
+      <%  @vendas_produto.each do |vp| %>
+         <% venda = Venda.find(:first,:conditions => ['id = ?',vp.venda_id]) %>
+
+         <% if params[:filtro] == "0" %>
+            <% if venda.tipo == 0 %>
+
+               <tr>
+                  <td width="100" align="center">   <%= vp.id %></td>
+                  <td width="100" align="center">   <%= vp.data.strftime("%d/%m/%Y") %></td>
+                  <% if venda.tipo == 0 %>
+                     <td width="100" align="left">CONTADO</td>
+                  <% else %>
+                     <td width="100" align="left">CREDITO</td>
+
+                  <% end %>
+                  <td width="400" align="left">   <%= vp.produto_nome%></td>
+                  <td width="100" align="right">   <%= format("%.3f", vp.quantidade.to_f)%></td>
+                  <td width="100" align="right">    <%=h number_to_currency(vp.total_guarani, :format=>' %n ', :precision => 0 )  %></td>
+
+                  <% qtd     += vp.quantidade.to_f %>
+                  <% tot     += vp.total_guarani.to_f %>
+               </tr>
+
+
+            <% end %>
+         <% elsif params[:filtro] == "1" %>
+            <% if venda.tipo == 1 %>
+               <tr>
+                  <td width="100" align="center">   <%= vp.id %></td>
+                  <td width="100" align="center">   <%= vp.data.strftime("%d/%m/%Y") %></td>
+                  <% if venda.tipo == 0 %>
+                     <td width="100" align="left">CONTADO</td>
+                  <% else %>
+                     <td width="100" align="left">CREDITO</td>
+
+                  <% end %>
+                  <td width="400" align="left">   <%= vp.produto_nome%></td>
+                  <td width="100" align="right">   <%= format("%.3f", vp.quantidade.to_f)%></td>
+                  <td width="100" align="right">    <%=h number_to_currency(vp.total_guarani, :format=>' %n ', :precision => 0 )  %></td>
+
+                  <% qtd     += vp.quantidade.to_f %>
+                  <% tot     += vp.total_guarani.to_f %>
+               </tr>
+
+            <% end %>
+
+            <tr>
+               <td width="100" align="center">   <%= vp.id %></td>
+               <td width="100" align="center">   <%= vp.data.strftime("%d/%m/%Y") %></td>
+               <% if venda.tipo == 0 %>
+                  <td width="100" align="left">CONTADO</td>
+               <% else %>
+                  <td width="100" align="left">CREDITO</td>
+
+               <% end %>
+               <td width="400" align="left">   <%= vp.produto_nome%></td>
+               <td width="100" align="right">   <%= format("%.3f", vp.quantidade.to_f)%></td>
+               <td width="100" align="right">    <%=h number_to_currency(vp.total_guarani, :format=>' %n ', :precision => 0 )  %></td>
+
+               <% qtd     += vp.quantidade.to_f %>
+               <% tot     += vp.total_guarani.to_f %>
+            </tr>
+
+
+         <% end %>
+      <% end %>
+      <tr class="head">
+         <td colspan="4"></td>
+         <td align="right"><%= format("%.3f", qtd.to_f)%></td>
+         <td align="right"><%= number_to_currency( tot, :format=>' %n ', :precision => 0 )%></td>
+      </tr>
+   </table>
+
+</div>
+
+

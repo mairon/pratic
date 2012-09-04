@@ -1,0 +1,20 @@
+<h1 align="right" id="header">Clases</h1>
+Clases Edicion
+<% form_for(@clase) do |f| %>
+  <%= f.error_messages %>
+<div class="group">
+  
+  <table>
+    <tr>
+      <td><b>Descripcion :</b></td>
+      <td><%= f.text_field :descricao,
+                           :size      => 40,
+                           :onkeydown => "f(this)",
+                           :onkeyup   => "f(this)"%></td>
+    </tr>
+  </table>
+
+</div>
+<%= f.submit "Grabar" %> |
+<%= link_to 'Volver', clases_path %>
+<% end %>

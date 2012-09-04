@@ -1,0 +1,9 @@
+
+if @vendas_produto.valid? 
+  jQuery.noConflict();
+  jQuery("#comments").append("<%= escape_javascript(render(@vendas_produto)) %>");
+  jQuery("#<%= dom_id(@vendas_produto) %>").show('clip');
+   @vendas_produto = VendasProduto.new 
+ end 
+
+jQuery("#comment_form").html("<%= escape_javascript(render :partial=>"form_E02", :locals=>{:vendas_produto=>VendasProduto.new(:venda_id=>@vendas_produto.venda.id)}) %>");

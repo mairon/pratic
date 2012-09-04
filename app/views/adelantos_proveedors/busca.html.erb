@@ -1,0 +1,35 @@
+<div class="group">
+   <table>
+      <tr>
+         <td width="50" align="center">Cod.</td>
+         <td width="100" align="center">Fecha</td>
+         <td width="350" align="center">Proveedor</td>
+         <td width="250" align="center">Cuenta</td>
+         <td width="80" align="center">Moneda</td>
+         <td width="120" align="center">Valor</td>
+      </tr>
+   </table>
+   <div class="rolagem" id="div">
+      <table>
+         <% @adelantos_proveedors.each do |ap| %>
+            <% if ap.moeda == 0 %>
+               <% moeda = 'U$' %>
+               <% valor =  ap.valor_dolar%>
+            <% else %>
+               <% moeda = 'Gs' %>
+               <% valor =  ap.valor_guarani%>
+            <% end %>
+            <tr class = "<%= cycle("cor1", "cor2") %>">
+               <td width="50" align="center"><%= ap.id%></td>
+               <td width="100" align="center"><%= ap.data.strftime("%d/%m/%Y")%></td>
+               <td width="350" align="left"><%= ap.persona_nome%></td>
+               <td width="250" align="left"><%= ap.conta_nome%></td>
+               <td width="80" align="center"><%= moeda%></td>
+               <td width="120" align="right"><%=h number_to_currency( valor , :format=>' %n ', :separator => ",")%></td>
+               <td><%= link_to 'Editar', edit_adelantos_proveedor_path(ap) %></td>
+               <td><%= link_to 'Borrar', ap, :confirm => 'Tiene Certeza ?', :method => :delete %></td>
+            </tr>
+         <% end %>
+      </table>
+   </div>
+</div>

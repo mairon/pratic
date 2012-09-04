@@ -1,0 +1,64 @@
+<h1 align="right" id="header">Pagos</h1>
+Deudas
+
+  <%= render :partial=>"index_detalhe", :locals=>{:pagos_detalhes => @pago.pagos_detalhes} %>
+<div class="group">
+  <table>
+     <% if @pago.moeda == 0 %>
+    <tr>
+      <td>Total Dolar :</td>
+      <td><%= number_to_currency( @total_pago_dolar,       :format =>' %n ', :separator => "," ) %></td>
+    </tr>
+    <% else %>
+    <tr>
+      <td>Total Gs.:</td>
+      <td><%= number_to_currency( @total_pago_guarani,       :format =>' %n ', :precision => 0 ) %></td>
+    </tr>
+    <% end %>
+
+  </table>
+</div>
+<a href="/pagos/<%=params[:id]%>/edit" > << Volver</a> |
+<a href="#" onclick="SeguirPagos()">Seguir >></a> |
+<a href="/pagos/nova_cota/<%=params[:id]%>" >Nuevo</a>
+<%= hidden_field_tag :id, @pago.id %>
+<%= hidden_field_tag :count, @count %>
+
+
+<script>
+
+function SeguirPagos() //
+{
+   id = document.getElementById('id').value
+        {
+            if ( document.getElementById('count').value <= 0  )
+                {
+                   alert ('Es Necessario Agregar Los Pagos Pulse F4');
+                   return false;
+                }
+            else
+                {
+                    location.href="/pagos/pago_final/" + id ;
+                }
+
+         }
+
+}
+
+
+  document.onkeydown=function(e)
+{
+  //BOTAO F4
+  if(e.which == 115)
+    location.href="/pagos/nova_cota/"+ document.getElementById('id').value;
+          //SEGUIR FINANCAS
+        if(e.which == 39)
+          location.href="/pagos/pago_final/"+ document.getElementById('id').value;
+        //VOLTAR  EDIT
+        if(e.which == 37)
+          location.href="/pagos/edit/"+ document.getElementById('id').value;
+        //LISTA DE PRODUTOS
+
+}
+
+</script>

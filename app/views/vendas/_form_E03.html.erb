@@ -1,0 +1,78 @@
+<body onload="Button()">
+   <% form_for(@venda) do |f| %>
+      <%= f.error_messages %>
+      <div class="group_cd">
+         <table>
+            <tr>
+               <td align="right">Fecha:</td>
+               <td colspan="3">         
+                  <%= Time.now.strftime("%d/%m/%Y") %>
+				</td>
+            </tr>
+
+            <tr>
+
+
+               <td align="right">Caja :</td>
+           <td><%= current_conta.nome %></td>
+
+            </tr>
+
+            <tr>
+
+               <td align="right">Turno :</td>
+            <td><%= current_turno.nome %></td>
+
+            </tr>
+
+
+            <tr>
+            <td align="right">Vendedor :</td>
+
+            <td><%= current_user.usuario_nome %></td>
+            </tr>
+
+            <tr>
+               <td>Cotizacion :</td>
+               <td>
+                  <% if params[:action] == 'new'%>
+                     <%= f.hidden_field :data, :value => Time.now.strftime("%Y-%m-%d") %>
+                     <%= f.hidden_field :horas, :value => Time.now.strftime("%H:%M:%S") %>
+                     <%= f.hidden_field :turno_id, :value => current_turno.id %>
+
+	                 <%= f.hidden_field :turno_nome, :value => current_turno.nome %>
+                     <%= f.hidden_field :vendedor_id, :value => current_user.id  %>
+                     <%= f.hidden_field :vendedor_nome, :value => current_user.usuario_nome %>
+ 	 	             <%= f.hidden_field :conta_id, :value => current_conta.id %>
+	                 <%= f.hidden_field :conta_nome, :value => current_conta.nome %>
+                     <%= f.text_field :cotacao, :value => Moeda.last.dolar_compra, :onkeydown => "chang(event,this);"  %>
+                  <%else%>
+                     <%= f.text_field :cotacao, :onkeydown => "chang(event,this);"  %>
+                  <%end%>
+               </td>
+            </tr>
+         </table>
+      </div>
+   <a href="javascript:void(0)" onClick="fecha()">Cerrar</a>
+      <%= f.submit "   Seguir >>  ",:disable_with => "Aguarde..."  %>
+   <%end%>
+
+   <script>
+      //ENTER POR TAB
+      function fecha()
+      {
+         self.close();
+      }
+
+   </script>
+
+
+</body>
+
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+<body onload="DataFinal(),CampoInicio()">
+  <h1 align="right" id="header">.</h1>
+  Extracto Bancario
+  <div class="group">
+    <h2>
+      <%form_tag resultado_extrato_bancario_financas_path, :method => "get" do%>
+        <table>
+
+          <tr>
+            <td> Fecha Facturacion:</td>
+            <td><input name="inicio" id="inicio"  size="10"  onkeyup="Formatadata(this,event)" />
+                 Hasta
+                <input name="final"  id="final"   size="10" onkeyup="Formatadata(this,event)"/></td>
+          </tr>
+          <tr>
+            <td>Cuenta :</td>
+            <td>
+              <%=   select("busca", "conta", Conta.all(:select => 'id,nome',:conditions => ['tipo = 1'],:order => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => true })   %>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <input type="submit" value="           Informe           " onclick="Tipo('0')"/>
+              <input type="submit" value="            Excel            " onclick="Tipo('1')"/>
+            </td>
+
+          </tr>
+
+          <input type="hidden" name="tipo" id="tipo"  size="5" value="0"/>
+
+
+      <% end %>
+
+        </table>
+
+
+    </h2>
+  </div>
+</body>
+
+

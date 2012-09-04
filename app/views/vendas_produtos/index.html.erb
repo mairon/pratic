@@ -1,0 +1,19 @@
+<h1>Listing vendas_produtos</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% for vendas_produto in @vendas_produtos %>
+	  <tr><%  hr = (vendas_produto.created_at - 3.hours).strftime("%H:%M")%>
+<% vendas_produto.update_attribute :horas, hr%>    
+<td><%= link_to 'Show', vendas_produto %></td>
+    <td><%= link_to 'Edit', edit_vendas_produto_path(vendas_produto) %></td>
+    <td><%= link_to 'Destroy', vendas_produto, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New vendas_produto', new_vendas_produto_path %>

@@ -1,0 +1,96 @@
+<body onload="StockCotacao(),StockCotacaoFoco()">
+<h1 align="right" id="header">.</h1>
+
+<% form_for(@stock) do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.hidden_field :status,:value  => 1 %>
+  <%= f.hidden_field :entrada,:value => 0%>
+  <%= f.hidden_field :barra%>
+  <%= f.hidden_field :tabela, :value => 'STOCK FINAL'%>
+
+  Stock Final | Salida Productos : <%= @stock_qt_sum %> | Lanzamientos : <%= @stock_count %>
+  <div class="group_cd">
+    <table>
+      <tr height="35">
+        <td align="right">Fecha</td>
+        <td> <%= f.date_select :data ,{},{:onblur => "StockCotacao()"} %></td>
+             <%= hidden_field_tag( 'key' ) %>
+      </tr>
+
+      <tr height="35">
+
+       <td align="right">Cotizacion :</td>
+       <td><%= text_field :stock,
+                          :cotacao ,
+                          { :size    => 10,:value => @stock.cotacao,
+                            :onfocus  => remote_function(:update => "cod",
+                                                        :url    => { :action => :get_moeda},
+                                                                     :with   => "'key='+ key.value ") } %>
+       </td>        
+      </tr>
+
+      <tr height="35">
+         <td align="right">Producto:</td>
+         <td colspan="4">
+
+            <%= text_field_tag( 'cod',
+                                 nil,
+                                 :id       => "cod",
+                                 :onchange => remote_function( :update     => "cod",
+                                                              :url        => { :action => :get_produto_inicial, :id => 1},
+                                                              :with       => "'cod='+this.value"),
+                                                              :onkeypress => "return bloqEnter(event)",
+                                                              :value      => @stock.barra,
+                                                              :size       => 25 ) %>
+
+
+             <%= f.collection_select :produto_id, Produto.all(:select => 'id,nome',:order => '2'),:id,:nome %>
+        </td>
+      </tr>
+
+      <tr height="35">
+         <td align="right">Cantidad:</td>
+         <td><%= f.text_field :saida,
+                              :size => 15,
+                              :onchange  => "StockIvaGs(),StockIvaDolar()"%></td>
+
+      </tr>
+
+      <tr height="35">
+         <td align="right">Costo Gs.:</td>
+         <td><%= f.text_field :unitario_guarani,
+                              :size => 15,
+                              :onchange  => "StockGuaraniDolar(),StockIvaGs(),StockIvaDolar()"%></td>
+
+         <td><%= f.hidden_field :iva_guarani,
+                                :size => 15%></td>
+
+         <td align="right"> U$.:</td>
+         <td><%= f.text_field :unitario_dolar,
+                              :size => 15,
+                              :onchange  => "StockDolarGuarani(),StockIvaDolar(),StockIvaGs()"%></td>
+
+         <td><%= f.hidden_field :iva_dolar,
+                                :size => 15%></td>
+
+
+      </tr>
+      <tr height="35">
+         <td align="right">Taxa :</td>
+         <td><%= f.text_field :taxa,
+                              :size => 5%></td>
+     </tr>
+
+      <tr height="35">
+         <td align="right">Deposito:</td>
+         <td><%= f.collection_select :deposito_id, Deposito.all(:select => 'id,nome',:order => '1'),:id,:nome %></td>
+      </tr>
+
+
+    </table>
+  </div>
+      <%= f.submit " Grabar " %> | <%= link_to 'Volver', stock_final_stocks_path %>
+<% end %>
+
+</body>

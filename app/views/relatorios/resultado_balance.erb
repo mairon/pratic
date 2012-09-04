@@ -1,0 +1,57 @@
+
+
+<div class="group">
+  
+  <table>
+      <% quebra = "" %>
+      <% @balance.each do |balance|%>
+         <% if quebra != balance.codigo[0..01]  %>
+            <%if quebra != "" %>
+                 <tr height="80" >
+                     <td colspan="6"></td>                     
+                 </tr>
+            <% end %>
+               <% quebra = balance.codigo[0..01]%>
+         <% end %>
+
+         <%
+              #CLASE
+               if balance.codigo[02..14]== ""
+                  varcodigo = balance.codigo[0..01]
+              #GRUPO
+               elsif balance.codigo[04..10]== ""
+                     varcodigo = balance.codigo[0..03]
+              #SUB_GRUPO
+               elsif balance.codigo[7..8]== ""
+                     varcodigo = balance.codigo[0..6]
+              #ITEM
+               elsif balance.codigo[11..3]== ""
+                     varcodigo = balance.codigo[0..10]
+              #SUB_ITEM
+               else
+                     varcodigo = balance.codigo
+
+               end       
+       %>
+
+       <% sum_debe_anterior  = DiarioDebe.sum(:valor_guarani,:conditions => [ "date_part('month', data) = '#{params[:mes].to_i-1}'  AND  date_part('year', data) = '#{params[:ano]}' AND contabilidade LIKE ?","#{varcodigo}%"]) %>
+       <% sum_haber_anterior = DiarioHaber.sum(:valor_guarani,:conditions => [ "date_part('month', data) = '#{params[:mes].to_i-1}'  AND  date_part('year', data) = '#{params[:ano]}' AND contabilidade LIKE ?","#{varcodigo}%"]) %>
+
+       <% sum_debe  = DiarioDebe.sum(:valor_guarani,:conditions => [ "date_part('month', data) = '#{params[:mes]}'  AND  date_part('year', data) = '#{params[:ano]}' AND contabilidade LIKE ?","#{varcodigo}%"]) %>
+       <% sum_haber = DiarioHaber.sum(:valor_guarani,:conditions => [ "date_part('month', data) = '#{params[:mes]}'  AND  date_part('year', data) = '#{params[:ano]}' AND contabilidade LIKE ?","#{varcodigo}%"]) %>
+
+          <% if ( sum_debe_anterior - sum_haber_anterior ) + sum_debe - sum_haber != 0 %>
+              <tr class = "<%= cycle("corb1", "corb2") %>">
+                <td width="80" align="left">        <%=  balance.codigo%></td>
+                <td width="250" align="left">       <%=  balance.descricao %></td>
+                <td width="100" align="right">      <%=  number_to_currency(sum_anterior =  ( sum_debe_anterior - sum_haber_anterior ) , :format=>' %n ', :precision => 0)%></td>
+                <td width="100" align="right">      <%=  number_to_currency(sum_debe , :format=>' %n ', :precision => 0) %></td>
+                <td width="100" align="right">      <%=  number_to_currency(sum_haber , :format=>' %n ', :precision => 0) %></td>
+                <td width="100" align="right">      <%=  number_to_currency( ( sum_anterior + sum_debe - sum_haber ) , :format=>' %n ', :precision => 0)  %></td>
+              </tr>
+          <% end %>
+      <% end %>
+
+  </table>
+</div>
+

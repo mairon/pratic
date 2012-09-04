@@ -1,0 +1,224 @@
+<h1 align="right" id="header">Produto</h1>
+<br/>
+
+
+<% form_for(@compras_documento) do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :compra_id %>
+ <div class="group">
+    <table>
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <fieldset>
+                  <table>
+
+                    <tr>
+                      <td align="right">Proveedor:</td>
+                      <td><%= f.collection_select :persona_id, Persona.all(:select => 'id,nome',:order => '1'),:id,:nome %></td>
+                    </tr>
+                    <tr>
+                      <td align="right">Ruc:</td>
+                      <td><%= f.text_field :persona_ruc, :size =>15%></td>
+
+                    </tr>
+
+
+                  </table>
+                </fieldset>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <fieldset>
+                  <table>
+
+                    <tr>
+
+                      <td align="right">Documento:</td>
+                      <td><%= f.collection_select :documento_id, Documento.all(:select => 'id,nome',:order => '1'),:id,:nome %></td>
+                    </tr>
+                    <tr>
+                      <td align="right">Numero:</td>
+                      <td><%= f.text_field :documento_numero, :size =>15%></td>
+
+                      <td align="right">Timbrado:</td>
+                      <td><%= f.text_field :persona_timbrado, :size =>15%></td>
+
+                    </tr>
+                  </table>
+                </fieldset>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+
+    <table>
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td align="right">Fecha:</td>
+              <td><%= f.date_select :data %></td>
+
+              <td>Tipo :</td>
+              <td>
+                <fieldset>
+                  <%= f.radio_button :tipo, 0, :Checked => "True", :onclick => " CompraDocumentoTipo(0)"%> Contado
+                  <%= f.radio_button :tipo, 1, :onclick => " CompraDocumentoTipo(1)"%> Credito
+                </fieldset>
+                <input type="hidden" name="tipo" id="tipo" value="0" />
+              </td>
+
+              <td align="right" width="100">Cotacion:</td>
+              <td><%= f.text_field :cotacao, :size =>15, :value => @compras_documento.compra.cotacao%></td>
+            </tr>
+          </table>
+        </td>
+
+      </tr>
+    </table>
+
+
+
+
+        <table>
+          <tr>
+            <td>
+
+              <fieldset>
+                <legend>Moneda</legend>
+                <%= f.radio_button :moeda, 0, :onclick => "TipoCompra('0'),ExibeDivCompra()" %> Dolar
+                <%= f.radio_button :moeda, 1, :onclick => "TipoCompra('1'),ExibeDivCompra()"%> Gs.
+              </fieldset>
+            </td>
+          </tr>
+
+        </table>
+
+     <input type="hidden" id="tipomoeda" name="tipomoeda"/>
+
+
+
+    <!--DETALHES DOLAR -------------------------------------------------------------!-->
+
+
+          <div id="DOLAR" style="display: none;">
+
+            <table>
+              <tr>
+
+                <td>
+                  <fieldset>
+
+                    <table>
+                      <tr>
+                        <td align="right">Exentas US$ :</td>
+                        <td><%= f.text_field :exentas_dolar,
+                                             :size   =>10,
+                                             :onblur => "MascaraMoeda(this)"%></td>
+
+                        <td align="right">Gravadas 5% US$ :</td>
+                        <td><%= f.text_field :gravadas_05_dolar,
+                                             :size   =>10,
+                                             :onblur => "MascaraMoeda(this),CompraDocGravada05Dolar()"%></td>
+
+                        <td align="right">Gravadas 10% US$ :</td>
+                        <td><%= f.text_field :gravadas_10_dolar,
+                                             :size   =>10 ,
+                                             :onblur => "MascaraMoeda(this),CompraDocGravada10Dolar()" %></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td align="right">Impuestos 5% US$ :</td>
+                        <td><%= f.text_field :imposto_05_dolar,
+                                             :size   => 10,
+                                             :onblur => "MascaraMoeda(this)" %></td>
+
+                        <td align="right">Impuestos 10% US$ :</td>
+                        <td><%= f.text_field :imposto_10_dolar,
+                                             :size   => 10,
+                                             :onblur => "MascaraMoeda(this)" %></td>
+                      </tr>
+                      <tr>
+
+                        <td align="right" colspan="5">Total US$ :</td>
+                        <td><%= f.text_field :total_dolar,
+                                             :size   => 10 ,
+                                             :onblur => "MascaraMoeda(this),CompraDocumentoCampoCotaDolar()"%></td>
+                      </tr>
+                    </table>
+                  </fieldset>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!--DETALHES GUARANI------------------------------------------------------------ !-->
+
+
+          <div id="GUARANI" style="display: none;">
+            <table>
+              <tr>
+                <td>
+                  <fieldset>
+                    <table>
+                      <tr>
+                        <td align="right">Exentas Gs.:</td>
+                        <td><%= f.text_field :exentas_guarani,
+                                             :size => 10 %></td>
+
+                        <td align="right">Gravadas 5% Gs.:</td>
+                        <td><%= f.text_field :gravadas_05_guarani,
+                                             :size => 10,
+                                             :onblur => "CompraDocGravada05Gs()" %></td>
+
+                        <td align="right">Gravadas 10% Gs.:</td>
+                        <td><%= f.text_field :gravadas_10_guarani,
+                                             :size   => 10,
+                                             :onblur => "CompraDocGravada10Gs()" %></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td align="right">Impuestos 5% Gs.:</td>
+                        <td><%= f.text_field :imposto_05_guarani,
+                                             :size =>10 %></td>
+
+                        <td align="right">Impuestos 10% Gs.:</td>
+                        <td><%= f.text_field :imposto_10_guarani,
+                                             :size => 10 %></td>
+                      </tr>
+                      <tr>
+
+                        <td align="right" colspan="5">Total Gs.:</td>
+                        <td><%= f.text_field :total_guarani,
+                                             :size   => 10,
+                                             :onblur => "CompraDocumentoCampoCotaGs()"%></td>
+                      </tr>
+
+                    </table>
+
+
+                  </fieldset>
+                </td>
+              </tr>
+            </table>
+
+          </div>
+
+  </div>
+  <a href="/compras/compras_documento/<%=@compras_documento.compra_id%>" >Volver</a> | <%= f.submit "Grabar" %>
+<% end %>
+
+

@@ -1,0 +1,36 @@
+<h1 align="right" id="header">.</h1>
+Nota de Credito - Producto
+<table>
+   <tr>
+      <td>
+         <%= render :partial=>"index_detalhe", :locals=>{:nota_creditos_detalhes=> @nota_credito.nota_creditos_detalhes} %>
+      </td>
+   </tr>
+   <tr>
+      <td>
+         <%= render :partial=>"new_detalhe", :locals=>{:nota_creditos_detalhe=>NotaCreditosDetalhe.new(:nota_credito_id=>@nota_credito.id)} %>
+      </td>
+   </tr>
+</table>
+<a href="/nota_creditos/<%= @nota_credito.id.to_i %>/edit"> << Volver </a> |
+<a href="/nota_creditos/nota_credito_financas/<%= @nota_credito.id.to_i %>"> Seguir >> </a>
+  <input type="hidden" id="persona_id" value="<%= @nota_credito.persona_id %>"/>
+  <input type="hidden" id="moeda"      value="<%= @nota_credito.moeda %>"/>
+  <input type="hidden" id="tipo"       value="<%= @nota_credito.tipo %>"/>
+  
+  <script>
+    persona_id = document.getElementById("persona_id").value
+    moeda      = document.getElementById("moeda").value
+    tipo       = document.getElementById("tipo").value
+    //ABRI POPUP-----------------------------------------------------------------
+    document.onkeydown=function(e)
+    {
+      if(e.which == 113)
+        window.open('/vendas_produtos/busca_nota_credito_produto?persona_id='+persona_id+'&moeda='+moeda+'&tipo='+tipo, 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=450');
+    }
+    //FIM ABRI POPUP----------------------------------------------------------------
+    function fecha()
+    {
+      self.close();
+    }
+  </script>

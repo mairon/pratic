@@ -1,0 +1,43 @@
+
+<% form_for(@relogio_ponto) do |f| %>
+   <%= f.error_messages %>
+   <div class="rp_heard" aling>
+      <h1 align="center">
+         Relogio Punto
+      </h1>
+   </div>
+   <div class="rp_back">
+      <%= f.hidden_field :data,:value => Time.now.strftime("%Y-%m-%d") %>
+      <%= f.text_field :hora,:value => Time.now.strftime("%H:%M:%S") %>
+      <p>Turno </p>
+      <p>
+        <%= text_field_tag( 'campo_turno',
+                   nil,
+                   :id       => "campo_turno",
+                   :onchange => remote_function( :update   => "campo_turno",
+                                                 :url      => { :action => :get_turno},
+                                                                :with   => "'campo_turno='+this.value"),
+                                                                :size   => 3 )%>
+
+         <%= f.collection_select :turno_id, Turno.all(:select => 'id,nome',:order => '2'),:id,:nome,{ :include_blank => true } %></p>
+
+      <p>Usuario </p>
+
+      <p>
+        <%= text_field_tag( 'campo_usuario',
+          nil,
+          :id       => "campo_usuario",
+          :onchange => remote_function( :update   => "campo_usuario",
+                                        :url      => { :action => :get_usuario},
+                                                       :with   => "'campo_usuario='+this.value"),
+                                                       :size   => 3 )%>
+
+      <%= f.collection_select :usuario_id, Usuario.all(:select => 'id,usuario_nome',:order => '2'),:id,:usuario_nome,{ :include_blank => true } %></p>
+
+      <p>Contra-Senha</p>
+      <p><%= f.password_field :usuario_senha,:size => 46 %></p>
+
+      <p><%= f.submit "   Grabar   ",:disable_with => "Aguarde..."  %></p>
+   </div>
+
+<% end %>

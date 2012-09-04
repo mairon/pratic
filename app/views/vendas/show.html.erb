@@ -1,0 +1,76 @@
+
+<div id="principal">
+  <div id="valores">
+    <div id="forms">
+          <%= render :partial=>"new_produto_E03", :locals=>{:vendas_produto=>VendasProduto.new(:venda_id=>@venda.id)} %>
+    </div>
+
+    <div id="totais">
+        <span class="style3"><font color="red">Total Gs.:   </font></span>
+        <span class="style3"><font color="red"><%= number_to_currency(@total_guarani, :format=>' %n ', :separator => ",",:precision => 0) %></font></span>
+       <br />
+        <span class="style3"><font color="green">Total U$.:   </font></span>
+        <span class="style3"><font color="green"><%= number_to_currency(@total_guarani / @venda.cotacao, :format=>' %n ', :separator => ",") %></font></span>
+
+    </div>
+
+  <div id="links">
+
+  <a href="/vendas/edit/<%= @venda.id.to_i %>"><< Volver </a> |
+  <% if @venda_financa > 0  %>
+  <a href="/vendas/vendas_financa_final/<%= @venda.id.to_i %>"> Seguir >> </a> |
+  <% else %>
+  <a href="/vendas/vendas_financa/<%= @venda.id.to_i %>"> Seguir >> </a> |
+  <% end %>
+  <a href="javascript:void(0)" onClick="fecha()">Cerrar</a>
+  <%= hidden_field_tag :id, @venda.id %>
+
+  </div>
+	
+
+  </div >
+
+  <div id="grid">
+     <%= render :partial=>"index_produto", :locals=>{:vendas_produtos => @venda.vendas_produtos} %>
+  </div>
+
+
+
+</div>
+<% venda_id = VendasProduto.last(:conditions => ["venda_id = ?", @venda.id])%>
+<%= hidden_field_tag :venda_id, venda_id.id.to_i %>
+
+  <script>
+    document.onkeydown=function(e)
+    {
+      //BOTAO F4
+      if(e.which == 115)
+        location.href="/vendas_produtos/"+ document.getElementById('venda_id').value + "/edit";
+      //SEGUIR FINANCAS
+      if(e.which == 39)
+        location.href="/vendas/vendas_financa/"+ document.getElementById('id').value;
+      //VOLTAR  EDIT
+      if(e.which == 37)
+        location.href="/vendas/edit/"+ document.getElementById('id').value;
+      //LISTA DE PRODUTOS
+      if(e.which == 113)
+        window.open('/produtos/busca_venda_produto', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=400');
+         if(e.which == 116)
+            document.getElementById('codigo').value="";
+            document.getElementById('venda_produto_produto_busca').value="";
+            document.getElementById('venda_produto_quantidade').value="";
+
+    }
+
+    function fecha()
+    {
+      self.close();
+    }
+  </script>
+
+
+
+
+
+
+

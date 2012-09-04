@@ -1,0 +1,458 @@
+<body onload="CampoTipoVendaFinanca(),CotaMaiorExibeDivVendaCota()">
+  <% form_for(vendas_financa) do |f| %>
+    <%= f.error_messages %>
+    <%= f.hidden_field :venda_id %>
+    <%= f.hidden_field :cotacao,      :value => @venda.cotacao.to_f %>
+    <%= f.hidden_field :data,         :value => @venda.data%>        
+    <%= f.hidden_field :diferido,     :value => @venda.data%>
+
+    <% if @cota_total != 1 %>
+       <% if @venda.tipo == 0  %>
+       Tipo : Contado
+       <% tip = 0 %>
+       <% else %>
+       Tipo : Credito
+       <% tip = 1 %>
+       <% end %>
+    <% else %>
+
+      <select name    = "tipo"
+              id      = "tipo"
+              onkeyup = "EnterTab(event,'vendas_financa_moeda_1')"
+              onblur  = "TipoVenda(this),ExibeDivVenda()" >
+
+              <option>ORDEN</option>
+              <option>CONTADO</option>
+              <option>CREDITO</option>
+      </select>
+
+    <% end %>
+       
+    <%= f.hidden_field :tipo, :value => tip   %>
+    <%= f.hidden_field :tipo_ordem   %>
+       
+    <input id    = "tipo_venda"
+           name  = "tipo_venda"
+           type  = "hidden"
+           value = "<%= tip %>"/>
+
+    <input id    = "cota"
+           name  = "cota"
+           type  = "hidden"
+           value = "<%= @cota_total %>"/>
+
+    <table>
+      <tr>
+        <td>
+          <fieldset>
+            <legend>Moneda</legend>
+            <%= f.radio_button :moeda, 1,
+                               :Checked     => "True",
+                               :onkeypress  => "return bloqEnter(event)",
+                               :onkeyup     => "EnterTab(event,'vendas_financa_moeda_0')",
+                               :onchange    => "MoedaVendaFinanca('1')" %> Guaranis
+            <%= f.radio_button :moeda, 0,
+                               :onkeyup     => "VendaFinancaTipoEnterTab(event)", 
+                               :onkeypress  => "return bloqEnter(event)",
+                               :onchange    => "MoedaVendaFinanca('0')" %> Dolar
+          </fieldset>
+        </td>
+        <input id   = "tipo_troco"
+               name = "tipo_troco"
+               type = "hidden"
+               size = "1"
+               value="1"/>
+
+      </tr>
+    </table>
+
+
+
+    <!-- DIV DETALHES AO CONTADO===================================================  -->
+
+
+    <div id="CONTADO" style="display: none;">
+
+      <table>
+        <tr>
+          <td>
+            <div class="group" >              
+              <table>
+                <tr>
+                  <input id    = "valor_dolar_contado"
+                         name  = "valor_dolar"
+                         type  = "hidden"
+                         value = "<%= @produto_sum_dolar %>"/>
+
+                  <input id    = "valor_guarani_contado"
+                         name  = "valor_guarani"
+                         type  = "hidden"
+                         value = "<%= @produto_sum_guarani %>"/>
+
+                  <td>Recebido :</td>
+                  <td><input id          = "recebido"
+                             name        = "recebido"
+                             type        = "text"
+                             onkeypress  = "return bloqEnter(event)"
+                             onkeyup     = "EnterTab(event,'vendas_financa_cheque')"
+                             onblur      = "TrocoProdutoFinanca()" /></td>
+                </tr>
+              </table>
+
+
+              <table>
+
+                  <input id   = "cotacao_dolar"
+                         name = "cotacao_dolar"
+                         type = "hidden"/>
+
+                  <input id   = "cotacao_guarani"
+                         name = "cotacao_guarani"
+                         type = "hidden"/>
+                <tr>
+                  <td>Valor Dolar :</td>
+                  <td><%= f.text_field :valor_dolar_contado,
+                                       :size   => 15,
+                                       :value  => @produto_sum_dolar %></td>
+                </tr>
+                <tr>
+                  <td>Valor Gs. :</td>
+                  <td><%= f.text_field :valor_guarani_contado,
+                                       :size => 15,
+                                       :value=> @produto_sum_guarani %></td>
+
+                </tr>
+              </table>
+            </div>
+          </td>
+
+          <td valign="top">
+            <div id="ORDEN_VUELTO" style="display: none;">
+
+            <div class="group">
+              <table>
+                <tr>
+                  <td>
+                    <h1><font size="5"color="green">Vuelto Dolar :<SPAN ID="mostra_dolar"></SPAN> </font><br/></h1>
+                    <br/>
+                    <h1><font size="5"color="red">Vuelto Gs. :  <SPAN ID="mostra_guarani"></SPAN> </font><br/></h1>
+
+                    <input id   = "troco_dolar"
+                           name = "troco_dolar"
+                           type = "hidden"/>
+
+                    <input id   = "troco_guarani"
+                           name = "troco_guarani"
+                           type = "hidden"/>
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+    <!-- DIV DETALHES CREDITO ====================================================== -->
+
+    <table>      
+      <tr>      
+        <td>
+          <div id="CREDITO" style="display: none;">
+            <div class="group">
+            <table>
+               <tr>
+                 <td>Cota:</td>
+                 <td><%= f.text_field :cota, 
+                                      :size  => 10 ,
+                                      :value => @cota_total %></td>
+
+                 <td>Vencimento:</td>
+                 <td><%= f.date_select :vencimento %></td>
+               </tr>
+            </table>
+          </div>
+          </div>
+        </td>        
+      </tr>
+
+      <tr>        
+          <td>
+            <div id="ORDEN" style="display: none;">
+              <div class="group">
+                <table>
+                  <tr>
+                    <td>Valor Gs. :</td>
+                    <td><%= f.text_field :valor_guarani_credito, 
+                                         :size        => 15,
+                                         :value       => @produto_sum_dolar,
+                                         :onkeypress  => "return bloqEnter(event)",
+                                         :onkeyup     => "EnterTab(event,'vendas_financa_valor_dolar_credito')",
+                                         :onchange    => "UnitFinancaDolarVenda()" %></td>
+
+                    <td>Valor U$:</td>
+                    <td><%= f.text_field :valor_dolar_credito, 
+                                         :size        => 15,
+                                         :value       => @produto_sum_guarani,
+                                         :onkeypress  => "return bloqEnter(event)",
+                                         :onkeyup     => "EnterTab(event,'vendas_financa_cheque')",
+                                         :onchange    => "UnitFinancaGsVenda()" %></td>
+                  </tr>                  
+                </table>
+              </div>
+            </div>
+          </td>
+        
+      </tr>     
+    </table>
+    
+                  
+
+
+    
+
+    <table>
+      <tr>
+        <td>Cheque:</td>
+        <td><%= f.text_field :cheque, 
+                             :size => 15,
+                             :onkeypress  => "return bloqEnter(event)",
+                             :onkeyup     => "EnterTab(event,'vendas_financa_transportadora_id')"%></td>
+      </tr>
+
+      <tr>
+
+      <table>
+        <tr>
+
+          <td>
+            <div class="group">
+              <%= render :partial=>"index_financa", :locals=>{:vendas_financas => @venda.vendas_financas} %>
+            </div>
+          </td>
+
+        </tr>
+      </table>
+
+    </tr>
+  </table>
+
+
+  <!-- DIV DETALHES AO FATURA ==================================================-->
+
+  <%  if  @cota_total == 1 %>
+    <table>
+      <tr>
+        <td>
+          <div class="group">
+            <table>
+              <tr>
+                <td align="right">Trans. </td>
+                <td><%= f.collection_select :transportadora_id, Persona.all( :select =>' id,
+                                                                                         nome,
+                                                                                         tipo_transportadora',
+                                                                              :conditions => "tipo_transportadora = 1",
+                                                                              :order      => '2'), :id,
+                                                                                                   :nome,{},{:onkeyup     => "EnterTab(event,'codigo')"} %></td>
+              </tr>
+              <tr>
+                <td align="right">Cliente :</td>
+                <td colspan="2">
+                  <%= text_field_tag( 'codigo',
+                                      nil,
+                                      :id      => "codigo",
+                                      :onchange => remote_function( :update      => "codigo",
+                                                                    :url         => { :action => :get_codigo},
+                                                                    :with        => "'codigo='+this.value"),
+                                                                    :onkeypress  => "return bloqEnter(event)",
+                                                                    :onkeyup     => "EnterTab(event,'vendas_financa_persona_nome')",
+                                                                    :size        => 5,
+                                                                    :onblur      => "VendaFinancasAlertCreditoCosumidorFinal(),VendaFinancasAlertContadoValor()"
+                                    ) %>
+
+
+
+                  <%= f.hidden_field :persona_id %>
+                  <%= f.text_field :persona_nome,
+                                   :onkeypress  => "return bloqEnter(event)",
+                                   :onkeyup     => "EnterTab(event,'vendas_financa_numero_ordem')"%> Pulse F2 para Buscar.
+                  <%= f.hidden_field :cidade_id%>
+                  <%= f.hidden_field :cidade_nome%>
+
+                </td>
+              </tr>
+              <tr>
+                <td align="right">N. Orden :</td>
+                <td><%= f.text_field :numero_ordem,
+                                     :size => 20,
+                                     :onkeypress  => "return bloqEnter(event)",
+                                     :onkeyup     => "EnterTab(event,'vendas_financa_ruc')"%></td>
+
+              </tr>
+
+              <tr>
+                <td align="right">Ruc :</td>
+                <td><%= f.text_field :ruc,
+                                     :size => 20,
+                                     :onkeypress  => "return bloqEnter(event)",
+                                     :onkeyup     => "EnterTab(event,'vendas_financa_direcao')"%></td>
+              </tr>
+              <tr>
+                <td align="right">Direcion :</td>
+                <td><%= f.text_field :direcao,
+                                     :size        => 20,
+                                     :onkeypress  => "return bloqEnter(event)",
+                                     :onkeyup     => "f(this),EnterTab(event,'vendas_financa_bairro')",
+                                     :onkeydown   => "f(this)"%></td>
+              </tr>
+
+              <tr>
+                <td align="right">Barrio :</td>
+                <td><%= f.text_field :bairro,
+                                     :size        => 15,
+                                     :onkeypress  => "return bloqEnter(event)",
+                                     :onkeyup     => "f(this),EnterTab(event,'vendas_financa_fatura_0')",
+                                     :onkeydown   => "f(this)"%></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <table>
+                    <tr>
+                      <td>
+                        <fieldset>
+                          <legend>Factura?</legend>
+                          <%= f.radio_button :fatura, 0, 
+                                             :Checked     => 'True',
+                                             :onkeypress  => "return bloqEnter(event)",
+                                             :onkeyup     => "f(this),EnterTab(event,'vendas_financa_fatura_1')"
+                                           %> No
+                          <%= f.radio_button :fatura, 1,
+                                             :onkeypress  => "return bloqEnter(event)",
+                                             :onkeyup     => "f(this),EnterTab(event,'vendas_financa_documento_numero_01')"
+                                              %> Si
+
+                        </fieldset>
+                      </td>
+                    </tr>
+                  </table>
+
+                </td>
+              </tr>
+
+
+              <tr>
+                <td align="right">Factura N.:</td>
+
+                <td><%= f.text_field :documento_numero_01,
+                                     :size => 3,
+                                     :value => '002',
+                                     :onkeypress  => "return bloqEnter(event)",
+                                     :onkeyup     => "f(this),EnterTab(event,'vendas_financa_documento_numero_02')"%> -
+                  <%= f.text_field :documento_numero_02,
+                                   :size        => 3,
+                                   :value       => '002',
+                                   :onkeypress  => "return bloqEnter(event)",
+                                   :onkeyup     => "f(this),EnterTab(event,'vendas_financa_documento_numero')"%> -
+                  <%= f.text_field :documento_numero,
+                                   :size        => '10',
+                                   :value       => '',
+                                   :onkeypress  => "return bloqEnter(event)",
+                                   :onkeyup     => "f(this),EnterTab(event,'vendas_financa_submit')"%></td>
+                <td align="right"><%= f.submit "     Grabar     " %></td>
+              </tr>
+
+
+            </table>
+          </div>
+
+        </td>
+      </tr>
+    </table>
+
+
+  <%else%>
+
+
+    <table>
+      <tr>
+        <td>
+          <div class="group">
+            <table>
+              <tr>
+                <td>Cliente :</td>
+                <td>
+                  <%= f.text_field   :persona_nome, :value => @venda.persona_nome ,:readonly => "readonly"%>
+                  <%= f.hidden_field   :persona_id, :value => @venda.persona_id %>
+                </td>
+              </tr>
+              <tr>
+                <td>N. Orden :</td>
+                <td>
+                  <%= f.text_field   :numero_ordem, :value => @venda.numero_ordem ,:readonly => "readonly"%>
+                </td>
+                <td align="right">Ruc :</td>
+                <td><%= f.text_field :ruc,
+                    :value => @venda.ruc,
+                    :readonly => "readonly",
+                    :size => '20'%></td>
+              </tr>
+              <tr>
+                <td align="right">Direcion :</td>
+                <td><%= f.text_field :direcao,
+                    :value => @venda.direcao,
+                    :readonly => "readonly",
+                    :size => '20'%></td>
+                <td align="right">Ciudad :</td>
+                <td><%= f.text_field :cidade_nome,
+                    :value => @venda.cidade_nome,
+                    :readonly => "readonly",
+                    :size => '20'%></td>
+                <%= f.hidden_field :cidade_id, :value => @venda.cidade_id %>
+              </tr>
+
+              <tr>
+                <td align="right">Barrio :</td>
+                <td><%= f.text_field :bairro,
+                    :value    => @venda.bairro,
+                    :readonly => "readonly",
+                    :size     => '15'%></td>
+              </tr>
+
+              <tr>
+                <td align="right">Factura N.:</td>
+                <td><%= f.text_field :documento_numero_01,
+                    :size => 1,
+                    :value => @venda.documento_numero_01,
+                    :readonly => "readonly"%> -
+
+                  <%= f.text_field :documento_numero_02,
+                    :size => 1,
+                    :value => @venda.documento_numero_02,
+                    :readonly => "readonly"%> -
+
+                  <%= f.text_field :documento_numero,
+                    :size => 10,
+                    :value => @venda.documento_numero,
+                    :readonly => "readonly"%></td>
+
+                <td align="right"><%= f.submit "     Grabar     " %></td>
+
+              </tr>
+          </div>
+        </table>
+
+        </td>
+      </tr>
+    </table>
+
+
+  <%end%>
+
+<% end %>
+
+
+</body>

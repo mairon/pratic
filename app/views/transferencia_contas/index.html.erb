@@ -1,0 +1,31 @@
+<h1 align="right" id="header">Ingresos</h1>
+<%= link_to 'Nuevo', new_transferencia_conta_path, :id => 'novo' %>
+<div class="group">
+  <table>
+    <tr>
+      <td width="50" align="center">Cod.</td>
+      <td width="100" align="center">Fecha</td>
+      <td width="200" align="center">Coenta Origen</td>
+      <td width="200" align="center">Coenta Destino</td>
+      <td width="100" align="center">Valor Gs.</td>
+      <td width="100" align="center">Valor U$.</td>      
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+
+      <% @transferencia_contas.each do |transferencia_conta| %>
+        <tr class = "<%= cycle("cor1", "cor2")%>">
+          <td width="50" align="center"><%= transferencia_conta.id %></td>
+          <td width="100" align="center"><%= transferencia_conta.data.strftime("%d/%m/%Y") %></td>
+          <td width="200" align="center"><%= transferencia_conta.ingreso_nome %></td>
+          <td width="200" align="center"><%= transferencia_conta.destino_nome %></td>
+          <td width="100" align="center"><%= number_to_currency(transferencia_conta.valor_guarani, :format=>' %n ', :separator => ",") %></td>
+          <td width="100" align="center"><%= number_to_currency(transferencia_conta.valor_dolar, :format=>' %n ', :separator => ",") %></td>          
+          <td><%= link_to 'Editar', edit_transferencia_conta_path(transferencia_conta) %></td>
+          <td><%= link_to 'Borrar', transferencia_conta, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

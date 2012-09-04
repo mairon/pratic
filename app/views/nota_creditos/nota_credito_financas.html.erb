@@ -1,0 +1,78 @@
+<h1 align="right" id="header">.</h1>
+Nota de Credito - Financas
+<div class="group">
+   <table>
+      <tr>
+         <% if @nota_credito.moeda == 0  %>
+            <td>Total U$ :</td>
+            <td>
+               <%= number_to_currency(@total_nota_dolar ,    :format=>' %n ', :separator => ",")%>
+            </td>
+         <% else %>
+            <td>Total Gs.:</td>
+            <td>
+               <%= number_to_currency(@total_nota_guarani ,    :format=>' %n ', :precision => 0)%>
+            </td>
+         <% end %>
+      </tr>
+   </table>
+</div>
+
+<% form_for(@nota_credito) do |f| %>
+<fieldset>
+   <legend>Contado</legend>
+                    <table>
+                    <tr>
+                     <td>Conta:</td>
+                     <td><%= f.collection_select :conta_id, Conta.all( :select => 'id,nome',
+                                                                                :order  => '1' ),:id,
+                                                                                                 :nome %></td>
+                     <td>Cheque :</td>
+                     <td><%= f.text_field :cheque,
+                                           :size => 15 %></td>
+                    </tr>
+                    <tr>
+                       <td colspan="2"></td>
+                      <td>Diferido : </td>
+                      <td><%= f.date_select :diferido %></td>
+                    </tr>
+                 </table>
+</fieldset>
+<table>
+   <tr>
+      <td>N. : </td>
+      <td>
+          <%= f.text_field :documento_numero_01, :size => 1 %> -
+          <%= f.text_field :documento_numero_02, :size => 1%> -
+          <%= f.text_field :documento_numero,:size => 15 %>
+      </td>
+   </tr>
+</table>
+   <%=  f.hidden_field :documento_id,     :value => '6' %>
+   <%=  f.hidden_field :documento_nome,   :value => 'NOTA DE CREDITO' %>
+   <%=  f.hidden_field :total_dolar,     :value => @total_nota_dolar %>
+   <%=  f.hidden_field :total_guarani,   :value => @total_nota_guarani %>
+<a href="/nota_creditos/<%= @nota_credito.id.to_i %>"> << Volver </a><%= f.submit "Finalizar", :confirm => 'Tiene Certeza ?' %>
+<% end %>
+
+
+<input type="hidden" id="persona_id" value="<%= @nota_credito.persona_id %>"/>
+<input type="hidden" id="moeda"      value="<%= @nota_credito.moeda %>"/>
+<input type="hidden" id="tipo"       value="<%= @nota_credito.tipo %>"/>
+
+<script>
+   persona_id = document.getElementById("persona_id").value
+   moeda      = document.getElementById("moeda").value
+   tipo       = document.getElementById("tipo").value
+   //ABRI POPUP-----------------------------------------------------------------
+   document.onkeydown=function(e)
+   {
+      if(e.which == 113)
+         window.open('/vendas_produtos/busca_nota_credito_produto?persona_id='+persona_id+'&moeda='+moeda+'&tipo='+tipo, 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=450');
+   }
+   //FIM ABRI POPUP----------------------------------------------------------------
+   function fecha()
+   {
+      self.close();
+   }
+</script>

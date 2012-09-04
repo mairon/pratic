@@ -1,0 +1,90 @@
+<body onload="ImputFocus('producao_produto_data_3i')">
+<% form_for [ producao, producao_produto ] do |f| %>
+  <%= f.error_messages %>
+     <%= f.hidden_field :produto_id  %>
+     <%= f.hidden_field :clase_id  %>
+     <%= f.hidden_field :grupo_id  %>
+      <div class="group">
+         <table>
+
+            <tr>
+
+               <td align="right">Fecha :</td>
+               <td><%= f.date_select :data %></td>
+
+                  <%= f.hidden_field  :status, :value => 0 %>
+            </tr>
+
+            <tr>
+               <td align="right">Deposito :</td>
+               <td colspan="4"><%= f.collection_select :deposito_id, Deposito.all( :select => ' id,nome',
+                                                                                 :order  => '2' ), :id,
+                                                                                                   :nome %></td>
+            </tr>
+
+
+            <tr>
+               <td align="right">Producto :</td>
+
+               <td colspan="8">
+
+                   <%= text_field_tag( 'codigo',
+                                                      nil,
+                                                      :id     => "codigo",
+                                                      :onchange => remote_function( :update     => "codigo",
+                                                                                    :url        => { :action     => :get_codigo_barra_produto },
+                                                                                    :with       => "'codigo='+this.value"),
+                                                                                    :size       => 5,
+                                                                                    :onkeyup    => "f(this),EnterTab(event,'vendas_produto_quantidade')",
+                                                                                    :onkeypress => "return bloqEnter(event)"
+
+                   ) %>
+                  <%= f.text_field  :produto_nome,
+                                    :size     => 50 %>
+                  </td>
+            </tr>
+
+
+            <tr>
+               <td align="right">Cantidad :</td>
+               
+               <td><%= text_field_tag ('calc',nil,:size       => 5, :onblur => "CalcQtd()") %>
+                        <%= hidden_field_tag :qtd, @producao.quantidade %>X
+                        <%= f.text_field  :quantidade,
+                                                     :size   => 10 ,
+                                                     :dir     => "rtl"%></td>
+
+              <td align="right">Saldo : <font color="red"><SPAN id="red"></SPAN> </font>
+                                        <font color="green"><SPAN id="green"></SPAN> </font>
+              </td>
+
+            </tr>
+
+
+            <tr>
+             <td>Costo Us.</td>
+             <td><%= f.text_field  :custo_dolar, :size     => 15 %></td>
+             
+             <td>Costo Gs.</td>
+             <td><%= f.text_field  :custo_guarani, :size     => 15 %></td>
+               <td>
+                 <%= f.submit '    Grabar    ' %>
+               </td>
+
+            </tr>
+
+         </table>
+
+      </div>
+
+<% end %>
+</body>
+<script>
+
+function CalcQtd()                 //
+{
+  document.getElementById('producao_produto_quantidade').value = document.getElementById('calc').value * document.getElementById('qtd').value
+}
+
+</script>
+

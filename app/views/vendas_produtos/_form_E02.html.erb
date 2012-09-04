@@ -1,0 +1,76 @@
+<script language="javascript">
+  function bloqEnter(objEvent) {
+    var iKeyCode;
+    iKeyCode = objEvent.keyCode;
+    if(iKeyCode == 13) return false;
+    return true;
+  }
+</script>
+<body onload="FocoField('vendas_produto_quantidade')">
+  <% form_for(@vendas_produto) do |f| %>
+    <%= f.error_messages %>
+
+    <div class="group">
+      <table>
+
+          <td>Produto :</td>
+
+          <td><%= hidden_field_tag( :produto_busca ,nil) %>
+            <%= f.hidden_field :produto_nome%>
+            <%= text_field_with_auto_complete  :venda_produto_produto_busca,nil,
+                                               {:onblur => remote_function(:update     => "venda_produto_produto_busca_",
+                                                                           :url        => { :action => :get_produto},
+                                                                           :with       => "'produto_busca='+this.value"),
+                                                                           :onkeydown  => "f(this)",
+                                                                           :onkeypress => "return bloqEnter(event)"  ,
+                                                                           :onkeyup    => "f(this)",
+                                                                           :value      => @vendas_produto.produto_nome },
+                                                                           {:url       => formatted_produtos_path(:js),
+                                                                           :method     => :get,
+                                                                           :param_name => 'busca'}
+          %></td>
+
+          <td>Cantidad :</td>
+          <td><%= f.text_field :quantidade,
+                               :size   => 5,
+                               :onblur => " VendaTotalDolar(),
+                                            VendaTotalGs(),
+                                            VendaIvaGs(),
+                                            VendaIvaDolar()"%>
+            <%= f.submit "Grabar" %>
+          </td>
+
+    <% end %>
+
+  </div>
+<a href="/vendas/<%= @vendas_produto.venda.id.to_i %>">Volver </a>
+</body>
+
+
+  <script>
+
+
+    document.onkeydown=function(e)
+    {
+      //BOTAO F4
+      if(e.which == 115)
+        location.href="/vendas/novo_produto/"+ document.getElementById('id').value;
+      //SEGUIR FINANCAS
+      if(e.which == 39)
+        location.href="/vendas/vendas_financa/"+ document.getElementById('id').value;
+      //VOLTAR  EDIT
+      if(e.which == 37)
+        location.href="/vendas/edit/"+ document.getElementById('id').value;
+      //LISTA DE PRODUTOS
+      if(e.which == 113)
+        window.open('/produtos/busca_venda_produto', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=400');
+
+    }
+
+    function fecha()
+    {
+      self.close();
+    }
+  </script>
+
+

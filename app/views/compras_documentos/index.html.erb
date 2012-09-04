@@ -1,0 +1,18 @@
+<h1>Listing compras_documentos</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% for compras_documento in @compras_documentos %>
+  <tr>
+    <td><%= link_to 'Show', compras_documento %></td>
+    <td><%= link_to 'Edit', edit_compras_documento_path(compras_documento) %></td>
+    <td><%= link_to 'Destroy', compras_documento, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New compras_documento', new_compras_documento_path %>

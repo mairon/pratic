@@ -1,0 +1,109 @@
+  
+<body onload="CampoTipoVendaFinanca()">
+   <div class="group_cd">
+      <%if @venda.tipo == 0
+         tipo = 'CONTADO'
+      else
+         tipo = 'CREDITO'
+      end
+   %>
+
+      <table>
+         <tr>
+            <td align="right">VENTA :</td>
+            <td align="right"><%= tipo   %></td>
+            <td align="right">N.:</td>
+            <td align="right"><%= @venda.documento_numero_01 %> - <%= @venda.documento_numero_02 %> - <%= @venda.documento_numero %></td>
+         </tr>
+      </table>
+   </div>
+   <div class="group_cd">
+      <table>
+         <tr class = "cor2">
+            <td align="right">Cotizacion :</td>
+            <td align="right"><%=h number_to_currency(@venda.cotacao, :format=>' %n ', :separator => ",")  %></td>
+            <td align="right">Total Prod.:  </td>
+            <td align="right"><%=format( "%.3f", @produto_count.to_f )%> </td>
+            <td align="right">Cuente:  </td>
+            <td align="right"><%=@venda.conta_nome%> </td>
+
+         </tr>
+
+         <tr class = "cor1">
+            <td align="right"><font color="green">Total Dolar : </font></td>
+            <td align="right"><font color="green"><%=h number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ",")  %> </font></td>
+            <td align="right"><font color="red">Total Gs.:</font> </td>
+            <td align="right"><font color="red"><%=h number_to_currency(@produto_sum_guarani, :format=>' %n ', :separator => ",",:precision => 0)  %></font> </td>
+            <td align="right">Total IVA.:</td>
+            <td align="right"><%=h number_to_currency(@produto_iva_guarani, :format=>' %n ', :separator => ",")  %></td>
+
+         </tr>
+
+      </table>
+   </div>
+   <%= render :partial=>"index_financa", :locals=>{:vendas_financas => @venda.vendas_financas} %>
+   <div class="group_cd">
+      <table>
+         <tr>
+            <td>Cliente :</td>
+            <td>
+               <%=  @venda.persona_nome%>
+            </td>
+
+            <td width="100" align="right">Ruc/CI :</td>
+            <td>
+               <%=  @venda.ruc%>
+            </td>
+
+         </tr>
+
+         <tr>
+            <td>Direcion :</td>
+            <td>
+               <%=  @venda.direcao%>
+            </td>
+            <td width="100" align="right">Ciudad :</td>
+            <td>
+               <%=  @venda.cidade_nome%>
+            </td>
+
+         </tr>
+
+      </table>
+   </div>
+   <a href="/vendas/show/<%= @venda.id.to_i %>"> << Volver </a> |
+   <a href="javascript:void(0)" onClick="ComprovanteVenda()">Comprobante</a> |
+   <a href="javascript:void(0)" onClick="FaturaVenda()">Factura</a> |
+   <a href="/vendas/new">Nuevo</a> |
+   <a href="/vendas">Salir</a> |
+   <a href="javascript:void(0)" onClick="fecha()">Cerrar</a>
+   <%= hidden_field_tag :id, @venda.id %>
+
+   <script>
+
+    document.onkeydown=function(e)
+    {
+      //LISTA DE PRODUTOS
+      if(e.which == 115)
+        location.href="/vendas/new";
+
+    }
+
+
+      function ComprovanteVenda()                //
+      {
+         window.open('/vendas/comprovante/' + document.getElementById('id').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+      }
+      function FaturaVenda()                //
+      {
+         window.open('/vendas/fatura/' + document.getElementById('id').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+      }
+
+
+      function fecha()
+      {
+         self.close();
+      }
+   </script>
+
+</body>

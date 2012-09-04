@@ -1,0 +1,2 @@
+module NotaCreditosDetalhesHelper
+end

@@ -1,0 +1,71 @@
+<body onload="DataVenda(),CampoVenda()">
+
+<% form_for(@venda) do |f| %>
+  <%= f.error_messages %>
+  <div class="group">
+    <table>      
+      <tr>
+        <td>
+          Fecha:
+          <%= f.date_select :data %></td>
+      </tr>
+
+      <tr>
+        <td>Caja : <%=  current_unidade.unidade_nome %></td>
+      </tr>
+
+
+      <tr>
+        <td>Usuario : <%= current_conta.nome %></td>
+      </tr>
+
+      <tr>
+          <td>
+            <% if params[:action] == 'new'%>
+        Cotacion :<%= text_field :venda,:cotacao ,
+                {:size => '15',
+                 :onkeypress => "autoTab(this, event)",
+                 :onfocus   => remote_function( :update => "key",
+                                                :url    => { :action => :get_moeda},
+                                                :with   => "'key='+ key.value ")
+
+              }
+            %>
+            <%else%>
+              <%= f.text_field :cotacao, :onkeydown => "chang(event,this);"  %>
+            <%end%>
+          </td>
+           <%= hidden_field_tag( 'key',
+                                  nil,
+                                  :id => "key",
+                                  :size => 15
+                                ) %>
+
+
+      </tr>
+</table>
+  </div>
+  <%= f.submit "Seguir>>" %>
+<%end%>
+<a href="javascript:void(0)" onClick="fecha()">Cerrar</a>
+
+<script>
+//ENTER POR TAB
+
+function fecha()
+  {
+    self.close();
+  }
+
+</script>
+
+
+</body>
+
+
+
+
+
+
+
+

@@ -1,0 +1,64 @@
+<body onload="DataInicio(),DataFinal(),CampoInicio()">
+   <h1 align="right" id="header">.</h1>
+   Relatorio Ventas do Dia
+   <div class="group">
+      <h2>
+         <%form_tag resultado_relogio_ponto_relatorios_path, :method => "get" do%>
+            <table>
+
+               <tr>
+                  <td> Fecha:</td>
+                  <td>
+                     <input name="inicio" id="inicio"  size="10"  onkeyup="Formatadata(this,event)" />
+                      Hasta
+                     <input name="final"  id="final"   size="10" onkeyup="Formatadata(this,event)"/>                     
+                  </td>
+               </tr>
+
+               <tr>
+
+               <td>Usuario :</td>
+               <td><%=   select("busca", "usuario", Usuario.all(:select => 'id,usuario_nome').collect {|p| [ p.usuario_nome, p.id ] },
+                                                                                          { :include_blank => true },
+                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                            :onkeyup       => "EnterTab(event,'campo_grupo')" })   %></td>
+
+               </tr>
+
+               <tr>
+                 
+               <td>Turno :</td>
+               <td><%=   select("busca", "turno", Turno.all(:select => 'id,nome').collect {|p| [ p.nome, p.id ] },
+                                                                                          { :include_blank => true },
+                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                            :onkeyup       => "EnterTab(event,'campo_grupo')" })   %></td>
+
+               </tr>
+
+              <tr>
+                <td></td>
+                <td>
+                  <input  id      ="button"
+                          type    ="submit"
+                          value   ="            Informe           "
+                          onclick = "Tipo('0')"/>
+
+                  <input type     = "submit"
+                         value    = "            Excel            "
+                         onclick  = "Tipo('1')"/>
+                </td>
+              </tr>
+
+          <input type  = "hidden"
+                 name  = "tipo"
+                 id    = "tipo"
+                 size  = "5"
+                 value = "0"/>
+
+            </table>
+         <% end %>
+         </h2>
+      </div>
+   </body>
+
+

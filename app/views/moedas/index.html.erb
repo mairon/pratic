@@ -1,0 +1,26 @@
+<h1 align="right" id="header">Personas</h1>
+<%= link_to 'Nuevo', new_moeda_path %>
+
+<div class="group">
+  <table>
+    <tr>
+      <td width="100" align="center">Fecha</td>
+      <td width="100" align="center">Dolar Compra</td>
+      <td width="100" align="center">Dolar Venda</td>
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+      <% for moeda in @moedas %>
+        <tr class = "<%= cycle("cor1", "cor2") %>">
+          <td width="100" align="center"> <%= moeda.data.strftime("%d/%m/%Y") %></td>
+          <td width="100" align="right"> <%= number_to_currency(moeda.dolar_compra, :format=>' %n ', :separator => ",") %></td>
+          <td width="100" align="right"> <%= number_to_currency(moeda.dolar_venda, :format=>' %n ', :separator => ",") %></td>
+
+          <td><%= link_to 'Editar', edit_moeda_path(moeda) %></td>
+          <td><%= link_to 'Borra', moeda, :confirm => 'Tine Certeza?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

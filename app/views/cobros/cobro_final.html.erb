@@ -1,0 +1,69 @@
+
+<h1 align="right" id="header">Cobros</h1>
+<body onload="CobroDifeirdoData()">
+<br/>
+  <div class="group">
+    <table>
+      <tr>
+        <td align="right">Fecha :</td>
+        <td><%= @cobro.data.strftime("%d/%m/%Y") %></td>
+      <input type="hidden" id="data" value="<%=@cobro.data.strftime("%d")%>"/>
+      <input type="hidden" id="mes" value="<%=@cobro.data.strftime("%m")%>"/>
+      <input type="hidden" id="ano" value="<%=@cobro.data.strftime("%Y")%>"/>
+
+      <td align="right">Cotizacion :</td>
+        <td><%= @cobro.cotacao %></td>
+
+        <td align="right">Moeda :</td>
+        <%  if @cobro.cotacao == 0 %>
+          <td>DOLAR</td>
+        <%else%>
+          <td>GUARANIS</td>
+        <%end%>
+      </tr>
+
+      <tr>
+        <td align="right">Cliente :</td>
+        <td><%= @cobro.persona_nome %></td>
+        <td align="right">Ruc :</td>
+        <td><%= @cobro.ruc%></td>
+      </tr>
+
+       <% if @cobro.moeda == 0 %>
+            <tr>
+              <td align="right">Valor U$.:</td>
+              <td><%= number_to_currency( @total_cobro_dolar.to_f,       :format =>' %n ', :separator => "," ) %></td>
+
+              <td align="right">Descuento :</td>
+              <td><%= number_to_currency( @total_desconto_dolar.to_f,    :format =>' %n ', :separator => "," ) %></td>
+
+              <td align="right">Interes :</td>
+              <td><%= number_to_currency( @total_interes_dolar.to_f,      :format =>' %n ', :separator => "," ) %></td>
+
+              <td width="300" align="right"><font color="green" size="3">Total :</td>
+              <td><font color="green" size="3" ><%= number_to_currency( @total_cobro_dolar.to_f - @total_desconto_dolar.to_f + @total_interes_dolar.to_f,       :format =>' %n ', :separator => "," ) %></font></td>
+       <% else %>
+              <td align="right">Valor Gs.:</td>
+              <td><%= number_to_currency( @total_cobro_guarani.to_f,       :format =>' %n ', :precision => 0 ) %></td>
+
+              <td align="right">Descuento :</td>
+              <td><%= number_to_currency( @total_desconto_guarani.to_f,    :format =>' %n ', :precision => 0 ) %></td>
+
+              <td align="right">Interes :</td>
+              <td><%= number_to_currency( @total_interes_guarani.to_f,      :format =>' %n ', :precision => 0 ) %></td>
+
+              <td width="300" align="right"><font color="red" size="3">Total :</td>
+              <td><font color="red" size="3" ><%= number_to_currency( @total_cobro_guarani.to_f - @total_desconto_guarani.to_f + @total_interes_guarani.to_f,       :format =>' %n ', :precision => 0 ) %></font></td>
+            </tr>
+       <% end %>
+    </table>
+  </div>
+  <br/>
+
+  <%= render :partial=>"index_financa", :locals=>{:cobros_financas => @cobro.cobros_financas} %>
+
+  <br/>
+
+  <%= render :partial=>"new_financa", :locals=>{:cobros_financa=>CobrosFinanca.new(:cobro_id=>@cobro.id)} %>
+
+</body>

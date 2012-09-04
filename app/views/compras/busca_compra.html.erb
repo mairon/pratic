@@ -1,0 +1,38 @@
+  <div>
+    <table>
+      <tr>
+        <td width="80" align="center">Cod.</td>
+        <td width="80" align="center">Fecha</td>
+        <td width="180" align="center">Documento</td>
+        <td width="300" align="center">Provedor</td>
+        <td width="110" align="center">Cantidad</td>
+        <td width="110" align="center">Total Dolar</td>
+        <td width="110" align="center">Total Gs.</td>
+        <td width="150" align="center">Cuentas</td>
+      </tr>
+
+    </table>
+  </div>
+
+  <div class="rolagem" dir="div">
+      <table>
+        <% for compra in @compras %>
+            <% produto_count        = ComprasProduto.sum(:quantidade,:conditions    => ['compra_id = ?',compra.id] )%>
+            <% produto_sum_dolar    = ComprasProduto.sum(:total_dolar,:conditions   => ['compra_id = ?',compra.id] )%>
+            <% produto_sum_guarani  = ComprasProduto.sum(:total_guarani,:conditions => ['compra_id = ?',compra.id] )%>
+
+           <tr class = "<%= cycle("cor1", "cor2") %>">
+             <td width="80" align="center">    <%= h compra.id%></td>
+             <td width="80" align="center">    <%= h compra.data.strftime("%d/%m/%Y")%></td>
+             <td width="180" align="left">     <%= h compra.documento_numero_01%> - <%= h compra.documento_numero_02%> - <%= h compra.documento_numero%></td>
+             <td width="300" align="left">     <%= h compra.persona_nome%></td>
+             <td width="110" align="center">   <%= produto_count %></td>
+             <td width="110" align="right">    <%=h number_to_currency( produto_sum_guarani, :format=>' %n ', :precision => 0)  %></td>
+             <td width="110" align="right">    <%=h number_to_currency( produto_sum_guarani, :format=>' %n ', :precision => 0)  %></td>
+             <td width="150" align="left">     <%= h compra.conta_nome%></td>
+             <td><td><a href="/compras/edit_compra/<%=compra.id%>" >Editar</a></td></td>
+             <td><%= link_to 'Borrar', compra, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+           </tr>
+        <% end %>
+      </table>
+  </div>

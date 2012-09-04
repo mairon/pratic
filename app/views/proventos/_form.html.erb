@@ -1,0 +1,41 @@
+<body onload="ProventosCampoDescripcion()">
+  <h1 align="right" id="header">Proventos</h1>
+
+  <% form_for(@provento) do |f| %>
+    <%= f.error_messages %>
+    Proventos - Edicion
+    <div class="group">
+      <table>
+        <tr>
+          <td align="right">Descripcion :</td>
+          <td><%= f.text_field :descripcion,
+              :onkeydown  => "f(this)",
+              :onkeyup    => "f(this)",
+              :onkeypress => "return bloqEnter(event)"%></td>
+        </tr>
+
+        <tr>
+          <td align="right">Codigo :</td>
+          <td><%= f.text_field :cod_contabil,
+              :size       => 15,
+              :onkeypress => "return bloqEnter(event)"%></td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td>
+            <fieldset>
+              <legend>Estado :</legend>
+              <%= f.radio_button :estado, 0,:Checked => "True" %>Proventos
+              <%= f.radio_button :estado , 1 %>Descuento
+            </fieldset>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    <p>
+      <%= f.submit 'Grabar' %> <%= link_to 'Volver', proventos_path %>
+    </p>
+  <% end %>
+</body>

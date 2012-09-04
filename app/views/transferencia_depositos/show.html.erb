@@ -1,0 +1,7 @@
+<h1 align="right" id="header">Transferencia de Depositos-Productos</h1>
+  <%= render :partial=>"/transferencia_deposito_produtos/index_produtos", :locals=>{:transferencia_deposito_produtos => @transferencia_deposito.transferencia_deposito_produtos} %>
+
+  <%= render :partial=>"/transferencia_deposito_produtos/new_produtos", :locals=>{:transferencia_deposito_produto=>TransferenciaDepositoProduto.new(:transferencia_deposito_id=>@transferencia_deposito.id)} %>
+
+<%= link_to 'Volver', edit_transferencia_deposito_path(@transferencia_deposito) %> |
+<%= link_to 'Salir', transferencia_depositos_path %>

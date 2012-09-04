@@ -1,0 +1,11 @@
+<h1>New compras_financa</h1>
+
+<% form_for(@compras_financa) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', compras_financas_path %>

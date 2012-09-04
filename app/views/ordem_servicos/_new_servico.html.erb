@@ -1,0 +1,116 @@
+<% form_for(ordem_servicos_executado) do |f| %>
+  <%= f.error_messages %>
+  <div class="group">
+    <%= f.hidden_field :ordem_servico_id %>
+    <table>
+      <tr>
+        <td> Fecha </td>
+        <td> <%= f.date_select :data %> </td>
+      </tr>
+
+      <tr>
+        <td> Servicio </td>
+        <td><%= f.collection_select :servico_id, Servico.all(:select => 'id,nome',:order => '1'),:id,:nome %></td>
+      </tr>
+
+      <tr>
+        <td> Hora Inicio </td>
+                <td><%= f.select :hora_inicio,
+            (
+            [
+              ["1", "1"],
+              ["2", "2"],
+              ["3", "3"],
+              ["4", "4"],
+              ["5", "5"],
+              ["6", "6"],
+              ["7", "7"],
+              ["8", "8"],
+              ["9", "9"],
+              ["10", "10"],
+              ["11", "11"],
+              ["12", "12"]
+
+            ]
+          )%>
+                
+                
+
+           <%= f.select :minuto_inicio,
+            (
+            [
+              ["00", "00"],
+              ["05", "05"],
+              ["10", "10"],
+              ["15", "15"],
+              ["20", "20"],
+              ["25", "25"],
+              ["30", "30"],
+              ["35", "35"],
+              ["40", "40"],
+              ["45", "45"],
+              ["50", "50"],
+              ["55", "55"]
+
+            ]
+          )%></td>
+      </tr>
+
+
+      <tr>
+        <td> Hora Inicio </td>
+                <td><%= f.select :hora_final,
+            (
+            [
+              ["1", "1"],
+              ["2", "2"],
+              ["3", "3"],
+              ["4", "4"],
+              ["5", "5"],
+              ["6", "6"],
+              ["7", "7"],
+              ["8", "8"],
+              ["9", "9"],
+              ["10", "10"],
+              ["11", "11"],
+              ["12", "12"]
+
+            ]
+          )%>
+
+
+
+           <%= f.select :minuto_final,
+            (
+            [
+              ["00", "00"],
+              ["05", "05"],
+              ["10", "10"],
+              ["15", "15"],
+              ["20", "20"],
+              ["25", "25"],
+              ["30", "30"],
+              ["35", "35"],
+              ["40", "40"],
+              ["45", "45"],
+              ["50", "50"],
+              ["55", "55"]
+
+            ]
+          )%></td>
+      </tr>
+      <tr>
+        <td>Km Inicial</td>
+        <td><%= f.text_field :km_inicio, :size => 15 %></td>
+        <td>Km Final</td>
+        <td><%= f.text_field :km_final, :size => 15 %></td>
+      </tr>
+
+    </table>
+  </div>
+  <p>
+    <%= f.submit "Grabar" %> <a href="/ordem_servicos/servico_executado/<%=params[:id]%>" >Volver</a>
+  </p>
+<% end %>
+
+

@@ -1,0 +1,35 @@
+<h1 align="right" id="header">Personas</h1>
+<%= link_to 'Nuevo', new_ordem_servico_path %>
+<div class="group">
+
+  <table>
+    <tr>
+      <td width="70" align="center">Cod.</td>
+      <td width="70" align="center">Fecha</td>
+      <td width="300" align="center">Cliente</td>
+      <td width="200" align="center">Modelo</td>
+      <td width="250" align="center">Solicitacion</td>
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+
+      <% for ordem_servico in @ordem_servicos %>
+        <tr class = "<%= cycle("cor1", "cor2") %>">
+          <td width="70" align="center"> <%= ordem_servico.id %></td>
+          <td width="70" align="center"> <%= ordem_servico.data.strftime("%d/%m/%Y") %></td>
+          <td width="300" align="left"> <%= ordem_servico.persona_nome %></td>
+          <td width="200" align="left"> <%= ordem_servico.modelo %></td>
+          <td width="350" align="left"> <%= ordem_servico.solicitacao %></td>
+
+          <td><%= link_to 'Add Productos', ordem_servico %></td>
+          <td><%= link_to 'Editar', edit_ordem_servico_path(ordem_servico) %></td>
+          <td><%= link_to 'Borrar', ordem_servico, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+

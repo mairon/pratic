@@ -1,0 +1,221 @@
+<body onload="window.print()">
+
+
+  <table align="left"  valign="top">
+    <tr>
+      <td colspan="4">
+        <FONT FACE="times new roman" size="3">
+          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </FONT>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="550" align="right">
+          <FONT FACE="times new roman" size="4">
+            RECIBO SUELDOS N.:<%=@sueldo.id%>
+          </FONT>
+     </td>
+    </tr>
+
+    <tr>       
+      <td align="right">
+          <FONT FACE="times new roman" size="3">
+             Fecha :<%= @sueldo.compra.data.strftime("%d/%m/%Y") %>
+          </FONT>
+       </td>
+    </tr>
+    <tr>
+      <td align="right">
+          <FONT FACE="times new roman" size="3">
+             Hora :<%=Time.now.strftime("%H:%M:%S")%>
+          </FONT>
+       </td>
+    </tr>
+
+    <tr>
+      <td colspan="4">
+        <FONT FACE="times new roman" size="3">
+          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </FONT>
+      </td>
+    </tr>
+
+    <tr>
+      <td align="left" colspan="2">
+        <table>
+          <tr>
+            <td>
+              <FONT FACE="times new roman" size="3">
+                Nombre :
+              </FONT>
+            </td>
+
+            <td  align="left">
+                <FONT FACE="times new roman" size="3">
+                  <%= @sueldo.persona_nome %>
+                </FONT>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+
+    </tr>
+
+    <tr>
+      <td align="left">
+        <table>
+          <tr>
+            <td>
+              <FONT FACE="times new roman" size="3">
+                C.I.:
+              </FONT>
+            </td>
+
+            <td  align="left">
+                <FONT FACE="times new roman" size="3">
+                  <%= @sueldo.ci.to_i %>
+                </FONT>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td align="left" colspan="2">
+        <table>
+          <tr>
+            <td>
+              <FONT FACE="times new roman" size="3">
+          Importe :
+              </FONT>
+            </td>
+
+            <td  align="left">
+                <FONT FACE="times new roman" size="3">
+                       <%=h number_to_currency(@sueldo.compra.total_guarani, :format=>' %n ', :precision => 0)  %>
+                </FONT>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+   </tr>
+
+    <tr>
+      <td align="left">
+        <table>
+          <tr>
+            <td>
+              <FONT FACE="times new roman" size="3">
+          En Letras :
+              </FONT>
+            </td>
+
+            <td  align="left">
+                <FONT FACE="times new roman" size="3">
+          <%=  @sueldo.compra.total_guarani.por_extenso.upcase  %>
+                </FONT>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+
+   </tr>
+
+    <tr>
+      <td>
+        <FONT FACE="times new roman" size="3">
+          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </FONT>
+      </td>
+    </tr>
+
+  
+    <tr height="200">
+      <td colspan="3" align="center" valign="top">
+        <FONT FACE="times new roman" size="3">
+
+          <table align="center" >
+    </table>
+
+        </FONT>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td   width="550">
+              <FONT FACE="times new roman" size="3">
+                ---------------------------------------------------------------
+              </FONT>
+            </td>
+
+            <td align="right">
+              <FONT FACE="times new roman" size="3">
+                     ---------------------------------------------------------------
+              </FONT>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td   width="550">
+              <FONT FACE="times new roman" size="3">
+                <%=  $empresa_nome%>
+              </FONT>
+            </td>
+
+            <td   width="350" align="center">
+              <FONT FACE="times new roman" size="3">
+                     <%=@sueldo.persona_nome%>
+              </FONT>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td colspan="2" align="right">
+        <FONT FACE="times new roman" size="3">
+          <b>            
+          </b>
+        </FONT>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <FONT FACE="times new roman" size="3">
+          Hecho por : <%=current_user.usuario_nome%>
+          Unidade por : <%=current_unidade.unidade_nome%>
+        </FONT>
+      </td>
+    </tr>
+
+
+  </table>
+
+</body>
+
+
+
+
+

@@ -1,0 +1,93 @@
+
+<% form_tag :action => "create" do  %>
+  <div id="tudo">
+    <div class="style1">MercoSys Pratic</div>
+    <div id='redondo'>
+
+
+<!--Unidade!-->
+      <p class="style2">Unidade:</p>
+      <p class="imput1">
+        <%= text_field_tag( 'campo_unidade',
+                            nil,
+                            :id       => "campo_unidade",
+                            :onchange => remote_function( :update   => "campo_unidade",
+                                                          :url      => { :action => :get_unidade},
+                                                                         :with   => "'campo_unidade='+this.value"),
+                                                                         :size   => 3
+        ) %>
+
+        <%= select("busca_01",
+                   "unidade_id", Unidade.all( :select => 'id,unidade_nome',
+                                              :order  => 'unidade_nome').collect {|p| [ p.unidade_nome, p.id ] }, { :include_blank => '_______________________________' })   %>
+
+      </p>
+
+<!--Conta!-->
+      <p class="style2">Cuenta:</p>
+      <p class="imput1">
+        <%= text_field_tag( 'campo_conta',
+                            nil,
+                            :id       => "campo_conta",
+                            :onchange => remote_function( :update   => "campo_conta",
+                                                          :url      => { :action => :get_conta},
+                                                                         :with   => "'campo_conta='+this.value"),
+                                                                         :size   => 3
+        ) %>
+
+        <%= select("busca_02",
+                   "conta_id", Conta.all( :select => 'id,nome',
+                                              :order  => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => '_______________________________' })   %>
+
+      </p>
+
+<!--Turno!-->
+      <p class="style2">Turno:</p>
+      <p class="imput1">
+        <%= text_field_tag( 'campo_turno',
+                            nil,
+                            :id       => "campo_turno",
+                            :onchange => remote_function( :update   => "campo_turno",
+                                                          :url      => { :action => :get_turno},
+                                                                         :with   => "'campo_turno='+this.value"),
+                                                                         :size   => 3
+        ) %>
+
+        <%= select("busca_03",
+                   "turno_id", Turno.all( :select => 'id,nome',
+                                              :order  => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => '_______________________________' })   %>
+
+      </p>
+
+<!--Usuario!-->
+      <p class="style2">Usuario:</p>
+      <p class="imput1">
+        <%= text_field_tag( 'campo_usuario',
+                            nil,
+                            :id       => "campo_usuario",
+                            :onchange => remote_function( :update => "campo_usuario",
+                                                          :url    => { :action => :get_usuario},
+                                                                       :with   => "'campo_usuario='+this.value"),
+                                                                       :size   => 3
+        ) %>
+
+        <%= select( "busca_04",
+                    "usuario_id", Usuario.all( :select => 'id,usuario_nome',
+                                               :order  => 'usuario_nome').collect {|p| [ p.usuario_nome, p.id ] }, { :include_blank => '_______________________________' })   %>
+
+      </p>
+      <p class="style2">Senha:</p>
+      <p  class="imput1"><input type="password" id="usuario_senha" class="input" name="usuario_senha" size="38" onkeypress="f(this)" onkeydown="f(this)" onkeyup="f(this)" /></p>
+
+
+      <p align="center"> <input type="submit" class="button" value="        Entrar       " /></p>
+      <div class="flash_notice">
+        <p align="center"><%= flash[:notice] %></p>
+      </div>
+    </div>
+    <small><span class="style3">Powered by</span> MercoSys <span class="style3">Version <%= $version %><%= $empresa %></span></small>
+  </div>
+<% end %>
+
+
+

@@ -1,0 +1,119 @@
+   
+<div class="group">
+  <table>
+    <tr class="head">
+      <td colspan="4">Contado</td>
+    </tr>
+
+    <% total       = 0 %>
+    <% saida       = 0 %>
+    <% qtd         = 0 %>
+    <% qtd_contado = 0 %>
+    <% total_quantidade_contado = 0 %>
+    <% total_contado    = 0 %>
+    <% for venda in @vendas_contado %>
+      <tr class = "<%= cycle("cor1", "cor2") %>">
+        <td width="80" align="center">    <%= h venda.id%></td>
+        <td width="80" align="center">    <%= h venda.data.strftime("%d/%m/%Y")%></td>
+        <td width="400" align="left">     <%= h venda.persona_nome%></td>
+        <td width="400" align="left">     <%= h venda.documento_numero_01%> - <%= h venda.documento_numero_02%> - <%= h venda.documento_numero%></td>
+        <td width="100" align="center">   <%= format("%.3f", venda.quantidade.to_f)%></td>
+        <td width="100" align="right">    <%=h number_to_currency(venda.total_guarani, :format=>' %n ', :precision => 0 )  %></td>
+        <% total_contado    = total_contado + venda.total_guarani.to_f %>
+        <% total_quantidade_contado = total_quantidade_contado + venda.quantidade.to_f %>
+        <% total         = total + venda.total_guarani.to_f %>
+        <% saida         = saida + venda.quantidade.to_f %>
+        <% qtd_contado   = qtd_contado + 1 %>
+        <% qtd           = qtd +1%>
+      </tr>
+    <% end %>
+      
+    <tr class="head">
+      <td colspan="4">Total de Vendas Contado : <%= qtd_contado%></td>
+      <td align="center"><%= format("%.3f", total_quantidade_contado.to_f)%></td>
+      <td align="right"><%= number_to_currency(total_contado, :format=>' %n ', :precision => 0 )%></td>
+    </tr>
+
+    <tr>
+      <td colspan="6" align="left">--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td>
+    </tr>
+
+    <tr class="head">
+      <td colspan="4">Credito</td>
+    </tr>
+
+
+    <% total_quantidade_credito = 0 %>
+    <% total_credito    = 0 %>
+    <% qtd_credito    = 0 %>
+    <% for venda in @vendas_credito %>
+      <tr class = "<%= cycle("cor1", "cor2") %>">
+        <td width="80" align="center">    <%= h venda.id%></td>
+        <td width="80" align="center">    <%= h venda.data.strftime("%d/%m/%Y")%></td>
+        <td width="400" align="left">     <%= h venda.persona_nome%></td>
+        <td width="400" align="left">     <%= h venda.documento_numero_01%> - <%= h venda.documento_numero_02%> - <%= h venda.documento_numero%></td>
+        <td width="100" align="center">   <%= format("%.3f", venda.quantidade.to_f)%></td>
+        <td width="100" align="right">    <%=h number_to_currency(venda.total_guarani, :format=>' %n ', :precision => 0 )  %></td>
+        <% total_credito    = total_credito + venda.total_guarani.to_f %>
+        <% total_quantidade_credito = total_quantidade_credito + venda.quantidade.to_f %>
+        <% total = total + venda.total_guarani.to_f %>
+        <% saida = saida + venda.quantidade.to_f %>
+        <% qtd_credito   = qtd_credito + 1 %>
+        <% qtd           = qtd +1%>
+      </tr>
+    <% end %>
+
+    <tr class="head">
+      <td colspan="4">Total de Vendas Credito : <%= qtd_credito%></td>
+      <td align="center"><%= format("%.3f", total_quantidade_credito.to_f)%></td>
+      <td align="right"><%= number_to_currency(total_credito, :format=>' %n ', :precision => 0 )%></td>           
+    </tr>
+    <tr>
+      <td colspan="6" align="left">--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td>
+    </tr>
+
+    <tr class="head">
+      <td colspan="4">Orden</td>
+    </tr>
+
+    <% total_quantidade_ordem = 0 %>
+    <% total_ordem    = 0 %>
+    <% qtd_ordem      = 0 %>
+    <% for venda in @vendas_ordem %>
+      <tr class = "<%= cycle("cor1", "cor2") %>">
+        <td width="80" align="center">    <%= h venda.id%></td>
+        <td width="80" align="center">    <%= h venda.data.strftime("%d/%m/%Y")%></td>
+        <td width="400" align="left">     <%= h venda.persona_nome%></td>
+        <td width="400" align="left">     <%= h venda.documento_numero_01%> - <%= h venda.documento_numero_02%> - <%= h venda.documento_numero%></td>
+        <td width="100" align="center">   <%= format("%.3f", venda.quantidade.to_f)%></td>
+        <td width="100" align="right">    <%=h number_to_currency(venda.total_guarani, :format=>' %n ', :precision => 0 )  %></td>
+        <% total_ordem    = total_ordem + venda.total_guarani.to_f %>
+        <% total_quantidade_ordem = total_quantidade_ordem + venda.quantidade.to_f %>
+        <% total = total + venda.total_guarani.to_f %>
+        <% saida = saida + venda.quantidade.to_f %>
+        <% qtd_ordem   = qtd_ordem + 1 %>
+        <% qtd           = qtd +1%>
+      </tr>
+    <% end %>
+
+    <tr class="head">
+      <td colspan="4">Total de Vendas Orden : <%= qtd_ordem%></td>
+      <td align="center"><%= format("%.3f", total_quantidade_ordem.to_f)%></td>
+      <td align="right"><%= number_to_currency(total_ordem, :format=>' %n ', :precision => 0 )%></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td>.</td>
+    </tr>
+
+
+    <tr class="head">
+      <td colspan="4">Total de Vendas : <%= qtd%></td>
+      <td align="center"><%= format("%.3f", saida.to_f)%></td>
+      <td align="right"><%= number_to_currency(total, :format=>' %n ', :precision => 0 )%></td>
+    </tr>
+  </table>
+</div>
+
+

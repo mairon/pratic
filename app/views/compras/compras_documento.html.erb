@@ -1,0 +1,106 @@
+
+<h1 align="right" id="header">.</h1>
+Documentos
+<div class="group">
+  <table>
+    <tr>
+      <td valign="top">
+        <table>
+          <tr>
+            <td>Fecha : <%=@compra.data.strftime("%d/%m/%Y")%> </td>
+
+            <td>Proveedor : <%=@compra.persona_nome%> </td>
+          </tr>
+
+          <tr>
+            <td>Cotacion : <%=format("%.2f",@compra.cotacao.to_f)%> </td>
+
+            <td>Total Prod.:  <%=format("%.3f",@produto_count.to_f )%> </td>
+          </tr>
+
+        </table>
+      </td>
+
+
+      <td>
+        <table>
+
+          <tr bgcolor="#e1e1e8">
+            <td >Total Productos U$ </td>
+            <td align="right"><%=h number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ",")  %></td>
+          </tr>
+            
+          <tr>
+            <td>Total Productos Gs.: </td>
+            <td align="right">   <%=h number_to_currency(@produto_sum_guarani, :format=>' %n ',:precision => 0)  %> </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+
+
+
+<table>
+  <tr>
+    <td>
+      <div class="group">
+        <table>
+          <tr>
+            <td>
+              <div id="compras_financas">
+                <%= render :partial=>"index_documento", :locals=>{:compras_documentos => @compra.compras_documentos} %>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td width="925" align="right" >
+              <%=h number_to_currency(@total_dolar_documento, :format=>' %n ', :separator => ",") %>
+            </td>
+            <td width="145" align="center">
+              <%=h number_to_currency(@total_iva_dolar, :format=>' %n ', :separator => "," ) %>
+            </td>
+            <td  align="right" >
+              <%=h number_to_currency(@total_guarani_documento, :format=>' %n ', :precision => 0 ) %>
+            </td>
+            <td width="150" align="center">
+              <%=h number_to_currency(@total_iva_guarani, :format=>' %n ', :precision => 0 ) %>
+            </td>
+          </tr>
+
+
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<a href="/compras/show/<%=params[:id]%>" > << Volver</a> |
+<a href="/compras/total_documento/<%=params[:id]%>" > Serguir >></a> |
+
+<a href="/compras/novo_documento/<%=params[:id]%>" >Nuevo</a>
+<%= hidden_field_tag :id, @compra.id %>
+
+<script>
+
+  document.onkeydown=function(e)
+  {
+    if(e.which == 115)
+      location.href="/compras/novo_documento/"+ document.getElementById('id').value;
+    //SEGUIR FINANCAS
+    if(e.which == 39)
+      location.href="/compras/total_documento/"+ document.getElementById('id').value;
+    //VOLTAR  EDIT
+    if(e.which == 37)
+      location.href="/compras/show/"+ document.getElementById('id').value;
+    //LISTA DE PRODUTOS
+
+  }
+
+</script>

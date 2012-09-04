@@ -1,0 +1,72 @@
+
+<h1 align="right" id="header">.</h1>
+Finanzas
+<div class="group">
+  <table>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td>Fecha : <%=@compra.data.strftime("%d/%m/%Y")%> </td>
+            <td>Compra :
+              <%if @compra.tipo == 0 %>
+                CONTADO
+              <%else%>
+                CREDITO</td>
+            <%end%>
+
+          </tr>
+          <tr>
+            <td>Proveedor : <%=@compra.persona_nome%> </td>
+          </tr>
+          <tr>
+            <td>Cotacion : <%=format("%.2f",@compra.cotacao.to_f)%> </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>  
+
+<table>
+  <tr>
+    <td>
+      <div class="group">
+        <table>
+          <tr>
+            <td>
+              <div id="compras_financas">
+                <%= render :partial=>"index_financa", :locals=>{:compras_financas => @compra.compras_financas} %>
+              </div>
+
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+<a href="/compras/compras_documento/<%=params[:id]%>" > << Volver</a> |
+<a href="/compras" > Fin >></a> |
+<a href="/compras/novo_financa/<%=params[:id]%>" >Nuevo</a> 
+
+<%= hidden_field_tag :id, @compra.id %>
+<script>
+
+
+  document.onkeydown=function(e)
+  {
+    if(e.which == 115)
+      location.href="/compras/novo_financa/"+ document.getElementById('id').value;
+    //SEGUIR FIM
+    if(e.which == 39)
+      location.href="/compras";
+    //VOLTAR  EDIT
+    if(e.which == 37)
+      location.href="/compras/prorateo/"+ document.getElementById('id').value;
+    //LISTA DE PRODUTOS
+
+  }
+
+</script>

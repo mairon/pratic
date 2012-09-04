@@ -1,0 +1,33 @@
+<h1 align="right" id="header">Picos</h1>
+<%= link_to 'Nuevo', new_bomba_path %>
+
+<div class="group">
+  <table>
+    <tr>
+      <td width="50" align="center">Cod.</td>
+      <td width="200" align="center">Descripcion</td>
+      <td width="200" align="center">Tanque</td>
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+      <% @bombas.each do |bomba| %>
+        <tr class       ="<%= cycle("cor1", "cor2")%>"
+            onMouseOver ="javascript:this.style.backgroundColor='#949494'"
+            onMouseOut  ="javascript:this.style.backgroundColor=''" >
+
+          <td width="50" align="center" ><%=h bomba.id %></td>
+          <td width="200" align="left"><%=h bomba.nome %></td>
+          <td width="200" align="left"><%=h bomba.deposito_nome %></td>
+          <td><%= link_to 'Editar', edit_bomba_path(bomba) %></td>
+          <td><%= link_to 'Borrar', bomba, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+
+
+</div>
+
+

@@ -1,0 +1,39 @@
+
+
+
+
+  <table border="1">
+        <tr>
+          <td width="50" align="center">Clase</td>
+          <td width="50" align="center">Grupo</td>
+          <td width="100" align="center">Cod. Barra</td>
+          <td width="500" align="center">Produto</td>
+          <td width="100" align="center">Stock Min.</td>
+          <td width="100" align="center">Stock Max</td>
+          <td width="100" align="center">Saldo</td>
+
+        </tr>
+
+      <% for produto in @produtos %>
+        <tr class = "<%= cycle("cor1", "cor2")%>">
+          <td width="50" align="center"> <%=h produto.clase_id%> </td>
+          <td width="50" align="center"> <%=h produto.grupo_id%> </td>
+          <td width="50" align="center"> <%=h produto.barra%> </td>
+          <td width="500" align="left"> <%=h produto.nome%> </td>
+          <td width="100" align="left"> <%=h produto.stock_minimo%> </td>
+          <td width="100" align="left"> <%=h produto.stock_maximo%> </td>
+          <td width="100" align="left"> <%=h produto.stock_maximo%> </td>
+
+
+        </tr>
+      <% end %>
+    </table>
+
+
+<style type="text/css">
+  table { border-collapse: collapse;
+          font-size: 7px}
+
+  .titulo{font-size: 22px}
+  td,tr { border: 1px solid black; }
+</style>

@@ -1,0 +1,84 @@
+<h1 align="right" id="header">Adelantos a Proveedores</h1>
+
+<% form_for(@adelantos_proveedor) do |f| %>
+   <%= f.error_messages %>
+
+   Adelantos a Proveedores
+   <div class="group_cd">
+      <table>
+         <tr>
+            <td align="right">Fecha :</td>
+            <td><%= f.date_select :data,{},{:onblur => "AdelantoProveedorDataCotacao()"} %></td>
+            <%= hidden_field_tag( 'key' ) %>
+         </tr>
+
+         <tr>            
+           <td align="right">Cotización :</td>
+           <td><%= text_field :adelantos_proveedor,
+                               :cotacao ,
+                               { :size    => 15,
+                                 :onfocus  => remote_function(:update => "key",
+                                                             :url    => { :action => :get_moeda},
+                                                                          :with   => "'key='+ key.value ") } %></td>
+
+         </tr>
+
+         <tr>
+            <td></td>
+            <td>
+               <fieldset>
+                  <legend>Moneda</legend>
+                  <%= f.radio_button :moeda, 1,  :Checked => "True" %> Gs.
+                  <%= f.radio_button :moeda, 0 %> Dolar
+               </fieldset>
+            </td>
+         </tr>
+
+
+         <tr>
+            <td align="right">Proveedor :</td>
+            <td><%= f.collection_select :persona_id, Persona.all(:select => 'id,nome',:conditions => ["tipo_fornecedor = 1"],:order => '2'),:id,:nome %></td>
+         </tr>
+
+         <tr>
+            <td align="right">Documento :</td>
+            <td><%= f.collection_select :documento_id, Documento.all(:select => 'id,nome',:order => '2'),:id,:nome %></td>
+         </tr>
+
+         <tr>
+            <td align="right">Cuenta :</td>
+            <td><%= f.collection_select :conta_id, Conta.all(:select => 'id,nome',:order => '2'),:id,:nome %></td>
+         </tr>
+
+         <tr>
+            <td align="right">Cheque :</td>
+            <td><%= f.text_field :cheque, :size => 15 %></td>
+
+            <td align="right">Diferido :</td>
+            <td><%= f.date_select :diferido, :size => 15 %></td>
+         </tr>
+
+         <tr>
+            <td align="right">Valor Gs.:</td>
+            <td><%= f.text_field :valor_guarani, 
+                                 :size => 15,
+                                 :onchange => "AdelantoProveedorGuaraniDolar()" %></td>
+
+            <td align="right">Valor U$.:</td>
+            <td><%= f.text_field :valor_dolar, 
+                                 :size => 15,
+                                 :onchange => "AdelantoProveedorDolarGuarani()"%></td>
+
+         </tr>
+
+         <tr>
+            <td align="right" valign="top">Concepto :</td>
+            <td colspan="3"><%= f.text_area :concepto, :rows => 5, :cols => 65 %></td>
+         </tr>
+
+      </table>
+   </div>
+
+      <%= f.submit "   Grabar   ",:disable_with => "Aguarde..."  %> | <%= link_to 'Volver', adelantos_proveedors_path %>
+<% end %>
+

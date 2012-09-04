@@ -1,0 +1,41 @@
+<body onload="DataFinal(),CampoInicio()">
+  <h1 align="right" id="header">.</h1>
+  Relatorio de Stock
+  <div class="group">
+    <h2>
+      <%form_tag relatorio_custo_produto_compras_custos_path, :method => "get" do%>
+        <table>
+
+          <tr>
+            <td> Fecha:</td>
+            <td><input name="inicio" id="inicio"  size="10"  onkeyup="Formatadata(this,event)" />
+              Hasta
+              <input name="final"  id="final"   size="10" onkeyup="Formatadata(this,event)"/></td>
+          </tr>
+
+          <tr>
+            <td>Producto :</td>
+
+            <td>
+              <%= text_field_tag( 'campo_produto',
+                nil,
+                :id => "campo_produto",
+                :onchange => remote_function(:update => "campo_produto",
+                  :url => { :action => :get_produto, :id => 1},
+                  :with => "'campo_produto='+this.value"),
+                :size => 5
+              ) %>
+
+
+              <%=   select("busca", "produto", Produto.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => true })   %>
+              <%=submit_tag "     Buscar     "%>
+            </td>
+
+          <% end %>
+        </tr>
+      </table>
+    </h2>
+  </div>
+</body>
+
+

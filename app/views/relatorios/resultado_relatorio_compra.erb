@@ -1,0 +1,38 @@
+   
+<div class="group">
+  <table>
+
+        <% total_quantidade  = 0 %>
+        <% total_guarani     = 0 %>
+        <% qtd               = 0 %>
+
+        <% for cp in @compras %>
+          <% quantidade = ComprasProduto.sum(:quantidade, :conditions => ["compra_id = #{cp.id}"]  ) %>
+          <tr class = "<%= cycle("cor1", "cor2") %>">
+            <td width="80" align="center">    <%= cp.id%></td>
+            <td width="80" align="center">    <%= cp.data.strftime("%d/%m/%Y")%></td>
+            <td width="400" align="left">     <%= cp.persona_nome%></td>
+            <td width="400" align="left">     <%= cp.documento_numero_01%> - <%= cp.documento_numero_02%> - <%= cp.documento_numero%></td>            
+            <td width="100" align="right">    <%=h number_to_currency(quantidade, :format=>' %n ', :precision => 0 )  %></td>
+            <td width="100" align="right">    <%=h number_to_currency(cp.total_guarani, :format=>' %n ', :precision => 0 )  %></td>
+
+            <% total_quantidade  = total_quantidade + quantidade.to_f %>
+            <% total_guarani     = total_guarani + cp.total_guarani.to_f %>
+            <% qtd               = qtd +1%>
+          </tr>
+
+        <% end %>
+
+        <tr class="head">
+          
+          <td align="left" colspan="4">Anterior :<%= number_to_currency(@compras_anterior, :format=>' %n ', :precision => 0 )%></td>
+          <td align="right"><%= number_to_currency(total_quantidade, :format=>' %n ', :precision => 0 )%></td>
+          <td align="right"><%= number_to_currency(total_guarani, :format=>' %n ', :precision => 0 )%></td>
+        </tr>
+        <tr>
+          <td colspan="4">Total  : <%= qtd%></td>
+        </tr>
+  </table>
+</div>
+
+

@@ -1,0 +1,24 @@
+<h1 align="right" id="header">Orden De Servicio</h1>
+
+<%= link_to 'Volver', ordem_servicos_path %>
+<div class="group">
+<%= render :partial=>"index_produto", :locals=>{:ordem_servicos_produtos => @ordem_servico.ordem_servicos_produtos} %>
+</div>
+
+<%= link_to 'Volver', ordem_servicos_path %> |
+<a href="/ordem_servicos/servico_executado/<%=params[:id]%>" >Servicios</a> |
+<a href="/ordem_servicos/novo_produto/<%=params[:id]%>" >Nuevo</a>
+<%= hidden_field_tag :id, @ordem_servico.id %>
+
+
+<script>
+
+
+  document.onkeydown=function(e)
+{
+  //BOTAO F4
+    if(e.which == 115)
+        location.href="http://localhost:3000/ordem_servicos/novo_produto/"+ document.getElementById('id').value;
+}
+
+</script>

@@ -1,0 +1,9 @@
+
+<% if params[:status] == "0" %>
+   <%= render :partial => "venda_dia_resume_#{$empresa}"  %>
+<% elsif  params[:status] == "2"%>
+   <%= render :partial => "venda_resumen_produto"  %>
+<% else %>
+   <%= render :partial => "venda_dia_detalhado_#{$empresa}"  %>
+<% end %>
+

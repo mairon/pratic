@@ -1,0 +1,38 @@
+<h1 align="right" id="header">Sueldos</h1>
+Sueldos - Ingresos
+<div class="group">
+  <table >
+    <tr class = "<%= cycle("cor1", "cor2") %>">
+      <td align="right">Mes :</td>
+      <td><%= @sueldo.mes %>/<%= @sueldo.ano %> </td>
+      <td align="right">Empleado :</td>
+      <td><%= @sueldo.persona_nome %> </td>
+
+    </tr>
+
+    <tr class = "<%= cycle("cor1", "cor2") %>">
+      <td align="right">Salario :</td>
+      <td width="250" align="right"><%= number_to_currency(@sueldo.salario, :format=>' %n ', :precision => 0)  %> </td>
+      <td align="right">Salario Min.:</td>
+      <td width="250" align="right"><%= number_to_currency(@sueldo.salario_minimo, :format=>' %n ', :precision => 0) %> </td>
+    </tr>
+
+    <tr class = "<%= cycle("cor1", "cor2") %>">
+      <td align="right">Comision :</td>
+      <td width="250" align="right"><%= number_to_currency(@sueldo.comissao, :format=>' %n ', :precision => 0) %> </td>
+      <td align="right">C.I.:</td>
+      <td width="250" align="right"><%= number_to_currency(@sueldo.ci, :format=>' %n ', :precision => 0) %> </td>
+    </tr>
+
+  </table>
+</div>
+<p><a href="/sueldos/form_sueldos_detalhes/<%=@sueldo.id%>" id="novo" >Nuevo</a></p>
+<%= render :partial=>"index_sueldos_detalhes", :locals=>{:sueldos_detalhes => @sueldo.sueldos_detalhes  } %>
+
+<%= link_to 'Volver', edit_sueldo_path(@sueldo) %> |
+<% if @sueldo.compra_id.to_i > 0 %>
+<a href="/sueldos/fim_detalhes/<%=params[:id]%>" >Seguir >></a> |
+<% else %>
+<a href="/sueldos/detalhes_financeiros/<%=params[:id]%>" >Seguir >></a> |
+<% end %>
+<%= link_to 'Salir', :action => 'index' %>

@@ -1,0 +1,2 @@
+module BombasHelper
+end

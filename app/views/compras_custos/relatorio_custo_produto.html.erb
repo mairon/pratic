@@ -1,0 +1,41 @@
+
+Custo Producto
+<div class="group">
+   <table>
+      <tr>
+         <td width="80" align="center">Fecha</td>
+         <td width="400" align="center">Proveedor</td>
+         <td width="400" align="center">Producto</td>
+         <td width="80" align="center">Cantidad</td>
+         <td width="80" align="center">Custo</td>
+      </tr>
+   </table>
+
+   <div class="rolagem" dir="div">
+      <%totcustod = 0%>
+      <% for custo in @custo %>
+         <table>
+            <tr class = "<%= cycle("cor1", "cor2") %>">
+              <% if  custo.persona_nome == nil %>
+                 <td  align="left">   <%=h custo.produto_nome%></td>
+              <% else %>
+                 <td width="80" align="center">   <%=h custo.data.strftime("%d/%m/%Y")%></td>
+                 <td width="400" align="left">     <%=h custo.persona_nome%></td>
+                 <td width="400" align="left">     <%=h custo.produto_nome%></td>
+                 <td width="80" align="center">     <%=h format("%.3f",custo.quantidade.to_f)%></td>
+                 <td width="80" align="right">     <%=h custo.custo_contabil_dolar%></td>
+                 <% totcustod = totcustod + custo.custo_contabil_dolar %>
+              <% end %>
+            </tr>
+         </table>
+      <% end %>
+   </div>
+      <table>
+         <tr>
+            <td width="1050" align="right">
+              <%=totcustod%>
+           </td>
+         </tr>
+      </table>
+</div>
+<%= link_to '<< Volver', :action => 'index' %>

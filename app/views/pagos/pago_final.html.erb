@@ -1,0 +1,75 @@
+<h1 align="right" id="header">pagos</h1>
+<br/>
+
+  <div class="group">
+    <table>
+      <tr>
+        <td>Fecha :</td>
+        <td><%= @pago.data.strftime("%d/%m/%Y") %></td>
+      </tr>
+      <tr>
+        <td>Cotacion :</td>
+        <td><%= number_to_currency( @pago.cotacao,       :format =>' %n ', :precision => 0 ) %></td>
+      </tr>
+      <tr>
+
+        <td>Moeda :</td>
+        <%  if @pago.cotacao == 0 %>
+          <td>DOLAR</td>
+        <%else%>
+          <td>GUARANIS</td>
+        <%end%>
+
+      </tr>
+
+      <tr>
+        <td>Proveedor :</td>
+        <td><%= @pago.persona_nome %></td>
+        <td>Ruc :</td>
+        <td><%= @pago.ruc%></td>
+      </tr>
+    </table>
+  </div>
+
+<br/>
+<%= render :partial=>"index_financa", :locals=>{:pagos_financas => @pago.pagos_financas} %>
+<br/>
+
+  <div class="group">
+    <table>
+       <% if @pago.moeda == 0 %>
+      <tr>
+        <td><font color="green" size="5">Total U$ :</font></td>
+        <td><font color="green" size="5"><%= number_to_currency( @total_pago_dolar,       :format =>' %n ', :separator => "," ) %></font></td>
+
+        <td><font color="green" size="5">Descuento U$ :</font></td>
+        <td><font color="green" size="5"><%= number_to_currency( @total_desconto_dolar,       :format =>' %n ', :separator => "," ) %></font></td>
+
+        <td><font color="green" size="5">Interes U$ :</font></td>
+        <td><font color="green" size="5"><%= number_to_currency( @total_interes_dolar,       :format =>' %n ', :separator => "," ) %></font></td>
+
+        <td width="300"><font color="green" size="5"></font></td>
+        <td><font color="green" size="5"><%= number_to_currency( @total_pago_dolar.to_f + @total_interes_dolar.to_f - @total_desconto_dolar.to_f,       :format =>' %n ', :separator => "," ) %></font></td>
+
+
+       <% else %>
+        <td><font color="red" size="5">Total Gs.:</font></td>
+        <td><font color="red" size="5" ><%= number_to_currency( @total_pago_guarani,       :format =>' %n ', :precision => 0 )  %></font></td>
+
+        <td><font color="red" size="5">Desconto Gs.:</font></td>
+        <td><font color="red" size="5" ><%= number_to_currency( @total_desconto_guarani,       :format =>' %n ', :precision => 0 )  %></font></td>
+
+        <td><font color="red" size="5">Interes Gs.:</font></td>
+        <td><font color="red" size="5" ><%= number_to_currency( @total_interes_guarani,       :format =>' %n ', :precision => 0 )  %></font></td>
+
+        <td width="300"><font color="red" size="5"></font></td>
+        <td><font color="red" size="5"><%= number_to_currency( @total_pago_guarani.to_f + @total_interes_guarani.to_f - @total_desconto_guarani.to_f,       :format =>' %n ', :separator => "," ) %></font></td>
+
+        <% end %>
+      </tr>
+    </table>
+  </div>
+<br/>
+
+<%= render :partial=>"form_financa", :locals=>{:pagos_financa=>PagosFinanca.new(:pago_id=>@pago.id)} %>
+

@@ -1,0 +1,148 @@
+<h1 align="right" id="header">.</h1>
+Generar Acientos Contables
+<div class="group">
+  <h2>
+    <%form_tag resultado_generar_acientos_contables_relatorios_path, :method => "get" do%>
+      <table>
+
+        <tr valign="top">
+          <td> Fecha:</td>
+          <td>
+            <fieldset>
+              <table>
+                <tr>
+                  <td>
+                    Mes<input name="mes" id="mes"  size="5"/>
+                    Año<input name="ano" id="ano"  size="5"/>
+                  </td>
+                </tr>
+              </table>
+            </fieldset>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="button" onclick="pesquisa(document.getElementById('mes').value,document.getElementById('ano').value)" value="Generar..."/>
+          </td>
+
+        </tr>        
+      </table>
+    <% end %>
+  </h2>
+</div>
+    <div id="pagina">
+    </div>
+<div id="msg"></div>
+
+
+    <script language="javascript">
+
+function VendaCampoFiltro()              //
+          {
+           document.getElementById("filtro").focus();
+          }
+
+
+      function pesquisa(mes,ano)
+
+      {
+      url="/relatorios/resultado_generar_acientos_contables?mes="+mes+"&ano="+ano+"";
+
+
+        ajax(url);
+
+      }
+
+
+      function ajax(url)
+
+      {
+        req = null;
+
+        // Procura por um objeto nativo (Mozilla/Safari)
+
+        if (window.XMLHttpRequest) {
+
+          req = new XMLHttpRequest();
+
+          req.onreadystatechange = processReqChange;
+
+          req.open("GET",url,true);
+
+          req.send(null);
+
+          // Procura por uma versão ActiveX (IE)
+
+        } else if (window.ActiveXObject) {
+
+          req = new ActiveXObject("Microsoft.XMLHTTP");
+
+          if (req) {
+
+
+
+            req.onreadystatechange = processReqChange;
+
+            req.open("GET",url,true);
+
+
+
+            req.send();
+
+          }
+
+        }
+
+      }
+
+
+
+      function processReqChange()
+
+      {
+
+
+
+        // apenas quando o estado for "completado"
+
+        if (req.readyState == 4) {
+
+
+
+          // apenas se o servidor retornar "OK"
+
+
+
+          if (req.status ==200) {
+
+
+
+            // procura pela div id="pagina" e insere o conteudo
+
+            // retornado nela, como texto HTML
+
+
+
+            document.getElementById('pagina').innerHTML = req.responseText;
+
+
+
+          } else {
+
+            alert("Houve um problema ao obter os dados:n" + req.statusText);
+
+          }
+
+        }
+
+      }
+    </script>
+
+
+
+
+
+
+
+

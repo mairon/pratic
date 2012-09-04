@@ -1,0 +1,115 @@
+<h1 align="right" id="header">Orden De Servicio</h1>
+<%= link_to 'Volver', ordem_servicos_path %>
+<% form_for(@ordem_servico) do |f| %>
+  <%= f.error_messages %>
+  <div class="group">
+    <table>
+      <tr>
+        <td><b>fecha :</b></td>
+        <td><%= f.date_select :data %></td>
+      </tr>
+      <tr>
+        <td><b>Cliente :</b></td>
+        <td>
+          <% if params[:action] == 'new'%>
+            <%= hidden_field_tag( :persona_busca ,nil) %>
+            <%= f.hidden_field :persona_nome%>
+            <%= text_field_with_auto_complete  :venda_persona_busca,nil,
+              {:onblur => remote_function(:update => "persona_busca",
+                :url => { :action => :get_cliente},
+                :with => "'persona_busca='+this.value"),
+              :onkeydown => "f(this)",
+              :onkeyup => "f(this)" },
+              {:url => formatted_personas_path(:js),
+              :method => :get,
+              :param_name => 'busca'}
+          %>
+          <%else%>
+            <%= hidden_field_tag( :persona_busca ,nil) %>
+            <%= f.hidden_field :persona_nome%>
+            <%= text_field_with_auto_complete  :venda_persona_busca,nil,
+              {:onblur => remote_function(:update => "persona_busca",
+                :url => { :action => :get_cliente},
+                :with => "'persona_busca='+this.value"),
+              :onkeydown => "f(this)",
+              :onkeyup => "f(this)",
+              :value => @ordem_servico.persona_nome},
+              {:url => formatted_personas_path(:js),
+              :method => :get,
+              :param_name => 'busca'}
+          %>
+
+
+          <%end%>
+        </td>
+      </tr>
+      <tr>
+        <td>Direcion :</td>
+        <td><%= f.text_field :direcao, :size => 20 %></td>
+        <td>Ciudad :</td>
+        <td><%= f.text_field :cidade, :size => 20 %></td>
+      </tr>
+      <tr>
+        <td>Telefone :</td>
+        <td><%= f.text_field :telefone, :size => 20 %></td>
+      </tr>
+
+    </table>
+    <fieldset>
+      <legend>Datos de la Maquina</legend>
+      <table>
+        <tr>
+          <td>Modelo :</td>
+          <td><%= f.text_field :modelo, :size => 30,
+              :onkeydown => "f(this)",
+              :onkeyup => "f(this)"
+          %></td>
+
+          <td>Serie :</td>
+          <td><%= f.text_field :serie, :size => 20,
+              :onkeydown => "f(this)",
+              :onkeyup => "f(this)"
+
+          %></td>
+
+        </tr>
+
+        <tr>
+          <td>Chassi :</td>
+          <td><%= f.text_field :chassi, :size => 20,
+              :onkeydown => "f(this)",
+              :onkeyup => "f(this)"
+
+          %></td>
+
+          <td>Color :</td>
+          <td><%= f.text_field :color, :size => 20,
+              :onkeydown => "f(this)",
+              :onkeyup => "f(this)"
+
+          %></td>
+        </tr>
+
+      </table>
+      <fieldset>
+        <legend>Solicitacion </legend>
+        <table>
+          <tr>
+            <td>
+              <%= f.text_area :solicitacao, :size => '70x3',
+                :onkeydown => "f(this)",
+                :onkeyup => "f(this)"
+
+            %>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </fieldset>
+  </div>
+
+  <%= link_to 'Volver', ordem_servicos_path %>
+  <%= f.submit "  Grabar  " %>
+<% end %>
+
+

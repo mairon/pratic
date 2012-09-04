@@ -1,0 +1,81 @@
+<h1 align="right" id="header">Cobros</h1>
+Deudas
+
+  <%= render :partial=>"index_detalhe", :locals=>{:cobros_detalhes => @cobro.cobros_detalhes} %>
+<div class="group">
+  <table>
+     <% if @cobro.moeda == 0 %>
+    <tr>
+      <td>Total Dolar :</td>
+      <td><%= number_to_currency( @total_cobro_dolar,       :format =>' %n ', :separator => "," ) %></td>
+    </tr>
+    <% else %>
+    <tr>
+      <td>Total Gs.:</td>
+      <td><%= number_to_currency( @total_cobro_guarani,       :format =>' %n ', :precision => 0 ) %></td>
+    </tr>
+    <% end %>    
+  </table>
+  <form>
+      <td> Fecha:</td>
+  <td>
+     <input name="inicio" id="inicio"  size="10"  onkeyup="Formatadata(this,event)" />
+      Hasta
+     <input name="final"  id="final"   size="10" onkeyup="Formatadata(this,event)"/>
+  </td>
+
+  </form>
+</div>
+<a href="/cobros/<%=params[:id]%>/edit" > << Volver</a> |
+<a href="#" onclick="SeguirCobros()">Seguir >></a> |
+<a href="/cobros/nova_cota/<%=params[:id]%>" >Nuevo</a> |
+<a href="#"onclick="FiltroDividas()" >Selecionar</a> |
+<a href="/cobros/gera_pdf_cobros/<%=params[:id]%>.pdf" >  Pdf  </a>
+
+<%= hidden_field_tag :id, @cobro.id %>
+<%= hidden_field_tag :count, @count %>
+<%= hidden_field_tag :cliente, @cobro.persona_id %>
+
+
+<script>
+
+
+function FiltroDividas() //
+{
+    location.href="/cobros/selecao_dividas/"+ document.getElementById('id').value+"?busca="+document.getElementById('cliente').value+"&inicio="+document.getElementById('inicio').value+"&final="+document.getElementById('final').value;
+
+}
+
+function SeguirCobros() //
+{
+   id = document.getElementById('id').value
+        {
+            if ( document.getElementById('count').value <= 0  )
+                {
+                   alert ('Es Necessario Agregar Los Cobros Pulse F4');
+                   return false;
+                }
+            else
+                {
+                    location.href="/cobros/cobro_final/" + id ;
+                }
+
+         }
+
+}
+  document.onkeydown=function(e)
+{
+  //BOTAO F4
+  if(e.which == 115)
+    location.href="/cobros/selecao_dividas/"+ document.getElementById('id').value+"?busca="+document.getElementById('cliente').value+"&inicio="+document.getElementById('inicio').value+"&final="+document.getElementById('final').value;
+          //SEGUIR FINANCAS
+        if(e.which == 39)
+          location.href="/cobros/cobro_final/"+ document.getElementById('id').value;
+        //VOLTAR  EDIT
+        if(e.which == 37)
+          location.href="/cobros/edit/"+ document.getElementById('id').value;
+        //LISTA DE PRODUTOS
+
+}
+
+</script>

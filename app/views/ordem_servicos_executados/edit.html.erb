@@ -1,0 +1,12 @@
+<h1>Editing ordem_servicos_executado</h1>
+
+<% form_for(@ordem_servicos_executado) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @ordem_servicos_executado %> |
+<%= link_to 'Back', ordem_servicos_executados_path %>

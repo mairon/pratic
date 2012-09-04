@@ -1,0 +1,188 @@
+
+<div class="group">
+
+
+  <table border="1">
+    <%if params[:tipo] == '0' %>
+      <tr>
+        <td class="titulo" colspan="11" align="center" bgcolor="#C0C0C0"><h1>Libro de Compras - Ley 125/91</h1></td>
+        <td align="center" bgcolor="#C0C0C0">Año: <%= params[:ano] %> </td>
+        <td align="center" bgcolor="#C0C0C0">Mes: <%= params[:mes] %> </td>
+      </tr>
+      <tr height="20">
+        <td colspan="3" align="center" bgcolor="#C0C0C0" >Lanzamento</td>
+        <td colspan="3" align="center" bgcolor="#C0C0C0" >Documento</td>
+        <td colspan="1" align="center" bgcolor="#C0C0C0" >Proveedores</td>
+        <td colspan="6" align="center" bgcolor="#C0C0C0" >Valores - Guaranies</td>
+      </tr>
+    <%end%>
+    <tr height="15">
+      <td width="25" align="center" bgcolor="#C0C0C0" >Dia</td>
+      <td width="55" align="center" bgcolor="#C0C0C0">Numero</td>
+      <td width="40" align="center" bgcolor="#C0C0C0">Cotiz.</td>
+      <td width="145" align="center" bgcolor="#C0C0C0">Numero</td>
+      <td width="135" align="center" bgcolor="#C0C0C0">Documento</td>
+      <td width="70" align="center" bgcolor="#C0C0C0">Fecha</td>
+      <td width="315" align="center" bgcolor="#C0C0C0">Proveedor</td>
+      <td width="100" align="center" bgcolor="#C0C0C0">Exentas</td>
+      <td width="100" align="center" bgcolor="#C0C0C0">Gravadas 05%</td>
+      <td width="100" align="center" bgcolor="#C0C0C0"> Impuestos 05%</td>
+      <td width="100" align="center" bgcolor="#C0C0C0">Gravadas 10%</td>
+      <td width="100" align="center" bgcolor="#C0C0C0">Impuestos 10%</td>
+      <td width="110" align="center" bgcolor="#C0C0C0">Total</td>
+    </tr>
+
+    <tr>
+      <td colspan="6"></td>
+      <td colspan="9" ><b>COMPRAS MERCADERIAS INTERNAS</b></td>
+    </tr>
+    <% compra_exentas     = 0 %>
+    <% compra_gravada_05  = 0 %>
+    <% compra_imposto_05  = 0 %>
+    <% compra_gravada_10  = 0 %>
+    <% compra_imposto_10  = 0 %>
+    <% compra_total_guarani = 0 %>
+    <% @compra.each do |compra| %>
+      <tr>
+        <% if compra.tipo_compra == 0  %>
+          <%if params[:tipo] == '0'%>
+            <td width="25" align="center"><%= compra.data.strftime("%d") %></td>
+            <td width="60" align="center" ><%= compra.id %></td>
+            <td width="40" align="center" ><%= number_to_currency(compra.cotacao, :format=>' %n ', :precision => 0) %></td>
+            <td width="120" align="center" ><%= compra.documento_numero_01 %> - <%= compra.documento_numero_02 %> - <%= compra.documento_numero %> </td>
+            <td width="115" align="left" ><%= compra.documento_nome %></td>
+            <td width="50" align="center" ><%= compra.data.strftime("%d/%m/%Y") %></td>
+            <td width="265" align="left" ><%= compra.persona_nome %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.exentas_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="85" align="right" ><%= number_to_currency(compra.gravadas_05_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="85" align="right" ><%= number_to_currency(compra.imposto_05_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="75" align="right" ><%= number_to_currency(compra.gravadas_10_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="75" align="right" ><%= number_to_currency(compra.imposto_10_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.total_guarani, :format=>' %n ', :precision => 0) %></td>
+          <% else %>
+            <td width="25" align="center"><%= compra.data.strftime("%d") %></td>
+            <td width="55" align="center" ><%= compra.id %></td>
+            <td width="40" align="center" ><%= number_to_currency(compra.cotacao, :format=>' %n ', :precision => 0) %></td>
+            <td width="140" align="center" ><%= compra.documento_numero_01 %> - <%= compra.documento_numero_02 %> - <%= compra.documento_numero %> </td>
+            <td width="135" align="left" ><%= compra.documento_nome %></td>
+            <td width="100" align="center" ><%= compra.data.strftime("%d/%m/%Y") %></td>
+            <td width="315" align="left" ><%= compra.persona_nome %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.exentas_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.gravadas_05_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.imposto_05_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.gravadas_10_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.imposto_10_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="110" align="right" ><%= number_to_currency(compra.total_guarani, :format=>' %n ', :precision => 0) %></td>
+          <% end %>
+          <% compra_exentas     = compra_exentas     + compra.exentas_guarani%>
+          <% compra_gravada_05  = compra_gravada_05  + compra.gravadas_05_guarani%>
+          <% compra_imposto_05  = compra_imposto_05  + compra.imposto_05_guarani%>
+          <% compra_gravada_10  = compra_gravada_10  + compra.gravadas_10_guarani%>
+          <% compra_imposto_10  = compra_imposto_10  + compra.imposto_10_guarani%>
+          <% compra_total_guarani = compra_total_guarani + compra.total_guarani%>
+
+        <% end %>
+      <% end %>
+    </tr>
+    <tr>
+      <td colspan="7"></td>
+      <td align="right" ><%= number_to_currency(compra_exentas, :format=>' %n ', :precision => 0) %></td>
+      <td align="right" ><%= number_to_currency(compra_gravada_05, :format=>' %n ', :precision => 0) %></td>
+      <td align="right" ><%= number_to_currency(compra_imposto_05, :format=>' %n ', :precision => 0) %></td>
+      <td align="right" ><%= number_to_currency(compra_gravada_10, :format=>' %n ', :precision => 0) %></td>
+      <td align="right" ><%= number_to_currency(compra_imposto_10, :format=>' %n ', :precision => 0) %></td>
+      <td align="right" ><%= number_to_currency(compra_total_guarani, :format=>' %n ', :precision => 0) %></td>
+
+    </tr>
+    <tr>
+      <td colspan="6"></td>
+      <td colspan="9" ><b>GASTOS  INTERNAS</b></td>
+
+    </tr>
+    <% gasto_exentas     = 0 %>
+    <% gasto_gravada_05  = 0 %>
+    <% gasto_imposto_05  = 0 %>
+    <% gasto_gravada_10  = 0 %>
+    <% gasto_imposto_10  = 0 %>
+    <% gasto_total_guarani = 0 %>
+
+    <% @compra.each do |compra| %>
+      <tr>
+        <% if compra.tipo_compra == 1  %>
+          <%if params[:tipo] == '0'%>
+            <td width="25" align="center"><%= compra.data.strftime("%d") %></td>
+            <td width="60" align="center" ><%= compra.id %></td>
+            <td width="40" align="center" ><%= number_to_currency(compra.cotacao, :format=>' %n ', :precision => 0) %></td>
+            <td width="120" align="center" ><%= compra.documento_numero_01 %> - <%= compra.documento_numero_02 %> - <%= compra.documento_numero %> </td>
+            <td width="115" align="left" ><%= compra.documento_nome %></td>
+            <td width="50" align="center" ><%= compra.data.strftime("%d/%m/%Y") %></td>
+            <td width="265" align="left" ><%= compra.persona_nome %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.exentas_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="85" align="right" ><%= number_to_currency(compra.gravadas_05_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="85" align="right" ><%= number_to_currency(compra.imposto_05_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="75" align="right" ><%= number_to_currency(compra.gravadas_10_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="75" align="right" ><%= number_to_currency(compra.imposto_10_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.total_guarani, :format=>' %n ', :precision => 0) %></td>
+          <% else %>
+            <td width="25" align="center"><%= compra.data.strftime("%d") %></td>
+            <td width="55" align="center" ><%= compra.id %></td>
+            <td width="40" align="center" ><%= number_to_currency(compra.cotacao, :format=>' %n ', :precision => 0) %></td>
+            <td width="140" align="center" ><%= compra.documento_numero_01 %> - <%= compra.documento_numero_02 %> - <%= compra.documento_numero %> </td>
+            <td width="135" align="left" ><%= compra.documento_nome %></td>
+            <td width="100" align="center" ><%= compra.data.strftime("%d/%m/%Y") %></td>
+            <td width="315" align="left" ><%= compra.persona_nome %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.exentas_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.gravadas_05_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.imposto_05_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.gravadas_10_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="80" align="right" ><%= number_to_currency(compra.imposto_10_guarani, :format=>' %n ', :precision => 0) %></td>
+            <td width="110" align="right" ><%= number_to_currency(compra.total_guarani, :format=>' %n ', :precision => 0) %></td>
+          <% end %>
+
+          <% gasto_exentas     = gasto_exentas     + compra.exentas_guarani%>
+          <% gasto_gravada_05  = gasto_gravada_05  + compra.gravadas_05_guarani%>
+          <% gasto_imposto_05  = gasto_imposto_05  + compra.imposto_05_guarani%>
+          <% gasto_gravada_10  = gasto_gravada_10  + compra.gravadas_10_guarani%>
+          <% gasto_imposto_10  = gasto_imposto_10  + compra.imposto_10_guarani%>
+          <% gasto_total_guarani = gasto_total_guarani + compra.total_guarani%>
+
+        <% end %>
+      <% end %>
+    </tr>
+    <tr>
+      <td colspan="7"></td>
+      <td align="right" ><%= number_to_currency(gasto_exentas, :format=>' %n ', :precision => 0) %></td>
+      <td align="right" ><%= number_to_currency(gasto_gravada_05, :format=>' %n ', :precision => 0) %></td>
+      <td align="right" ><%= number_to_currency(gasto_imposto_05, :format=>' %n ', :precision => 0) %></td>
+      <td align="right" ><%= number_to_currency(gasto_gravada_10, :format=>' %n ', :precision => 0) %></td>
+      <td align="right" ><%= number_to_currency(gasto_imposto_10, :format=>' %n ', :precision => 0) %></td>
+      <td align="right" ><%= number_to_currency(gasto_total_guarani, :format=>' %n ', :precision => 0) %></td>
+
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><b>Total General</b></td>
+      <td width="80" align="right" ><%= number_to_currency(gasto_exentas + compra_exentas , :format=>' %n ', :precision => 0) %></td>
+      <td width="80" align="right" ><%= number_to_currency(gasto_gravada_05  + compra_gravada_05, :format=>' %n ', :precision => 0) %></td>
+      <td width="80" align="right" ><%= number_to_currency(gasto_imposto_05  + compra_imposto_05, :format=>' %n ', :precision => 0) %></td>
+      <td width="80" align="right" ><%= number_to_currency(gasto_gravada_10  + compra_gravada_10, :format=>' %n ', :precision => 0) %></td>
+      <td width="80" align="right" ><%= number_to_currency(gasto_imposto_10  + compra_imposto_10, :format=>' %n ', :precision => 0) %></td>
+      <td width="110" align="right" ><%= number_to_currency(gasto_total_guarani + compra_total_guarani, :format=>' %n ', :precision => 0) %></td>
+
+    </tr>
+
+  </table>
+</div>
+
+<style type="text/css">
+  table { border-collapse: collapse;
+          font-size: 7px}
+
+  .titulo{font-size: 22px}
+  td,tr { border: 1px solid black; }
+</style>

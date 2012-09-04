@@ -1,0 +1,2 @@
+module PagosDetalhesHelper
+end

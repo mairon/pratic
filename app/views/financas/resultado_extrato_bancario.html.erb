@@ -1,0 +1,32 @@
+<style type="text/css">
+  table {font-size: 10px}
+
+</style>
+
+<table>
+  <%totentrada   = 0 %>
+  <%totsaida     = 0 %>  
+  <% for fin in @financas %>
+    <tr>      
+      <td width="80" align="center"> <%=h fin.data.strftime("%d/%m/%Y")%> </td>
+      <td width="250" align="left"> <%=h fin.concepto%> </td>
+      <td width="150" align="left"> <%=h fin.conta_nome%> </td>
+      <td width="80" align="left"> <%=h fin.cheque%> </td>
+      <td width="150" align="left"> <%=h fin.documento_nome%> </td>
+      <td width="80" align="right"> <%=h number_to_currency(fin.entrada_guarani, :format=>' %n ', :precision => 0) %> </td>
+      <td width="80" align="right"> <%=h number_to_currency(fin.saida_guarani, :format=>' %n ', :precision => 0) %> </td>
+    </tr>
+    <% totentrada   = totentrada + fin.entrada_guarani %>
+    <% totsaida     = totsaida + fin.saida_guarani %>
+  <% end %>  
+    <tr class="head">
+    <td colspan="5">Anterior :<%= number_to_currency(@financas_aterior, :format=>' %n ', :precision => 0) %></td>
+    <td width="80" align="right" ><%= number_to_currency(totentrada, :format=>' %n ', :precision => 0) %></td>
+    <td width="80" align="right"><%= number_to_currency(totsaida, :format=>' %n ', :precision => 0) %></td>
+    <td width="80" align="right">Saldo :<%= number_to_currency( (@financas_aterior.to_f + totentrada) -totsaida, :format=>' %n ', :precision => 0) %></td>
+  </tr>
+</table>
+
+
+
+

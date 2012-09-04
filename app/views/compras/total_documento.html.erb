@@ -1,0 +1,147 @@
+
+  <h1 align="right" id="header">Compra</h1>
+  Totales 
+  <% form_for(@compra) do |f| %>
+    <%= f.error_messages %>
+    <%= f.hidden_field :cotacao  %>
+    <div class="group_cd">
+        <table>
+          <tr height="35">
+            <td align="right">Descuento U$ :</td>
+            <td><%= f.text_field :desconto_dolar, 
+                                 :size   => 15,
+                                 :onblur => "CompraDescontoGs()"  %></td>
+
+            <td align="right">Gs.:</td>
+            <td><%= f.text_field :desconto_guarani, 
+                                 :size   => 15,
+                                 :onblur => "CompraDescontoDolar()"  %></td>
+          </tr>
+
+          <tr height="35">
+            <td align="right">Flete U$ :</td>
+            <td><%= f.text_field :frete_dolar,
+                                 :size   => 15,
+                                 :value  => @total_frete_dolar,
+                                 :onblur => "CompraFreteGs()"  %></td>
+
+            <td align="right"> Gs.:</td>
+            <td><%= f.text_field :frete_guarani, 
+                                 :size   => 15,
+                                 :value  => @total_frete_guarani,
+                                 :onblur => "CompraFreteDolar()"  %></td>
+          </tr>
+
+          <tr height="35">
+            <td align="right">Seguro U$ :</td>
+            <td><%= f.text_field :seguro_dolar,
+                                 :size   => 15,
+                                 :value  => @total_seguro_dolar,
+                                 :onblur => "CompraSeguroGs()"  %></td>
+
+            <td align="right">Gs.:</td>
+            <td><%= f.text_field :seguro_guarani,
+                                 :size   => 15,
+                                 :value  => @total_seguro_guarani,
+                                 :onblur => "CompraSeguroDolar()"  %></td>
+          </tr>
+
+          <tr height="35">
+            <td align="right">Iva U$ :</td>
+            <td><%= f.text_field :iva_total_dolar,
+                                 :size   => 15,
+                                 :value  => @total_iva_dolar,
+                                 :onblur => "CompraIvaTotalGs()"  %></td>
+
+            <td align="right"> Gs.:</td>
+            <td><%= f.text_field :iva_total_guarani,
+                                 :size   => 15,
+                                 :value  => format("%.0f",@total_iva_guarani.to_f),
+                                 :onblur => "CompraIvaTotalDolar()"  %></td>
+
+
+          </tr>
+
+          <tr height="35">
+            <td align="right">Outros  Gastos U$ :</td>
+            <td><%= f.text_field :outros_dolar,
+                                 :size   => 15,
+                                 :value  => @total_outros_dolar,
+                                 :onblur => "CompraOtrosGs()"  %></td>
+
+            <td align="right">Gs.:</td>
+            <td><%= f.text_field :outros_guarani,
+                                 :size   => 15,
+                                 :value  => @total_outros_guarani,
+                                 :onblur => "CompraOtrosDolar()"  %></td>
+          </tr>
+
+          <tr height="35">
+            <td align="right">Total Doc. U$ :</td>
+            <td><%= number_to_currency( @total_dolar_documento.to_f,       :format =>' %n ', :separator => "," )  %></td>
+            <input type="hidden" id="total_documento_dolar" value="<%= @total_dolar_documento %>" />
+
+            <td align="right">Gs.:</td>
+            <td><%= number_to_currency( @total_guarani_documento.to_f,       :format =>' %n ',:precision => 0 )  %></td>
+            <input type="hidden" id="total_documento_guarani" value="<%= @total_guarani_documento %>" />
+          </tr>
+        </table>
+
+<!-- DESPACHO !-->
+       <% if @compra.tipo_compra == 2 %>
+        <table>
+          <tr>
+            <td>
+              <fieldset>
+                <legend>Despacho</legend>
+                <table>
+                <tr>
+                    <td>Imponible U$ :</td>
+                    <td><%= f.text_field :valor_imponible,
+                                         :size   => 15 %></td>
+
+                  </tr>
+
+                  <tr>
+                    <td>Iva Despacho U$ :</td>
+                    <td><%= f.text_field :iva_despacho_dolar,
+                                         :size   => 15,
+                                         :onblur => "CompraTotalDespachoDolar()" %></td>
+
+                    <td>Iva Despacho Gs.:</td>
+                    <td><%= f.text_field :iva_despacho_guarani,
+                                         :size   => 15,
+                                         :onblur => "CompraTotalDespachoGs()"%></td>
+                  </tr>
+
+                  <tr>
+                    <td>Invoice U$ :</td>
+                    <td><%= @total_invoice_dolar %></td>
+                  <input type="hidden" id="total_invoice_dolar" value="<%= @total_invoice_dolar %>" />
+                    <td>Invoice Gs. :</td>
+                    <td><%= format("%.0f",@total_invoice_guarani.to_f) %></td>
+                    <input type="hidden" id="total_invoice_guarani" value="<%= @total_invoice_guarani %>" />
+                  </tr>
+
+
+                  <tr>
+                    <td>Despacho U$ :</td>
+                    <td><%= f.text_field :despacho_dolar,
+                                         :size   => 15 %></td>
+
+                    <td>Despacho Gs.:</td>
+                    <td><%= f.text_field :despacho_guarani,
+                                         :size   => 15 %></td>
+                  </tr>
+              </table>
+              </fieldset>
+              
+            </td>
+          </tr>
+        </table>
+       <% end %>
+    </div>
+    <a href="/compras/compras_documento/<%=params[:id]%>" >Volver</a> |
+    <%= f.submit "Proratear" %>
+
+  <%end%>

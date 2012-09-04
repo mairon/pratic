@@ -1,0 +1,37 @@
+<h1 align="right" id="header">Cobros</h1>
+
+<div class="group">
+  <table>
+    <tr>
+      <td width="80" align="center">Cod.</td>
+      <td width="80" align="center">Fecha</td>
+      <td width="250" align="center">Clientes</td>
+
+    </tr>
+  </table>
+  <div class="rolagem" dir="div">
+
+    <table>
+
+      <% for cobros in @cobros %>
+
+        <tr class = "<%= cycle( "cor1", "cor2" )%>">
+
+          <td width="80"  align="center"><%= cobros.id%></td>
+          <td width="80"  align="center"><%= cobros.data.strftime("%d/%m/%Y")%></td>
+          <td width="250" align="left"><%= cobros.persona_nome%></td>
+          <td><%= link_to 'Editar', edit_cobros_path(cobros) %></td>
+          <td><%= link_to 'Borrar', cobros, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+
+
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+<%= link_to 'New cobros', new_cobros_path %>

@@ -1,0 +1,27 @@
+<h1 align="right" id="header">Productos</h1>
+<% form_for(@produto) do |f| %>
+   <%= f.error_messages %>
+
+   <ul class="tabs">
+      <li><a href="#tab1">Producto - [Edicion]</a></li>
+      <li><a href="#tab3">Hist. de Precios </a></li>
+   </ul>
+
+   <div class="tab_container">
+      <div id="tab1" class="tab_content">
+         <%= render :partial => 'form_principal',:locals => {:f => f} %>
+      </div>
+      <div id="tab3" class="tab_content">
+         <%= render :partial => 'form_historico',:locals => {:f => f} %>
+      </div>
+
+   </div>
+
+   <%= f.submit "   Grabar  ",:disable_with => "Aguarde..."  %> |
+   <%= link_to 'Volver', produtos_path %>
+<% end %>
+
+
+
+
+

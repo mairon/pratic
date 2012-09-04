@@ -1,0 +1,6 @@
+
+<% if $empresa == "E01" %>
+      <%= render :partial => 'modelo_fatura_E01' %>
+<% else %>
+      <%= render :partial => 'modelo_fatura_E03' %>
+<% end %>

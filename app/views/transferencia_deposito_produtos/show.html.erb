@@ -1,0 +1,53 @@
+<p>
+  <b>Transferencia deposito:</b>
+  <%=h @transferencia_deposito_produto.transferencia_deposito_id %>
+</p>
+
+<p>
+  <b>Produto:</b>
+  <%=h @transferencia_deposito_produto.produto_id %>
+</p>
+
+<p>
+  <b>Produto nome:</b>
+  <%=h @transferencia_deposito_produto.produto_nome %>
+</p>
+
+<p>
+  <b>Quantidade:</b>
+  <%=h @transferencia_deposito_produto.quantidade %>
+</p>
+
+<p>
+  <b>Unitario dolar:</b>
+  <%=h @transferencia_deposito_produto.unitario_dolar %>
+</p>
+
+<p>
+  <b>Unitario guarani:</b>
+  <%=h @transferencia_deposito_produto.unitario_guarani %>
+</p>
+
+<p>
+  <b>Deposito origem:</b>
+  <%=h @transferencia_deposito_produto.deposito_origem_id %>
+</p>
+
+<p>
+  <b>Deposito origem nome:</b>
+  <%=h @transferencia_deposito_produto.deposito_origem_nome %>
+</p>
+
+<p>
+  <b>Deposito destino:</b>
+  <%=h @transferencia_deposito_produto.deposito_destino_id %>
+</p>
+
+<p>
+  <b>Deposito destino nome:</b>
+  <%=h @transferencia_deposito_produto.deposito_destino_nome %>
+</p>
+
+
+<%= link_to 'Edit', edit_transferencia_deposito_produto_path(@transferencia_deposito_produto) %> |
+<%= link_to 'Back', transferencia_deposito_produtos_path %>

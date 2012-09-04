@@ -1,0 +1,300 @@
+
+
+<% if params[:tipo].to_s == "2" %>
+    <%= render :partial => 'resultado_iventario_consulta' %>
+
+<% else %>
+
+
+
+
+<div class="group">
+
+  <table>
+      <% quebra_clase                 = "" %>
+      <% quebra_grupo                = "" %>
+      <% qtd                                 = 0 %>
+      <% custo_gs                        = 0 %>
+      <% anterior_gs                    = 0 %>
+      <% entrada_gs                    = 0 %>
+      <% saida_gs                        = 0 %>
+      <% custototal_gs                 = 0 %>
+      <% subclaseqtd                   = 0 %>
+      <% subclasecusto_gs          = 0 %>
+      <% subtotalclasecusto_gs   = 0 %>
+      <% subclaseanterior_gs      = 0 %>
+      <% subclaseentrada_gs      = 0 %>
+      <% subclasesaida_gs          = 0 %>      
+      <% subgrupoanterior_gs     = 0 %>
+      <% subgrupoentrada_gs     = 0 %>
+      <% subgruposaida_gs         = 0 %>      
+     <% subgrupoqtd                   = 0 %>
+      <% subgrupocusto_gs          = 0 %>
+      <% subtotalgrupocusto_gs  = 0 %>
+
+      <% @stocks.each do |produto| %>
+
+                 <%if quebra_clase != produto.clase_id or quebra_grupo != produto.grupo_id %>
+
+                     <%if quebra_grupo != produto.grupo_id or quebra_clase != produto.clase_id %>
+
+                         <%if quebra_grupo != ""  %>
+
+                             <tr class="head">
+                                 <td colspan="3"></td>
+                                 <td align="right"><%= number_to_currency( subgrupoanterior_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subgrupoentrada_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subgruposaida_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subgrupoqtd,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"></td>
+                                 <td align="right"><%= number_to_currency( subgrupocusto_gs,      :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subtotalgrupocusto_gs, :format=>' %n ', :precision => 0 ) %></td>
+                             </tr>
+
+                             <tr>
+                                 <td></td>
+                             </tr>
+
+                             <% subgrupoqtd            = 0 %>
+                             <% subgrupocusto_gs       = 0 %>
+                             <% subgrupocusto_us       = 0 %>
+                             <% subtotalgrupocusto_gs  = 0 %>
+                             <% subtotalgrupocusto_us  = 0 %>
+                             <% subgrupoanterior_gs     = 0 %>
+                             <% subgrupoentrada_gs     = 0 %>
+                             <% subgruposaida_gs         = 0 %>      
+
+                        <%end%>
+
+                        <%if quebra_clase != ""  %>
+
+                             <tr class="head">
+                                 <td colspan="3"></td>
+                                 <td align="right"><%= number_to_currency( subclaseanterior_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subclaseentrada_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subclasesaida_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subclaseqtd,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"></td>
+                                 <td align="right"><%= number_to_currency( subclasecusto_gs,      :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subtotalclasecusto_gs, :format=>' %n ', :precision => 0 ) %></td>
+                             </tr>
+
+                             <tr>
+                                 <td></td>
+                             </tr>
+
+                             <% subclaseqtd            = 0 %>
+                             <% subclasecusto_gs       = 0 %>
+                             <% subtotalclasecusto_gs  = 0 %>
+                             <% subclaseanterior_gs     = 0 %>
+                             <% subclaseentrada_gs     = 0 %>
+                             <% subclasesaida_gs         = 0 %>      
+
+                        <%end%>
+
+                     <%end%>
+
+                     <tr class="head">
+                       <td><%=h quebra_clase = produto.clase_id %> - </td>
+                       <td>
+                                                     <%clase_descricao =  Clase.find_by_id(quebra_clase) %>
+                                                     <%= clase_descricao.descricao %></td>
+
+                     </tr>
+
+                     <tr class="head">
+                        <td colspan="1"></td>
+                        <td><%=h quebra_grupo = produto.grupo_id %> - </td>
+
+                        <td>                         <%grupo_descricao =  Grupo.find_by_id(quebra_grupo) %>
+                                                     <%= grupo_descricao.descricao unless quebra_grupo.blank? %></td>
+                     </tr>
+
+                 <%end%>
+                 <% deposito = " AND deposito_id = #{params[:busca]["deposito"]}"     unless params[:busca]["deposito"].blank?%>
+                <% stock = Stock.sum( 'entrada - saida',:conditions => ["produto_id = ? AND data <= '#{params[:final]}' #{deposito}",produto.id] ) %>
+               <% anterior = Stock.sum( 'entrada - saida',:conditions => ["produto_id = ? AND data < '#{params[:inicio]}' #{deposito}",produto.id] ) %>
+               <% entrada = Stock.sum( 'entrada ',:conditions => ["produto_id = ? AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{deposito}",produto.id] ) %>
+               <% saida = Stock.sum( 'saida ',:conditions => ["produto_id = ? AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{deposito}",produto.id] ) %>
+
+                <% if params[:filtro].to_s == "1" %>
+
+                   <% if stock.to_i > 0 %>
+
+                      <% suma_entrada = Stock.sum(:entrada, :conditions => ["produto_id = #{produto.id} AND data <= '#{params[:final]}'"])
+
+                           if suma_entrada > 0
+
+                               stock_custo_guarani = Stock.last(:conditions => ["produto_id = #{produto.id} AND data <= '#{params[:final]}' AND status = 0"])
+
+                            else
+
+                               stock_custo_guarani = 0
+
+                            end %>
+
+                            <tr>
+                              <td width="50"></td>
+                              <td width="80" align="center">  <%= produto.id %> </td>
+                              <td width="570"  align="left">  <%= produto.nome%> </td>
+                              <td width="80" align="right">  <%= number_to_currency(anterior,                                            :format=>' %n ', :precision => 0) %> </td>
+                              <td width="80" align="right">  <%= number_to_currency(entrada,                                            :format=>' %n ', :precision => 0) %> </td>
+                              <td width="80" align="right">  <%= number_to_currency(saida,                                                :format=>' %n ', :precision => 0) %> </td>
+                              <td width="80" align="right">  <%= number_to_currency(stock,                                                :format=>' %n ', :precision => 0) %> </td>
+                              <td width="100" align="right">  <%= number_to_currency(produto.preco_venda_guarani,       :format=>' %n ', :precision => 0) %> </td>
+                              <td width="100" align="right">  <%= number_to_currency(stock_custo_guarani.unitario_guarani.to_f,                             :format=>' %n ', :precision => 0) %> </td>
+                              <td width="100" align="right">  <%= number_to_currency(totalgs = ( stock.to_f * stock_custo_guarani.unitario_guarani.to_f ) , :format=>' %n ', :precision => 0) %> </td>
+                            </tr>
+
+                            <% subgrupoqtd                   += stock.to_f %>
+                            <% subgrupocusto_gs          += stock_custo_guarani.unitario_guarani.to_f %>
+                            <% subtotalgrupocusto_gs   += totalgs.to_f %>
+                            <% subgrupoanterior_gs       += anterior.to_f %>
+                            <% subgrupoentrada_gs       += entrada.to_f %>
+                            <% subgruposaida_gs           += saida.to_f %>
+
+                            <% subclaseqtd                    += stock.to_f %>
+                            <% subclasecusto_gs           += stock_custo_guarani.unitario_guarani.to_f %>
+                            <% subtotalclasecusto_gs   += totalgs.to_f %>
+                            <% subclaseanterior_gs       += anterior.to_f %>
+                            <% subclaseentrada_gs       += entrada.to_f %>
+                            <% subclasesaida_gs           += saida.to_f %>
+
+
+                            <% qtd                    += stock.to_f %>
+                            <% custo_gs           += stock_custo_guarani.unitario_guarani.to_f %>
+                            <% custototal_gs    += totalgs.to_f %>
+                            <% anterior_gs       += anterior.to_f %>
+                            <% entrada_gs       += entrada.to_f %>
+                            <% saida_gs           += saida.to_f %>
+
+
+                   <%end%>
+
+                <% else %>
+                   <% deposito = " AND deposito_id = #{params[:busca]["deposito"]}"     unless params[:busca]["deposito"].blank?%>
+                   <% suma_entrada        = Stock.sum(:entrada, :conditions => ["produto_id = #{produto.id} AND data <= '#{params[:final]}' #{deposito} AND status = 0"])
+ %>
+
+                            <tr>
+                              <td width="20"></td>
+                              <td width="120" align="center">  <%= produto.barra %> </td>
+                              <td width="570"  align="left">  <%= produto.nome%> </td>
+                              <td width="80" align="right">  <%= number_to_currency(anterior,                                            :format=>' %n ', :precision => 0) %> </td>
+                              <td width="80" align="right">  <%= number_to_currency(entrada,                                            :format=>' %n ', :precision => 0) %> </td>
+                              <td width="80" align="right">  <%= number_to_currency(saida,                                                :format=>' %n ', :precision => 0) %> </td>
+                              <td width="80" align="right">  <%= number_to_currency(stock,                                                :format=>' %n ', :precision => 0) %> </td>
+                              <td width="100" align="right">  <%= number_to_currency(produto.preco_venda_guarani,       :format=>' %n ', :precision => 0) %> </td>
+                              <% if suma_entrada > 0 %>
+                               <% stock_custo_guarani = Stock.last(:conditions => ["produto_id = #{produto.id} AND data <= '#{params[:final]}'"]) %>
+                              <td width="100" align="right">  <%= number_to_currency(stock_custo_guarani.unitario_guarani.to_f,                             :format=>' %n ', :precision => 0) %> </td>
+                              <td width="100" align="right">  <%= number_to_currency(totalgs = ( stock.to_f * stock_custo_guarani.unitario_guarani.to_f ) , :format=>' %n ', :precision => 0) %> </td>
+                              <% subgrupocusto_gs          += stock_custo_guarani.unitario_guarani.to_f %>
+                              <% subclasecusto_gs           += stock_custo_guarani.unitario_guarani.to_f %>
+                              <% custo_gs           += stock_custo_guarani.unitario_guarani.to_f %>
+
+                              <% else %>
+                                <td width="100" align="right">0</td>
+                              <td width="100" align="right">  <%= number_to_currency(totalgs = 0  , :format=>' %n ', :precision => 0) %> </td>
+                              <% subgrupocusto_gs          += 0 %>
+                              <% subclasecusto_gs           += 0 %>
+                              <% custo_gs           += 0 %>
+
+                              <% end %>
+                            </tr>
+
+                            <% subgrupoqtd                   += stock.to_f %>
+                            <% subtotalgrupocusto_gs   += totalgs.to_f %>
+                            <% subgrupoanterior_gs       += anterior.to_f %>
+                            <% subgrupoentrada_gs       += entrada.to_f %>
+                            <% subgruposaida_gs           += saida.to_f %>
+
+                            <% subclaseqtd                    += stock.to_f %>
+                            <% subtotalclasecusto_gs   += totalgs.to_f %>
+                            <% subclaseanterior_gs       += anterior.to_f %>
+                            <% subclaseentrada_gs       += entrada.to_f %>
+                            <% subclasesaida_gs           += saida.to_f %>
+
+
+                            <% qtd                    += stock.to_f %>
+                            <% custototal_gs    += totalgs.to_f %>
+                            <% anterior_gs       += anterior.to_f %>
+                            <% entrada_gs       += entrada.to_f %>
+                            <% saida_gs           += saida.to_f %>
+
+
+                <% end %>
+
+      <% end %>
+
+
+                             <tr class="head">
+                                 <td colspan="3"></td>
+                                 <td align="right"><%= number_to_currency( subgrupoanterior_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subgrupoentrada_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subgruposaida_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subgrupoqtd,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"></td>
+                                 <td align="right"><%= number_to_currency( subgrupocusto_gs,      :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subtotalgrupocusto_gs, :format=>' %n ', :precision => 0 ) %></td>
+                             </tr>
+
+                             <tr>
+                                 <td></td>
+                             </tr>
+
+                             <% subgrupoqtd            = 0 %>
+                             <% subgrupocusto_gs       = 0 %>
+                             <% subgrupocusto_us       = 0 %>
+                             <% subtotalgrupocusto_gs  = 0 %>
+                             <% subtotalgrupocusto_us  = 0 %>
+                             <% subgrupoanterior_gs     = 0 %>
+                             <% subgrupoentrada_gs     = 0 %>
+                             <% subgruposaida_gs         = 0 %>      
+
+                             <tr class="head">
+                                 <td colspan="3"></td>
+                                 <td align="right"><%= number_to_currency( subclaseanterior_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subclaseentrada_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subclasesaida_gs,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subclaseqtd,           :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"></td>
+                                 <td align="right"><%= number_to_currency( subclasecusto_gs,      :format=>' %n ', :precision => 0 ) %></td>
+                                 <td align="right"><%= number_to_currency( subtotalclasecusto_gs, :format=>' %n ', :precision => 0 ) %></td>
+                             </tr>
+
+                             <tr>
+                                 <td></td>
+                             </tr>
+
+                             <% subclaseqtd            = 0 %>
+                             <% subclasecusto_gs       = 0 %>
+                             <% subtotalclasecusto_gs  = 0 %>
+                             <% subclaseanterior_gs     = 0 %>
+                             <% subclaseentrada_gs     = 0 %>
+                             <% subclasesaida_gs         = 0 %>      
+
+        <tr class="head" height="20">
+          <td colspan="3"></td>
+          <td align="right"><%= number_to_currency( anterior_gs,           :format=>' %n ', :precision => 0 ) %></td>
+          <td align="right"><%= number_to_currency( entrada_gs,           :format=>' %n ', :precision => 0 ) %></td>
+          <td align="right"><%= number_to_currency( saida_gs,           :format=>' %n ', :precision => 0 ) %></td>
+          <td align="right"><%= number_to_currency( qtd,           :format=>' %n ', :precision => 0 ) %></td>
+          <td align="right"></td>         
+          <td align="right"><%= number_to_currency( custo_gs,      :format=>' %n ', :precision => 0 ) %></td>
+          <td align="right"><%= number_to_currency( custototal_gs, :format=>' %n ', :precision => 0 ) %></td>
+        </tr>
+        <tr>
+        </tr>
+    </table>
+</div>
+
+
+<style type="text/css">
+   table { 
+           font-size: 8px}
+</style>
+
+
+
+<% end %>

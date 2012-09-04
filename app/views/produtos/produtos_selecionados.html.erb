@@ -1,0 +1,52 @@
+<body onload="print()">
+<table>
+	<% count = 0 %>
+    <% qbf = "" %>
+    
+	<% for produto in @produtos %>
+	<% count += 1%>
+	
+	<% if count == 3  %>
+	   <% count = 1%>
+	   <% qbf   = "<tr></tr>"%>
+	<% else %>
+	   <% qbf   = ""%>
+	<% end %>
+
+	<%= qbf %>
+
+		<td width="580" align="center" valign="top">
+		<b>
+		<p>
+			<font size="4">
+				<%= h produto.nome%>
+			</font>
+		</p>
+		<p align="center">
+			<font size="7">
+				<%= h number_to_currency(produto.preco_venda_guarani, :format=>' %n ', :precision => 0 )%>
+			</font>
+			<font size="3">
+				<%= h produto.referencia%>
+			</font>
+		</p>
+		<p>
+			<font size="2">
+				<%= h produto.id%>|<%= h produto.barra%>
+			</font>
+		</p>
+		</b>
+		</td>
+	<% end %>
+</table>
+</body>
+<style type="text/css">
+	table {
+		border-collapse: collapse;
+		font-size: 12px
+	}
+	td, tr {
+		border: 1px solid black;
+	}
+</style>
+

@@ -1,0 +1,51 @@
+
+<div class="group">
+  
+  <table>
+
+      <% quebra       = ""%>
+      <% subdebe      = 0 %>
+      <% subhaber     = 0 %>
+      <% @diario.each do |diario|%>
+         <% if quebra != diario.contabilidade  %>
+            <%if quebra != "" %>
+                 <tr height="10" class="head" >
+                   <td colspan="6" align="right"><%= number_to_currency( subdebe , :format=>' %n ', :precision => 0) %></td>
+                   <td align="right"><%= number_to_currency( subhaber , :format=>' %n ', :precision => 0) %></td>
+                   <td align="right"><%= number_to_currency( ( subdebe - subhaber ) , :format=>' %n ', :precision => 0) %></td>
+                   <% subdebe  = 0 %>
+                   <% subhaber = 0 %>
+                 </tr>
+            <% end %>
+                 <tr class="head">
+                   <td colspan="1"></td>
+                   <td colspan="3" align="left" ><%= quebra = diario.contabilidade%> - <%= diario.contabilidade_descricao %> </td>
+                 </tr>
+
+         <% end %>
+
+          <tr class = "<%= cycle("corb1", "corb2") %>">
+            <td width="50" align="center">    <%=  diario.data.strftime("%d/%m/%Y")%></td>
+            <td width="200" align="left">     <%=  diario.tabela_nome %></td>
+            <td width="30" align="center">    <%=  diario.proceso_numero %></td>
+            <td width="200" align="left">     <%=  diario.documento_nome %></td>
+            <td width="50" align="center">    <%=  diario.documento_numero %></td>
+            <td width="100" align="right">    <%=  number_to_currency(diario.debe , :format=>' %n ', :precision => 0) %></td>
+            <td width="100" align="right">    <%=  number_to_currency(diario.haber , :format=>' %n ', :precision => 0) %></td>
+          </tr>
+          <% subdebe   = subdebe.to_f  +  diario.debe.to_f %>
+          <% subhaber  = subhaber.to_f +  diario.haber.to_f %>
+
+
+      <% end %>
+         <tr height="10" class="head" >
+           <td colspan="6" align="right"><%= number_to_currency( subdebe , :format=>' %n ', :precision => 0) %></td>
+           <td align="right"><%= number_to_currency( subhaber , :format=>' %n ', :precision => 0) %></td>
+           <td align="right"><%= number_to_currency( ( subdebe - subhaber ) , :format=>' %n ', :precision => 0) %></td>
+           <% subdebe  = 0 %>
+           <% subhaber = 0 %>
+         </tr>
+
+  </table>
+</div>
+

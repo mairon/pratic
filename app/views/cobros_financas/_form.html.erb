@@ -1,0 +1,64 @@
+  <h1 align="right" id="header">Cobros Financas</h1>
+  <br/>
+<% form_for(@cobros_financa) do |f| %>
+  <%= f.error_messages %>
+  <%=  f.hidden_field :cobro_id%>
+  <%=  f.hidden_field :data,:value => @cobros_financa.cobro.data%>
+  <%=  f.hidden_field :persona_id,  :value => @cobros_financa.cobro.persona_id%>
+  <%=  f.hidden_field :persona_nome,:value => @cobros_financa.cobro.persona_nome%>
+
+<div class="group_cd">
+    <table>
+      <tr height="35">
+        <td align="right">Conta :</td>
+        <td><%= f.collection_select :conta_id, Conta.all(:select => 'id,nome',:order => '1'),:id,:nome %></td>
+      </tr>
+
+      <tr height="35">
+       <% if @cobros_financa.cobro.moeda == 0 %>
+            <td align="right">Total U$:</td>
+            <td><%= f.text_field :valor_dolar, :size => 15, :onblur => "CotacaoCobroFinalGs(),CotacaoCobroFinalDolar()"%></td>
+       <% else %>
+            <td align="right">Total Gs.:</td>
+            <td><%= f.text_field :valor_guarani, :size => 15%></td>
+       <% end %>
+      </tr>
+
+      <tr height="35">
+        <td align="right">N. Recibo:</td>
+        <td><%= f.text_field :documento_numero, :size => 15%></td>
+
+      </tr>
+
+
+      <tr height="35">
+        <td align="right">Cheque:</td>
+        <td><%= f.text_field :cheque, :size => 15%></td>
+
+        <td align="right">Diferido:</td>
+        <td><%= f.date_select :diferido%></td>
+      </tr>
+
+
+      <tr height="35">
+        <td align="right">Documento:</td>
+        <td><%= f.collection_select :documento_id, Documento.all( :select => 'id,nome',
+                                                                  :order  => '1' ),:id,
+                                                                                   :nome %></td>
+      </tr>
+
+      <tr height="35">
+        <td valign="top" align="right">Descripcion :</td>
+        <td><%= f.text_area :descricao,
+                             :size => '35X5',
+                             :value => 'COBRO ' + @cobros_financa.cobro.persona_nome%></td>
+
+        <td valign="bottom"><%= f.submit '  Grabar  ' %>  | <a href="/cobros/show/<%= @cobros_financa.cobro_id %>" >Volver</a> | <a href="/cobros" >Salir</a></td>
+
+      </tr>
+
+
+    </table>
+</div>
+
+<% end %>

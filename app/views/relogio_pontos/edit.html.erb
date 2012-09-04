@@ -1,0 +1,12 @@
+<h1>Editing relogio_ponto</h1>
+
+<% form_for(@relogio_ponto) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @relogio_ponto %> |
+<%= link_to 'Back', relogio_pontos_path %>

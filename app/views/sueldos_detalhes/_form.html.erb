@@ -1,0 +1,60 @@
+<h1 align="right" id="header">Sueldos Detalhes</h1>
+<body onload="SueldoDetalheFocoData()">
+  <% form_for(@sueldos_detalhe) do |f| %>
+    <%= f.error_messages %>
+  <%= f.hidden_field :sueldo_id %>
+  <%= f.hidden_field :persona_id, :value => @sueldos_detalhe.sueldo.persona_id %>
+  <%= f.hidden_field :persona_nome, :value => @sueldos_detalhe.sueldo.persona_nome %>
+  Sueldo Detalhe - Edicion
+  <div class="group">
+    <table>
+        <tr>
+          <td align="right">Fecha :</td>
+          <td><%= f.date_select :data ,{},{:onblur => "SueldoDetalheCotacao()"} %></td>
+          <%= hidden_field_tag( 'key' ) %>
+        </tr>
+
+        <tr>
+          <td align="right">Cotizacion :</td>
+          <td>             <%= text_field :sueldos_detalhe,
+                                          :cotacao ,
+                                          { :size    => 15,
+                                            :onfocus  => remote_function(:update => "key",
+                                                                        :url    => { :action => :get_moeda},
+                                                                                     :with   => "'key='+ key.value ") } %></td>
+        </tr>
+        <tr>
+          <td align="right">Documento :</td>
+          <td><%= f.collection_select :documento_id, Documento.all( :select     => 'id,nome',
+                                                                    :order      => '2'),:id,:nome%></td>
+
+        </tr>
+
+      <tr>
+        <td align="right">Provento :</td>
+        <td><%= f.collection_select :provento_id, Provento.all( :select     => 'id,descripcion',
+                                                                :order      => '2'),:id,:descripcion %></td>
+
+      </tr>
+      <tr>
+        <td align="right">Cuenta :</td>
+        <td><%= f.collection_select :conta_id, Conta.all( :select     => 'id,nome',
+                                                              :order      => '2'),:id,:nome%></td>
+
+      </tr>
+      <tr>
+        <td>Valor Gs.:</td>
+        <td><%= f.text_field :valor_guarani,
+                             :onchange => "SueldoDetalheGuaraniDolar()" %></td>
+        <td>Valor U$.:</td>
+        <td><%= f.text_field :valor_dolar,
+                             :onchange => "SueldoDetalheDolarGuarani()" %></td>
+
+      </tr>
+    </table>
+  </div>
+    <p>
+      <%= f.submit 'Grabar' %> <a href="/sueldos/<%=  @sueldos_detalhe.sueldo.id%>" >Volver</a>
+    </p>
+  <% end %>
+</body>

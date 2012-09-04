@@ -1,0 +1,233 @@
+<style type="text/css">
+  table {font-size: 10px}
+
+</style>
+
+<% if params[:filtro] == "1" %>
+
+<table>
+  <%quebra       = ""%>
+  <%totentrada   = 0 %>
+  <%totsaida     = 0 %>
+  <%subentrada   = 0 %>
+  <%subsaida     = 0 %>
+  <%subsaldo     = 0 %>
+
+  <% for fin in @financas %>
+      <% if quebra != fin.data.strftime("%d/%m/%Y")  %>
+
+         <% if quebra != "" %>
+         <%    condante = "data < '#{quebra}' AND ESTADO = 0 AND entrada_guarani + saida_guarani > 0"
+               condante = condante + " AND conta_id = #{params[:busca]["conta"]} AND ESTADO = 0" if params[:busca]["conta"].to_s != ""
+         %>
+                         <% anterior = Financa.sum('entrada_guarani - saida_guarani',:conditions => condante)%>
+
+
+                         <%subsaldo = subentrada - subsaida%>
+                        <tr height="5">
+                          <td></td>
+                        </tr>
+                         <tr class="head">
+                             <td align="right">Anterior :</td>
+                             <td colspan="4"><%=number_to_currency(anterior, :format=>' %n ', :precision => 0)%></td>
+                             <td align="right"><%= number_to_currency(subentrada, :format=>' %n ', :precision => 0) %></td>
+                             <td align="right"><%= number_to_currency(subsaida, :format=>' %n ', :precision => 0) %></td>
+                             <td align="right"><%= number_to_currency(anterior.to_f + subentrada.to_f - subsaida.to_f , :format=>' %n ', :precision => 0) %></td>
+                         </tr>
+
+                         <tr height="15">
+                             <td></td>
+                         </tr>
+
+                         <% subsaida    = 0 %>
+                         <% subentrada  = 0 %>
+                         <% subsaldo    = 0 %>
+
+                    <%end%>
+
+                    <td colspan="1"></td>
+                    <td class="head" colspan="1" align="center"><%=h quebra = fin.data.strftime("%d/%m/%Y")%></td>
+
+                 <%end%>
+
+    <tr>
+      <td width="50" align="center"> <%=h fin.id%> </td>
+      <td width="80" align="center"> <%=h fin.data.strftime("%d/%m/%Y")%> </td>
+      <td width="250" align="left"> <%=h fin.concepto%> </td>
+      <td width="150" align="left"> <%=h fin.conta_nome%> </td>
+      <td width="150" align="left"> <%=h fin.documento_nome%> </td>
+      <td width="80" align="right"> <%=h number_to_currency(fin.entrada_guarani, :format=>' %n ', :precision => 0) %> </td>
+      <td width="80" align="right"> <%=h number_to_currency(fin.saida_guarani, :format=>' %n ', :precision => 0) %> </td>
+    </tr>
+    <% totentrada   = totentrada + fin.entrada_guarani %>
+    <% totsaida     = totsaida + fin.saida_guarani %>
+    <% subentrada   = subentrada + fin.entrada_guarani %>
+    <% subsaida     = subsaida + fin.saida_guarani %>
+  <% end %>
+    <%    condante = "data < '#{quebra}' AND ESTADO = 0 AND entrada_guarani + saida_guarani > 0"
+          condante = condante + " AND conta_id = #{params[:busca]["conta"]} AND ESTADO = 0" if params[:busca]["conta"].to_s != ""
+    %>
+            <%anterior = Financa.sum('entrada_guarani - saida_guarani',:conditions => condante)%>
+    <tr height="5">
+      <td></td>
+    </tr>
+
+   <tr class="head">
+       <td align="right">Anterior :</td>
+       <td colspan="4"><%=number_to_currency(anterior, :format=>' %n ', :precision => 0)%></td>
+       <td align="right"><%= number_to_currency(subentrada, :format=>' %n ', :precision => 0) %></td>
+       <td align="right"><%= number_to_currency(subsaida, :format=>' %n ', :precision => 0) %></td>
+       <td align="right"><%= number_to_currency(anterior.to_f + subentrada.to_f - subsaida.to_f , :format=>' %n ', :precision => 0) %></td>
+   </tr>
+
+   <tr height="15">
+       <td></td>
+   </tr>
+
+   <% subsaida    = 0 %>
+   <% subentrada  = 0 %>
+   <% subsaldo    = 0 %>
+
+    <tr class="head">
+    <td colspan="5">Anterior :<%= number_to_currency(@financas_aterior, :format=>' %n ', :precision => 0) %></td>
+    <td width="80" align="right" ><%= number_to_currency(totentrada, :format=>' %n ', :precision => 0) %></td>
+    <td width="80" align="right"><%= number_to_currency(totsaida, :format=>' %n ', :precision => 0) %></td>
+    <td width="80" align="right"><%= number_to_currency( (@financas_aterior.to_f + totentrada) -totsaida, :format=>' %n ', :precision => 0) %></td>
+  </tr>
+</table>
+
+
+
+
+
+<% else %>
+
+
+
+<!--  RESUMIDO   !-->
+
+
+<table>
+  <%quebra       = ""%>
+  <%totentrada   = 0 %>
+  <%totsaida     = 0 %>
+  <%subentrada   = 0 %>
+  <%subsaida     = 0 %>
+  <%subsaldo     = 0 %>
+  <% for fin in @financas %>
+      <% if quebra != fin.data.strftime("%d/%m/%Y")  %>
+
+         <% if quebra != "" %>
+            <%    condante = "data < '#{quebra}' AND ESTADO = 0 AND entrada_guarani + saida_guarani > 0"
+                  condante = condante + " AND conta_id = #{params[:busca]["conta"]} AND ESTADO = 0" if params[:busca]["conta"].to_s != ""
+            %>
+            <%anterior = Financa.sum('entrada_guarani - saida_guarani',:conditions => condante)%>
+
+                         <%subsaldo = subentrada - subsaida%>
+
+                         <tr>
+                           <td width="45"></td>
+                           <td width="50"  align="center"><%=quebra%></td>
+                           <td width="250">TOTAL DE VENTAS</td>
+                           <td width="150" align="left"><%=h fin.conta_nome%></td>
+                           <td width="150"></td>
+                           <td width="80" align="right"><%= number_to_currency(subentrada, :format=>' %n ', :precision => 0) %></td>
+                           <td width="80" align="right"><%= number_to_currency(0, :format=>' %n ', :precision => 0) %></td>
+                           <td align="right"><%= number_to_currency(subsaldo, :format=>' %n ', :precision => 0) %></td>
+                         </tr>
+
+                         <tr height="5">
+                           <td></td>
+                         </tr>
+
+                         <tr class="head">
+                           <td align="right">Anterior :</td>
+                           <td colspan="4"><%=number_to_currency(anterior, :format=>' %n ', :precision => 0)%></td>
+                             <td align="right"><%= number_to_currency(subentrada, :format=>' %n ', :precision => 0) %></td>
+                             <td align="right"><%= number_to_currency(subsaida, :format=>' %n ', :precision => 0) %></td>
+                             <td align="right"><%= number_to_currency(anterior.to_f + subentrada.to_f - subsaida.to_f , :format=>' %n ', :precision => 0) %></td>
+                         </tr>
+
+                         <tr height="15">
+                             <td></td>
+                         </tr>
+
+                         <% subsaida    = 0 %>
+                         <% subentrada  = 0 %>
+                         <% subsaldo    = 0 %>
+
+                    <%end%>
+
+                    <td colspan="1"></td>
+                    <td class="head" colspan="1" align="center"><%=h quebra = fin.data.strftime("%d/%m/%Y")%></td>
+
+                 <%end%>
+    <% if fin.concepto == "VENTA" %>        
+          <%h fin.id%> 
+           <%h fin.data.strftime("%d/%m/%Y")%>
+          <%h fin.concepto%>
+          <%h fin.conta_nome%>
+          <%h fin.documento_nome%>
+          <%h number_to_currency(fin.entrada_guarani, :format=>' %n ', :precision => 0) %>
+          <%h number_to_currency(fin.saida_guarani, :format=>' %n ', :precision => 0) %>         
+    <% else %>
+        <tr>
+          <td width="45" align="center"> <%=h fin.id%> </td>
+          <td width="50" align="center"> <%=h fin.data.strftime("%d/%m/%Y")%> </td>
+          <td width="250" align="left"> <%=h fin.concepto%> </td>
+          <td width="150" align="left"> <%=h fin.conta_nome%> </td>
+          <td width="150" align="left"> <%=h fin.documento_nome%> </td>
+          <td width="80" align="right"> <%=h number_to_currency(fin.entrada_guarani, :format=>' %n ', :precision => 0) %> </td>
+          <td width="80" align="right"> <%=h number_to_currency(fin.saida_guarani, :format=>' %n ', :precision => 0) %> </td>
+        </tr>
+  <% end %>
+    <% totentrada   = totentrada + fin.entrada_guarani %>
+    <% totsaida     = totsaida + fin.saida_guarani %>
+    <% subentrada   = subentrada + fin.entrada_guarani %>
+    <% subsaida     = subsaida + fin.saida_guarani %>
+  <% end %>
+   <tr>
+       <td width="40"></td>
+       <td width="50"  align="center"><%=quebra%></td>
+       <td width="250">TOTAL DE VENTAS</td>
+       <td width="150" align="left"><%=h fin.conta_nome%></td>
+       <td width="150"></td>
+       <td width="80" align="right"><%= number_to_currency(subentrada, :format=>' %n ', :precision => 0) %></td>
+       <td width="80" align="right"><%= number_to_currency(0, :format=>' %n ', :precision => 0) %></td>
+       <td align="right"><%= number_to_currency(subsaldo, :format=>' %n ', :precision => 0) %></td>
+   </tr>
+    <%    condante = "data < '#{quebra}' AND ESTADO = 0 AND entrada_guarani + saida_guarani > 0"
+          condante = condante + " AND conta_id = #{params[:busca]["conta"]} AND ESTADO = 0" if params[:busca]["conta"].to_s != ""
+    %>
+            <%anterior = Financa.sum('entrada_guarani - saida_guarani',:conditions => condante)%>
+   <tr height="5">
+    <td></td>
+   </tr>
+
+   <tr class="head">
+       <td align="right">Anterior :</td>
+       <td colspan="4"><%=number_to_currency(anterior, :format=>' %n ', :precision => 0)%></td>
+       <td align="right"><%= number_to_currency(subentrada, :format=>' %n ', :precision => 0) %></td>
+       <td align="right"><%= number_to_currency(subsaida, :format=>' %n ', :precision => 0) %></td>
+       <td align="right"><%= number_to_currency(anterior.to_f + subentrada.to_f - subsaida.to_f , :format=>' %n ', :precision => 0) %></td>
+   </tr>
+
+   <tr height="15">
+       <td></td>
+   </tr>
+
+   <% subsaida    = 0 %>
+   <% subentrada  = 0 %>
+   <% subsaldo    = 0 %>
+
+    <tr class="head">
+    <td colspan="5">Anterior :<%= number_to_currency(@financas_aterior, :format=>' %n ', :precision => 0) %></td>
+    <td width="80" align="right" ><%= number_to_currency(totentrada, :format=>' %n ', :precision => 0) %></td>
+    <td width="80" align="right"><%= number_to_currency(totsaida, :format=>' %n ', :precision => 0) %></td>
+    <td width="80" align="right"><%= number_to_currency( (@financas_aterior.to_f + totentrada) -totsaida, :format=>' %n ', :precision => 0) %></td>
+  </tr>
+</table>
+
+<% end %>
+
+

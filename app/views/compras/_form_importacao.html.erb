@@ -1,0 +1,122 @@
+<body onload="DataCompra(),CampoCompra()">
+  <h1 align="right" id="header">Compra</h1>
+  <br/>
+  <% form_for(@compra) do |f| %>
+    <%= f.error_messages %>
+    <div class="group">
+      <table>
+        <tr>
+          <td>Fecha:</td>
+          <td><%= f.date_select :data %></td>
+        </tr>
+        <tr>
+          <td>Cotacion :</td>
+          <td>
+            <% if params[:action] == 'new'%>
+              <%= text_field :compra,:cotacao ,
+
+                { :size => '15',
+                  :onfocus => remote_function(:update => "key",
+                                              :url => { :action => :get_moeda},
+                                                        :with => "'key='+ key.value ")
+
+              }
+            %>
+            <%else%>
+              <%= f.text_field :cotacao  %>
+            <%end%>
+          </td>
+
+        </tr>
+        <tr>
+          <td>Unidade:</td>
+          <td><%= f.collection_select :unidade_id, Unidade.all(:select => 'id',:order => '1'),:id,:id %></td>
+        </tr>
+
+        <table>
+          <tr>
+            <td>
+
+              <fieldset>
+                <legend>Moneda</legend>
+                <%= f.radio_button :moeda, 0,  :Checked => "True"%> Dolar
+                <%= f.radio_button :moeda, 1 %> Gs.
+              </fieldset>
+            </td>
+          </tr>
+
+        </table>
+
+              <%= f.hidden_field :tipo_compra,:value  => 2 %>
+
+        <table>
+
+          <td><%= hidden_field_tag( 'key',
+              nil,
+              :id => "key",
+              :size => 15
+            ) %>
+          </td>
+          <tr>
+
+            <td>Fornecedor :</td>
+            <td colspan="3">
+            <% if params[:action] == 'new'%>
+              <%= text_field_with_auto_complete :compra,
+                                                :persona_nome, { :size => 30,
+                                                                 :onkeydown => "f(this)",
+                                                                 :onkeyup => "f(this)" },
+                                                               { :url => formatted_personas_path(:js),
+                                                                 :method => :get,
+                                                                 :param_name => 'busca' } %>
+            <% else %>
+              <%= text_field_with_auto_complete :compra,
+                                                :persona_nome, { :size => 30,
+                                                                 :onkeydown => "f(this)",
+                                                                 :onkeyup   => "f(this)",
+                                                                 :value     => @compra.persona_nome},
+                                                               { :url => formatted_personas_path(:js),
+                                                                 :method => :get,
+                                                                 :param_name => 'busca' } %>
+               
+            <% end %>
+             Pulse F2 para buscar.
+            </td>
+          </tr>
+          <tr>
+            <td>N. Envoice :</td>
+            <td>
+              <%= f.text_field :numero_envoce,
+                               :size => 15 %>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Despachante:</td>
+            <td><%= f.collection_select :despachante_id, Persona.all( :select     => 'id,nome',
+                                                                       :conditions => ['tipo_despachante = 1'],
+                                                                       :order      => '1' ),:id,
+                                                                                            :nome %></td>
+          </tr>
+        </table>
+      </table>
+    </div>
+    <%= link_to 'Volver', :action => 'index' %> |
+    <%= f.submit "Seguir>>" %>
+
+
+  <%end%>
+</body>
+
+<script>
+
+
+    //ABRI POPUP-----------------------------------------------------------------
+    document.onkeydown=function(e)
+    {
+      if(e.which == 113)
+        window.open('/personas/persona_compra', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=400');
+    }
+    //FIM ABRI POPUP----------------------------------------------------------------
+
+</script>

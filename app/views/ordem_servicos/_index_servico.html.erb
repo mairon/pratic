@@ -1,0 +1,38 @@
+
+
+<table>
+  <tr>
+    <td width="100" align="center">Fecha</td>
+    <td width="300" align="center">Servicio</td>
+    <td width="100" align="center">Hora inicio</td>
+    <td width="100" align="center">Hora final</td>
+    <td width="100" align="center">Hora Dif.</td>
+    <td width="100" align="center">Km Inicio</td>
+    <td width="100" align="center">Km final</td>
+    <td width="100" align="center">Km Dif</td>
+    <td width="100" align="center">Valor</td>
+  </tr>
+</table>
+<div class="rolagem" id="div">
+  <table>
+
+    <% for ordem_servicos_executado in ordem_servicos_executados %>
+      <tr class = "<%= cycle("cor1", "cor2") %>">
+        <td width="100" align="center"><%= ordem_servicos_executado.data.strftime("%d/%m/%Y") %></td>
+        <td width="300" align="left"><%= ordem_servicos_executado.servico_nome %></td>
+        <td width="100" align="right"><%=h number_to_currency(ordem_servicos_executado.horario_inicio, :format=>' %n ', :separator => ":")  %></td>
+        <td width="100" align="right"><%=h number_to_currency(ordem_servicos_executado.horario_final, :format=>' %n ', :separator => ":")  %></td>      
+        <td width="100" align="right"><%=h number_to_currency(ordem_servicos_executado.horario_diferenca, :format=>' %n ', :separator => ":")  %></td>
+        <td width="100" align="right"><%=h ordem_servicos_executado.km_inicio.to_i  %></td>
+        <td width="100" align="right"><%=h ordem_servicos_executado.km_final.to_i  %></td>
+        <td width="100" align="right"><%=h ordem_servicos_executado.km_diferenca.to_i  %></td>
+        <td width="100" align="right"><%=h number_to_currency(ordem_servicos_executado.valor_total_trabalhado, :format=>' %n ', :separator => ",")  %></td>
+        <td><%= link_to 'Editar', edit_ordem_servicos_executado_path(ordem_servicos_executado) %></td>
+        <td><%= link_to 'Borrar', ordem_servicos_executado, :confirm => 'Tiene certeza?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>
+
+

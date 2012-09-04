@@ -1,0 +1,35 @@
+<table>
+  <tr>
+    <% if @venda.tipo == 1 %>
+    <td width="50" align="center">Cota</td>    
+    <td width="100" align="center">Cheque</td>    
+    <td width="100" align="center">Valor Dolar</td>
+    <td width="100" align="center">Valor Gs.</td>
+    <td width="200" align="center">Conta</td>
+<%end%>
+  </tr>
+</table>
+
+<div class="rolagemVendaFinanca" dir="div">
+
+  <table>
+
+    <% for vendas_financa in vendas_financas %>
+      <tr class = "<%= cycle("cor2", "cor1") %>">
+        <% if @venda.tipo == 1 %>
+        <td width="50" align="center">    <%= h vendas_financa.cota%></td>
+        <td width="100" align="left">    <%= h vendas_financa.cheque %></td>        
+        <td width="100" align="right">    <%= h number_to_currency(vendas_financa.valor_dolar_credito, :format=>' %n ', :separator => ",")  %></td>
+        <td width="100" align="right">    <%= h number_to_currency(vendas_financa.valor_guarani_credito, :format=>' %n ', :separator => ",")  %></td>
+        <td width="160" align="left">    <%= h vendas_financa.conta_id %></td>
+        <td><%= link_to 'Editar', edit_vendas_financa_path(vendas_financa) %></td>
+        <td><%= link_to 'Borrar', vendas_financa, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+        <%else%>
+        <td><%= link_to 'Editar', edit_vendas_financa_path(vendas_financa) %></td>
+        <td><%= link_to 'Borrar', vendas_financa, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+        <td width="100" align="left">N. Orden : <%=  vendas_financa.numero_ordem %></td>
+        <% end %>
+  </tr>
+<% end %>
+</table>
+  </div>

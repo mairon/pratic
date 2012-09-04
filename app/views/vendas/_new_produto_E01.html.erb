@@ -1,0 +1,95 @@
+<body onload="CampoProdutoE01()">
+<% form_for(vendas_produto) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="group">
+    <%= f.hidden_field :venda_id %>
+    <%= f.hidden_field :produto_id %>
+    <%= f.hidden_field :fabricante_cod %>
+    <%= f.hidden_field :codigo %>    
+    <%= f.hidden_field :tipo %>
+    <%= f.hidden_field :clase_id %>
+    <%= f.hidden_field :grupo_id %>
+    <%= f.hidden_field :saldo %>
+    <%= f.hidden_field :cotacao, :value => @venda.cotacao %>
+    <%= f.hidden_field :data,    :value => @venda.data %>
+    <table>
+
+      <tr>
+         <td>Pico :</td>
+        <td><%= f.collection_select(  :bomba_id, Bomba.all(:order => '2'),:id,:nome,{},{:onkeyup => "EnterTab(event,'venda_produto_produto_busca_')"} )%></td>
+        <td>Produto :</td>
+
+        <td><%= hidden_field_tag( :produto_busca ,nil) %>
+
+            <%= f.hidden_field :produto_nome%>
+
+            <%= text_field_with_auto_complete  :venda_produto_produto_busca,nil,
+                                               { :onchange => remote_function( :update       => "venda_produto_produto_busca_",
+                                                                               :url          => { :action => :get_produto},
+                                                                               :with         => "'produto_busca='+this.value"),
+                                                                               :onkeyup      => "f(this),EnterTab(event,'vendas_produto_quantidade')",
+                                                                               :onkeypress   => "return bloqEnter(event)"},
+                                                                             { :url          => formatted_produtos_path(:js),
+                                                                               :method       => :get,
+                                                                               :param_name   => 'busca'}
+             %></td>
+
+        <td>Cantidad :</td>
+        <td><%= f.text_field :quantidade, 
+                             :size    => 8,
+                             :value   => '',
+                             :onkeyup => "EnterTab(event,'vendas_produto_unitario_guarani')",
+                             :onkeypress => "return bloqEnter(event)",
+                             :onchange   => " VendaTotalDolar(),
+                                              VendaTotalGs(),
+                                              VendaIvaGs(),
+                                              VendaIvaDolar()"%></td>
+
+        <td><%= f.hidden_field :taxa, 
+                               :size     => 5,
+                               :onkeydown  =>"return tabE(this,event)",
+                               :onkeypress => "return bloqEnter(event)",
+                               :readonly => "readonly"    %></td>
+
+            <%= f.hidden_field :iva_guarani%>
+            <%= f.hidden_field :iva_dolar%>
+
+        <td>Saldo : <font color="red"><SPAN ID="red"></SPAN> </font>
+                    <font color="green"><SPAN ID="green"></SPAN> </font>
+        </td>
+      </tr>
+      <tr>
+       
+        <td>Unit. Gs :</td>
+        <td><%= f.text_field :unitario_guarani, 
+                             :size     => 15,
+                             :onkeyup => "EnterTab(event,'vendas_produto_total_guarani')",
+                             :onkeypress => "return bloqEnter(event)",
+                             :readonly => "readonly" %></td>
+        
+        <td>Total Gs.:</td>
+        <td><%= f.text_field :total_guarani,
+                             :size     => 15,
+                             :onkeyup => "EnterTab(event,'vendas_produto_submit')",
+                             :onkeypress => "return bloqEnter(event)",
+                             :onchange => "VendaTotalGsQuantidade(),VendaTotalDolarQuantidade()" %>     <%= f.submit "Grabar" %>
+        </td>
+      </tr>
+           <%= f.hidden_field :unitario_dolar,
+                              :size     => 15,
+                              :readonly => "readonly" %>
+      
+           <%= f.hidden_field :total_dolar,
+                              :size     => 15,
+                              :readonly => "readonly" %>
+    </table>
+
+  <% end %>
+
+</div>
+
+</body>
+
+
+

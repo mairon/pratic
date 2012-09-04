@@ -1,0 +1,96 @@
+<script language="javascript">
+  function bloqEnter(objEvent) {
+    var iKeyCode;
+    iKeyCode = objEvent.keyCode;
+    if(iKeyCode == 13) return false;
+    return true;
+  }
+</script>
+<body onload="CampoProduto()">
+  <% form_for(vendas_produto) do |f| %>
+    <%= f.error_messages %>
+
+    <div class="group">
+      <%= f.hidden_field :venda_id %>
+      <%= f.hidden_field :produto_id %>
+      <%= f.hidden_field :fabricante_cod %>
+      <%= f.hidden_field :codigo %>
+      <%= f.hidden_field :tipo %>
+      <%= f.hidden_field :clase_id %>
+      <%= f.hidden_field :grupo_id %>
+      <%= f.hidden_field :saldo %>
+      <%= f.hidden_field :cotacao, :value => @venda.cotacao %>
+      <%= f.hidden_field :data,    :value => @venda.data %>
+      <table>
+
+        <tr>
+          <td>Codigo :</td>
+          <td> <%= text_field_tag( 'codigo',
+                                    nil,
+                                    :id => "codigo",
+                                    :onkeyup => remote_function(:update     => "codigo",
+                                                                :url        => { :action     => :get_codigo_barra_produto, :id => 1},
+                                                                :with       => "'codigo='+this.value"),
+                                                                :size       => 15,
+                                                                :onkeypress => "return bloqEnter(event)"
+
+            ) %>
+          </td>
+
+          <td>Produto :</td>
+
+          <td><%= hidden_field_tag( :produto_busca ,nil) %>
+            <%= f.hidden_field :produto_nome%>
+            <%= text_field_with_auto_complete  :venda_produto_produto_busca,nil,
+                                               {:onblur => remote_function(:update     => "venda_produto_produto_busca_",
+                                                                           :url        => { :action => :get_produto},
+                                                                           :with       => "'produto_busca='+this.value"),
+                                                                           :onkeydown  => "f(this)",
+                                                                           :onkeypress => "return bloqEnter(event)"  ,
+                                                                           :onkeyup    => "f(this)" },
+                                                                           {:url       => formatted_produtos_path(:js),
+                                                                           :method     => :get,
+                                                                           :param_name => 'busca'}
+          %></td>
+
+          <td>Cantidad :</td>
+          <td><%= f.text_field :quantidade, 
+                               :size   => 5,
+                               :onblur => " VendaTotalDolar(),
+                                            VendaTotalGs(),
+                                            VendaIvaGs(),
+                                            VendaIvaDolar()"%></td>
+
+          <%= f.hidden_field :taxa %>
+          <%= f.hidden_field :iva_guarani%>
+          <%= f.hidden_field :iva_dolar%>
+
+          <td>Saldo : <font color="red"><SPAN ID="red"></SPAN> </font>
+                      <font color="green"><SPAN ID="green"></SPAN> </font>
+          </td>
+        </tr>
+        <tr>
+
+
+          <td>Unit. Gs :</td>
+          <td><%= f.text_field :unitario_guarani,
+                               :size     => 15,
+                               :readonly => "readonly" %></td>
+
+          <td>Total Gs.:</td>
+          <td><%= f.text_field :total_guarani, 
+                               :size     => 15,
+                               :readonly => "readonly" %>
+          <td>Deposito :</td>
+          <td><%= f.collection_select :deposito_id, Deposito.all(:order => '2'),:id,:nome %>
+          <%= f.submit "Grabar" %></td>
+          </td>
+        </tr>
+        <%= f.hidden_field :unitario_dolar%>
+        <%= f.hidden_field :total_dolar%>
+      </table>
+
+    <% end %>
+
+  </div>
+</body>

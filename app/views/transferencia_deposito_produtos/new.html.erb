@@ -1,0 +1,8 @@
+<h1 align="right" id="header">Transferencia de Depositos</h1>
+
+<% form_for(@transferencia_deposito_produto) do |f| %>
+  <%= f.error_messages %>
+<% end %>
+
+<a href="/transferencia_depositos/<%= @transferencia_deposito_produto.transferencia_deposito.id %>" ><< Volver</a>
+

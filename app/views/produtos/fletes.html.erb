@@ -1,0 +1,29 @@
+<h1 align="right" id="header">Productos</h1>
+<table>
+  <tr>
+    <td width="100" align="center">Clase</td>
+    <td width="100" align="center">Grupo</td>
+    <td width="100" align="center">Cod. Barra</td>
+    <td width="500" align="center">Produto</td>
+    <td width="100" align="center">Stock Min.</td>
+    <td width="100" align="center">Stock MAx</td>
+
+  </tr>
+</table>
+
+<div class="rolagem" id="div">
+    <table>
+
+      <% for produto in @produtos %>
+        <tr class = "<%= cycle("cor1", "cor2")%>">
+          <td width="100" align="center"> <%=h produto.clase_id%> </td>
+          <td width="100" align="center"> <%=h produto.grupo_id%> </td>
+          <td width="100" align="center"> <%=h produto.barra%> </td>
+          <td width="500" align="left"> <%=h produto.nome%> </td>
+          <td width="100" align="left"> <%=h produto.stock_minimo%> </td>
+          <td width="100" align="left"> <%=h produto.stock_maximo%> </td>
+
+        </tr>
+      <% end %>
+    </table>
+</div>

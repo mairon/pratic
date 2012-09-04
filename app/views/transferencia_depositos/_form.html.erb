@@ -1,0 +1,53 @@
+<h1 align="right" id="header">Transferencia de Depositos</h1>
+Transferencia de Depositos Edicion
+<% form_for(@transferencia_deposito) do |f| %>
+  <%= f.error_messages %>
+<div class="group">
+  <table>
+    <tr>
+      <td align="right">Fecha :</td>
+      <td><%= f.date_select :data %></td>
+    </tr>
+    
+    <tr>
+      <td></td>
+      <td>
+        <fieldset>
+          <legend>Deposito Origen</legend>
+            <table>
+              <tr>
+                <td><%= f.collection_select :deposito_origem_id, Deposito.all( :select => ' id,
+                                                                                           nome',
+                                                                               :order  => '2' ), :id,
+                                                                                                 :nome %></td>
+              </tr>
+            </table>
+        </fieldset>
+      </td>
+
+      <td width="250">
+        <fieldset>
+          <legend>Deposito Destino</legend>
+            <table>
+              <tr>
+                <td><%= f.collection_select :deposito_destino_id, Deposito.all( :select => ' id,
+                                                                                           nome',
+                                                                               :order  => '2' ), :id,
+                                                                                                 :nome %></td>
+              </tr>
+            </table>
+        </fieldset>
+      </td>
+    </tr>
+
+    <tr>
+      <td align="top" valign="top">Concepto :</td>
+      <td colspan="2"><%= f.text_area :concepto,
+                          :size => '70x4'%></td>
+    </tr>
+
+
+  </table>
+</div>
+    <%= f.submit 'Grabar' %> <%= link_to 'Volver', transferencia_depositos_path %>
+<% end %>

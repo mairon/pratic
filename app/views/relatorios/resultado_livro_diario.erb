@@ -1,0 +1,61 @@
+
+<div class="group">
+  
+  <table>
+
+      <% qb_data       = ""%>
+      <% qb_lancamento = ""%>      
+      <% @diario.each do |diario|%>
+
+        <!--QUEBRAS !-->
+        <% if ( qb_data != diario.data.to_s ) or ( qb_lancamento != diario.id.to_s )%>
+
+              <% if ( qb_lancamento != diario.id.to_s ) or ( qb_data != diario.data.to_s )  %>
+                    <% if qb_lancamento != "" %>
+                       
+                              <tr class="head">
+                                  <td></td>
+                              </tr>
+                    <% end %>
+              <% end %>
+
+              <% if ( qb_data != diario.data.to_s ) %>
+                    <% if qb_data != "" %>
+
+                          <tr class="head">
+                              <td>-----</td>
+                           </tr>
+
+                    <% end %>
+              <% end %>
+
+                <tr class="head">
+                  <td>
+                    <% if qb_data != diario.data.to_s %>
+                          <% qb_data = diario.data.to_s  %>
+                          Fecha : <%= diario.data.strftime("%d/%m/%Y")  %>
+                    <% end %>
+                  </td>
+                </tr>
+
+                    <% if qb_lancamento != diario.id.to_s %>
+                          <% qb_lancamento = diario.id.to_s  %>
+                    <% end %>
+          <% end %>
+
+          <tr class = "<%= cycle("cor1", "cor2") %>">            
+            <td width="30" align="center">     <%=  diario.id%></td>
+            <td width="80" align="center">     <%=  diario.data.strftime("%d/%m/%Y")%></td>
+            <td width="100" align="left">      <%=  diario.documento_nome %></td>
+            <td width="30" align="left">       <%=  diario.numero %></td>
+            <td width="60" align="left">       <%=  diario.contabilidade %></td>
+            <td width="150" align="left">      <%=  diario.descripcion %></td>
+            <td width="100" align="right">     <%=  number_to_currency(diario.debe , :format=>' %n ', :precision => 0) %></td>
+            <td width="100" align="right">     <%=  number_to_currency(diario.haber , :format=>' %n ', :precision => 0) %></td>
+          </tr>
+
+      <% end %>
+
+          </table>
+</div>
+

@@ -1,0 +1,24 @@
+<h1 align="right" id="header">Plan de Cuentas</h1>
+<%= link_to 'Nuevo', new_plano_de_conta_path %>
+<div class="group">
+   <table>
+      <tr>
+         <td width="50"align="center">Cod.</td>
+         <td width="550"align="center">Descripcion</td>
+      </tr>
+   </table>
+   <div class="rolagem" id="div">
+      <table>
+        <% cache 'plano_de_conta_index' do %>
+           <% for plano_de_conta in @plano_de_contas %>
+              <tr class = "<%= cycle("cor1", "cor2") %>">                
+                <td width="50" align="left"><%= plano_de_conta.codigo %></td>
+                 <td width="550" ><%= plano_de_conta.descricao %></td>
+                 <td><%= link_to 'Editar', edit_plano_de_conta_path(plano_de_conta) %></td>
+                 <td><%= link_to 'Borrar', plano_de_conta, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+              </tr>
+           <% end %>
+         <% end %>
+      </table>
+   </div>
+</div>

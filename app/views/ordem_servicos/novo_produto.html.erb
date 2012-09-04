@@ -1,0 +1,17 @@
+
+
+  <h1 align="right" id="header">Producto</h1>
+  <br/>
+
+    <%= render :partial=>"new_produto", :locals=>{:ordem_servicos_produto=>OrdemServicosProduto.new(:ordem_servico_id=>@ordem_servico.id)} %>
+
+<script>
+  //ABRI POPUP-----------------------------------------------------------------
+document.onkeydown=function(e)
+{
+    if(e.which == 113)
+        window.open('http://localhost:3000/produtos/busca_ordem_produto', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=400');
+}
+//FIM ABRI POPUP----------------------------------------------------------------
+
+</script>

@@ -1,0 +1,92 @@
+
+      <%= f.hidden_field :descricao,
+                         :value => 'COMPRA MERCADERIA'%>
+
+                <table>
+                 <tr  height="35">
+                   <td align="right">Fecha:</td>
+                   <td colspan="3"><%= f.date_select :data ,{},{:onblur => "GastoCotacao()"} %></td>
+                       <%= hidden_field_tag( 'key' ) %>
+
+                 </tr>
+
+                 <tr height="35">
+                       <td align="right">Cotizacion :</td>
+                       <td><%= text_field :compra,
+                                          :cotacao ,
+                                          { :size    => 10,:value => @compra.cotacao,
+                                            :onfocus  => remote_function(:update => "key",
+                                                                        :url    => { :action => :get_moeda},
+                                                                                     :with   => "'key='+ key.value ") } %>*
+                   </td>
+
+                   <td align="right">Unidade:</td>
+                   <td><%= f.collection_select :unidade_id, Unidade.all(:select => 'id',:order => '1'),:id,:id %></td>
+                 </tr>
+                 </table>
+
+
+                 <table>
+                   <tr height="35">
+                     <td width="315">
+                       <fieldset>
+                         <legend>Moneda</legend>
+                         <%= f.radio_button :moeda, 1,  :Checked => "True",  :onblur => "MoedaCompra('1')" %> Gs.
+                         <%= f.radio_button :moeda, 0,:onblur => "MoedaCompra('0')"%> Dolar
+
+                         <input type="hidden" id="moeda" value="<%= @compra.moeda %>"/>
+                       </fieldset>
+                     </td>
+                   </tr>
+                 </table>
+
+
+                 <table>
+                   <tr>
+                     <td width="315">
+                       <fieldset>
+                         <legend>Compra</legend>
+                         <%= f.radio_button :tipo_compra, 0,  :Checked => "True"%> Mercaderia
+                         <%= f.radio_button :tipo_compra, 3%> Compra de Bens
+                       </fieldset>
+                     </td>
+                   </tr>
+                 </table>
+
+
+                 <table>
+                   <tr>
+                     <td width="315">
+                       <fieldset>
+                         <legend>Tipo</legend>                         
+                         <%= f.radio_button :tipo, 0,
+                                            :Checked => "True",
+                                            :onblur  => "TipoCompra('0'),
+                                                         ExibeDivCompraFinanca(),
+                                                         ExibeDivCompraDetalheFatura()"%> Contado
+                         <%= f.radio_button :tipo, 1,  
+                                            :onblur => "TipoCompra('1'),
+                                                        ExibeDivCompraFinanca(),
+                                                        ExibeDivCompraDetalheFatura()" %> Credito
+
+                         <input type="hidden" id="tipo" value="<%= @compra.tipo %>"/>
+                       </fieldset>
+                     </td>
+                   </tr>
+                 </table>
+
+                <table>
+                   <tr height="35">
+                     <td align="right">Proveedor :</td>
+                     <td colspan="3">
+                       <%= f.text_field :persona_nome %>
+                         Pulse F2 para buscar.
+                      <%= f.hidden_field :despachante_id, :value => 0  %>
+                     </td>
+                   </tr>
+                </table>
+
+
+
+
+

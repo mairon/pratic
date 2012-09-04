@@ -1,0 +1,98 @@
+<body onload="SobranteFaltanteFocoData()">
+<h1 align="right" id="header">Sobrantes e Faltantes</h1>
+
+<% form_for(@sobrantes_faltante) do |f| %>
+  <%= f.error_messages %>
+  Sobrantes e Faltantes Edicion
+  <div class="group">
+    <table>
+      <tr>
+        <td>Fecha</td>
+        <td><%= f.date_select :data,{},{:onblur => "SobranteFaltanteDataCotacao()"} %></td>
+        <%= hidden_field_tag( 'key' ) %>
+      </tr>
+
+      <tr>
+        <td align="right">Cotización :</td>
+        <td>             <%= text_field :sobrantes_faltante,
+                                        :cotacao ,
+                                        { :size    => 15,
+                                          :value   => @sobrantes_faltante.cotacao,
+                                          :onfocus  => remote_function(:update => "key",
+                                                                      :url    => { :action => :get_moeda},
+                                                                                    :with   => "'key='+ key.value ") } %>
+        </td>
+      </tr>
+      <tr>
+            <td align="right">Producto :</td>
+            <td><%= f.collection_select :produto_id, Produto.all( :select => ' id,
+                                                                               nome',
+                                                                      :order  => '2' ), :id,
+                                                                                        :nome %></td>
+      </tr>
+
+      <tr>
+            <td align="right">Deposito :</td>
+            <td><%= f.collection_select :deposito_id, Deposito.all( :select => ' id,
+                                                                                nome',
+                                                                      :order  => '2' ), :id,
+                                                                                        :nome %></td>
+      </tr>
+
+
+      <tr>
+        <td></td>
+        <td>
+         <table>
+           <tr>
+             
+             <td>
+               <fieldset>
+                 <legend>Tipo</legend>
+                 <%= f.radio_button :tipo, 0,  :Checked => "True"%> Sobrante
+                 <%= f.radio_button :tipo, 1 %> Faltante
+                 <%= f.radio_button :tipo, 2 %> Perdas                 
+               </fieldset>
+             </td>
+           </tr>
+         </table>
+        </td>
+      </tr>
+      <tr>
+        <td align="right"> Cantidad</td>
+        <td> <%= f.text_field :quantidade,
+                              :size => 15%></td>
+      </tr>
+      <tr>
+        <td align="right"> Unitario Gs.</td>
+        <td> <%= f.text_field :unitario_guarani,
+                              :size     => 15,
+                              :onchange => " SobranteFaltanteGuaraniDolar(),
+                                             SobranteFaltanteQuantidadeUnitarioGs(),
+                                             SobranteFaltanteQuantidadeUnitarioUs() "%></td>
+        <td align="right"> Total Gs.</td>
+        <td> <%= f.text_field :total_guarani,
+                              :size     => 15 %></td>
+
+      </tr>
+
+      <tr>
+        <td align="right"> Unitario Gs.</td>
+        <td> <%= f.text_field :unitario_dolar,
+                              :size     => 15,
+                              :onchange => " SobranteFaltanteDolarGuarani(),
+                                             SobranteFaltanteQuantidadeUnitarioGs(),
+                                             SobranteFaltanteQuantidadeUnitarioUs() "%></td>
+        <td align="right"> Total Gs.</td>
+        <td> <%= f.text_field :total_dolar,
+                              :size => 15%></td>
+
+      </tr>
+
+    </table>
+  </div>
+
+    <%= f.submit 'Grabar' %> <%= link_to 'Volver', sobrantes_faltantes_path %>
+<% end %>
+
+</body> 

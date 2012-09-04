@@ -1,0 +1,71 @@
+<table>
+   <tr>
+      <td width="100" align="center">Cod.</td>
+      <td width="500" align="center">Produto</td>
+      <td width="100" align="center">Saldo</td>      
+      <% if current_user.tipo == 0 %>
+         <td width="100" align="center">Ult. Costo Gs.</td>
+         <td width="100" align="center">U$ .</td>
+      <% end %>
+      <td width="100" align="center">Precio Gs.</td>
+      <td width="100" align="center"> U$</td>
+
+
+   </tr>
+</table>
+
+<div class="rolagem" id="div">
+   <table>
+
+      <% for produto in @produtos %>
+         <% deposito = " AND deposito_id = #{params[:busca_depositado]}" unless params[:busca_depositado].blank? %>
+         <% quantidade  = Stock.sum("entrada - saida",:conditions => ["produto_id = ? #{deposito}",produto.id] ) %>
+         <% last_compra = ComprasProduto.all(:select =>"unitario_dolar,unitario_guarani",:conditions => ['produto_id = ?',produto.id] ) %>
+
+         <%if params[:filtro].to_s == "0"%>
+            <% if quantidade.to_f > 0 %>
+               <tr class = "<%= cycle( "cor1", "cor2" )%>">
+                  <td width="100" align="center"> <%=h produto.barra%> </td>
+                  <td width="500" align="left">   <%=h produto.nome%> </td>
+                  <% if quantidade.to_i <= 0 %>
+                     <td width="100"  align="center"><font color="red"> <%=h format( "%.3f",quantidade.to_f ) %></font> </td>
+                  <%else%>
+                     <td width="100"  align="center"><font color="green"> <%=h format( "%.3f",quantidade.to_f ) %></font> </td>
+                  <%end%>                  
+                  <% if current_user.tipo == 0 %>
+                     <td width="100" align="right">   <%=h number_to_currency( last_compra.last ?  last_compra.last.unitario_guarani : "0",       :format =>' %n ', :precision  => 0 ) %> </td>
+                     <td width="100" align="right">   <%=h number_to_currency( last_compra.last ? last_compra.last.unitario_dolar  : "0",         :format =>' %n ', :separeitor => "," ) %> </td>
+                  <% end %>
+                  <td width="100" align="right">   <%=h number_to_currency( produto.preco_venda_guarani,       :format =>' %n ', :precision  => 0 ) %> </td>
+                  <td width="100" align="right">   <%=h number_to_currency( produto.preco_venda_dolar,         :format =>' %n ', :separeitor => "," ) %> </td>
+                  <td><%= link_to 'Editar', {:controller => 'produtos',:action => 'edit', :id => produto.id}, :popup => ['new_window','height=600,width=1200'] %></td>
+               </tr>
+            <% end %>
+         <% else %>
+            <tr class = "<%= cycle( "cor1", "cor2" )%>">
+               <td width="120" align="center"> <%=h produto.cod_velho%> </td>
+               <td width="500" align="left">   <%=h produto.nome%> </td>
+               <% if quantidade.to_i <= 0 %>
+                  <td width="100"  align="center"><font color="red"> <%=h format( "%.3f",quantidade.to_f ) %></font> </td>
+               <%else%>
+                  <td width="100"  align="center"><font color="green"> <%=h format( "%.3f",quantidade.to_f ) %></font> </td>
+               <%end%>               
+               <% if current_user.tipo == 0 %>
+                     <td width="100" align="right">   <%=h number_to_currency( last_compra.last ?  last_compra.last.unitario_guarani : "0",       :format =>' %n ', :precision  => 0 ) %> </td>
+                     <td width="100" align="right">   <%=h number_to_currency( last_compra.last ? last_compra.last.unitario_dolar  : "0",         :format =>' %n ', :separeitor => "," ) %> </td>
+               <% end %>
+               <td width="100" align="right">   <%=h number_to_currency( produto.preco_venda_guarani,       :format =>' %n ', :precision  => 0 ) %> </td>
+               <td width="100" align="right">   <%=h number_to_currency( produto.preco_venda_dolar,         :format =>' %n ', :separeitor => "," ) %> </td>
+               <td><%= link_to 'Editar', {:controller => 'produtos',:action => 'edit', :id => produto.id}, :popup => ['new_window','height=600,width=1200'] %></td>
+            </tr>
+
+         <% end %>
+      <% end %>
+   </table>
+</div>
+
+
+
+
+
+

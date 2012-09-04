@@ -1,0 +1,24 @@
+<table>
+	<% qtd = 0 %>
+	<% tot = 0 %>
+	<% @vendas_produto.each do |vp| %>
+	<tr>
+		<% br = Produto.first(:conditions => ["id = ?",vp.produto_id])%>
+		<td width="80" align="center" ><%= br.barra %></td>
+		<td width="400" align="left"><%= vp.produto_nome %></td>
+		<td width="100" align="right"><%= vp.qtd %></td>
+		<td width="100" align="right"><%= number_to_currency(vp.tot, :format=>' %n ', :precision => 0 ) %></td>
+	</tr>
+
+	<% qtd += vp.qtd.to_f %>
+	<% tot += vp.tot.to_f %>
+
+	<% end %>
+	<tr class="head">
+		<td width="50" align="center" ></td>
+		<td width="300" align="center"></td>
+		<td width="100" align="right"><%= qtd %></td>
+		<td width="100" align="right"><%= number_to_currency(tot, :format=>' %n ', :precision => 0 ) %></td>
+	</tr>
+
+</table>

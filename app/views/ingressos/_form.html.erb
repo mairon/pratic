@@ -1,0 +1,94 @@
+<body onload="IngressoFocoData()">
+  <h1 align="right" id="header">Ingresos</h1>
+  Ingressos - Edicion
+
+  <% form_for(@ingresso) do |f| %>
+    <%= f.error_messages %>
+  <div class="group">
+    <table>
+      <tr>
+
+        <td align="right">Fecha :</td>
+        <td><%= f.date_select :data ,{},{:onblur => "IngressoDataCotacao()"}%></td>
+        <%= hidden_field_tag( 'key' ) %>
+      </tr>
+
+      <tr>
+        <td align="right">Cotización :</td>
+        <td>             <%= text_field :ingresso,
+                                        :cotacao ,
+                                        { :size    => 15,                                          
+                                          :onfocus  => remote_function(:update => "key",
+                                                                      :url    => { :action => :get_moeda},
+                                                                                   :with   => "'key='+ key.value ") } %>
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>
+          <fieldset>
+            <legend>Moneda</legend>
+            <%= f.radio_button :moeda, 1,  :Checked => "True" %> Gs.
+            <%= f.radio_button :moeda, 0 %> Dolar
+
+          </fieldset>
+        </td>
+      </tr>
+
+      <tr>
+        <td align="right">Documento :</td>
+        <td><%= f.collection_select :documento_id, Documento.all( :select => ' id,
+                                                                               nome',
+                                                                  :order  => '2' ), :id,
+                                                                                    :nome %></td>
+      </tr>
+
+
+      <tr>
+        <td align="right">Cuenta :</td>
+        <td><%= f.collection_select :conta_id, Conta.all( :select => ' id,
+                                                                       nome',
+                                                          :order  => '2' ), :id,
+                                                                            :nome %></td>
+      </tr>
+
+      <tr>
+        <td align="right">Valor Gs.:</td>
+        <td><%= f.text_field :valor_guarani,
+                              :size     => 15,
+                              :onchange => "IngressoGuaraniDolar()" %></td>
+
+        <td align="right">Valor U$.:</td>
+        <td><%= f.text_field :valor_dolar,
+                              :size     => 15,
+                              :onchange => "IngressoDolarGuarani()" %></td>
+
+      </tr>
+
+      <tr>
+        <td align="right">Rubros :</td>
+        <td><%= f.collection_select :rubro_id, Rubro.all( :select => ' id,
+                                                                       descricao',
+                                                          :order  => '2' ), :id,
+                                                                            :descricao %></td>
+      </tr>
+
+      <tr>
+        <td align="right" valign="top">Concepto :</td>
+        <td colspan="3"><%= f.text_area :concepto,
+                              :size      => '48x4',
+                              :onkeydown => "f(this)",
+                              :onkeyup   => "f(this)"%></td>
+      </tr>
+
+
+    </table>
+  </div>
+
+  <%= f.submit 'Grabar' %>
+
+  <%= link_to 'Volver', ingressos_path %>
+  <% end %>
+
+</body>

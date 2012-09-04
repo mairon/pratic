@@ -1,0 +1,167 @@
+<body onload="CampoCompraFin(<%= @compra.documento_id %>)">
+<% form_for(compras_financa) do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :compra_id %>    
+
+
+<script>
+  function buscaproveedor()
+  {
+    document.getElementById('key').value = document.getElementById('nomeproveedor').value;
+  }
+
+</script>
+
+
+  <div class="group">
+
+     <% if @compra.tipo_compra == 2 %>
+    <table>
+      <tr>
+        <td>Fecha:</td>
+        <td><%= f.date_select :data %></td>
+
+         <td>Cotacion :</td>
+        <td><%= f.text_field :cotacao, :value => @compra.cotacao, :size => 15 %></td>
+
+      </tr>
+      <tr>
+        <td>Proveedor:</td>
+        <td><%= select_tag("nomeproveedor", options_for_select(Persona.all(:select => 'id,nome',
+                                                                          :order => '2').collect{|e| [e.nome, e.id]}),
+                                                                          :onkeydown => "buscaproveedor() " ) %>
+
+            <%= text_field_tag( 'key',
+                                 nil,
+                                 :id     => "key",
+                                 :onblur => remote_function(:update => "key",
+                                                            :url    => { :action => :get_proveedor_financa,
+                                                                         :id     => 1 },
+                                                                         :with   => "'key='+this.value" ),
+                                                                         :size   => 5
+                               ) %>
+
+            <%= f.hidden_field :persona_id %>
+            <%= f.hidden_field :persona_nome %>
+          </td>
+          <td >Ruc:</td>
+          <td><%= f.text_field :persona_ruc,
+                               :size =>15%></td>
+      </tr>
+              
+      <tr>
+        <td></td>
+        <td>
+          <fieldset>
+            <legend>Tipo</legend>
+            <%= f.radio_button :tipo, 0,  :Checked => "True"%> Contado
+            <%= f.radio_button :tipo, 1 %> Credito
+          </fieldset>
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>
+          <fieldset>
+            <legend>Moneda</legend>
+            <%= f.radio_button :moeda, 0,  :Checked => "True"%> Dolar
+            <%= f.radio_button :moeda, 1 %> Gs.
+          </fieldset>
+        </td>
+      </tr>
+  <tr>
+    <td>Documento:</td>
+    <td><%= f.collection_select :documento_id, Documento.all( :select => 'id,nome',
+                                                             :order => '1' ),:id,
+                                                                             :nome %></td>
+  </tr>
+
+  <tr>
+    <td>Numero:</td>
+    <td>        <%= f.text_field :documento_numero_01,
+                         :size => 1%>-
+                <%= f.text_field :documento_numero_02,
+                         :size => 1%>-
+        <%= f.text_field :documento_numero,
+                         :size => 15 %></td>
+  </tr>
+  </table>
+
+
+<% else %>
+
+    <table>
+        <%= f.hidden_field :data, :value => Time.now.strftime("%Y-%m-%d") %>
+        <%= f.hidden_field :cotacao, :value => @compra.cotacao %>
+        <%= f.hidden_field :persona_id,:value => @compra.persona_id %>
+        <%= f.hidden_field :persona_nome,:value => @compra.persona_nome %>
+        <%= f.hidden_field :persona_ruc, :value => @compra.persona_ruc %>
+        <%= f.hidden_field :tipo,:value => @compra.tipo%>
+        <%= f.hidden_field :moeda,:value => @compra.moeda %>
+    <td>Documento:</td>
+    <td><%= f.collection_select :documento_id, Documento.all( :select => 'id,nome',
+                                                               :order => '1' ),:id,
+                                                                               :nome %></td>
+  <tr>
+    <td>Numero:</td>
+    <td>        <%= f.text_field :documento_numero_01,
+                         :size  => 1,
+                         :value => @compra.documento_numero_01 %>-
+                <%= f.text_field :documento_numero_02,
+                         :size => 1,
+                          :value => @compra.documento_numero_02%>-
+
+        <%= f.text_field :documento_numero,
+                         :size => 15,
+                         :value => @compra.documento_numero%></td>
+  </tr>
+
+
+  
+<% end %>
+  <tr>
+    <td>Cota:</td>
+    <td><%= f.text_field :cota, :size => 10 ,:value => @cota_total %></td>
+
+    <td>Vencimento:</td>
+    <td><%= f.date_select :vencimento %></td>
+  </tr>
+
+  <tr>
+    <td>Conta:</td>
+    <td><%= f.collection_select :conta_id, Conta.all(:order => '1'),:id,:nome %></td>
+    <td>Cheque:</td>
+    <td><%= f.text_field :cheque, :size => 15 %></td>
+  </tr>
+
+
+  <% if @compra.tipo_compra == 2 %>
+
+  <tr>
+    <td>Valor Dolar :</td>
+    <td><%= f.text_field :valor_dolar, :size => 15, :onblur => "CompraUnitFinancaGs()" %></td>
+    <td>Valor Gs. :</td>
+    <td><%= f.text_field :valor_guarani, :size => 15, :onblur => "CompraUnitFinancaDolar()" %>
+    </td>
+  <% else %>
+  <tr>
+     <%if @compra.moeda == 0%>
+    <td>Valor Dolar :</td>
+    <td><%= f.text_field :valor_dolar, :size => 15, :onblur => "CompraUnitFinancaGs()" %></td>
+    <% else %>
+    <td>Valor Gs. :</td>
+    <td><%= f.text_field :valor_guarani, :size => 15, :onblur => "CompraUnitFinancaDolar()" %>
+    </td>
+    <% end %>
+
+   <% end %>
+  </tr>
+
+</table>
+</div>
+  <a href="/compras/compras_financa/<%=params[:id]%>" >Volver</a> |<%= f.submit "Grabar" %>
+
+<% end %>
+
+</body>

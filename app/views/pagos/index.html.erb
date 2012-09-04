@@ -1,0 +1,37 @@
+<h1 align="right" id="header">Pagos</h1>
+<%= link_to 'Nuevo', new_pago_path %>
+<div class="group">
+  <table>
+    <tr>
+      <td width="80" align="center">Cod.</td>
+      <td width="80" align="center">Fecha</td>
+      <td width="250" align="center">Clientes</td>
+
+    </tr>
+  </table>
+  <div class="rolagem" dir="div">
+
+    <table>
+
+      <% for pago in @pagos %>
+
+        <tr class = "<%= cycle( "cor1", "cor2" )%>">
+
+          <td width="80"  align="center"><%= pago.id%></td>
+          <td width="80"  align="center"><%= pago.data.strftime("%d/%m/%Y")%></td>
+          <td width="250" align="left"><%= pago.persona_nome%></td>
+          <td><%= link_to 'Editar', edit_pago_path(pago) %></td>
+          <td><%= link_to 'Borrar', pago, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+
+
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+

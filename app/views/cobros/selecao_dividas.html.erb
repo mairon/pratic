@@ -1,0 +1,153 @@
+<%form_tag :action => 'filtro_divida_selecionadas',:id => @cobro.id ,:name => "form1" do%>    
+    <div class="group">
+      <%if @cobro.moeda == 0 %>
+        <table>
+          <tr>
+            <td width="80" align="center">Fecha</td>
+            <td width="300" align="center">Cliente</td>
+            <td width="180" align="center">Documento</td>
+            <td width="150" align="center">Orden</td>
+            <td width="150" align="center">N. Doc.</td>
+            <td width="80" align="center">Couta</td>
+            <td width="80" align="center">Vencimento</td>
+            <td width="100" align="center">Valor Dolar</td>
+            <td width="100" align="center">Anterior Dolar</td>
+            <td width="100" align="center">Saldo Dolar</td>
+
+          </tr>
+        </table>
+        <div class="rolagem" dir="div">
+
+          <table>
+
+            <% for cliente in @cliente %>
+                  <%  anterior_dolar     = Cliente.sum(:cobro_dolar, :conditions => ["documento_numero = ? AND cota = ? AND tabela = 'COBROS_DETALHE'",cliente.documento_numero,cliente.cota]) %>
+                  <%  anterior_guarani   = Cliente.sum(:cobro_guarani, :conditions => ["documento_numero = ? AND cota = ? AND tabela = 'COBROS_DETALHE'",cliente.documento_numero,cliente.cota]) %>
+                  <%  saldo_dolar        = cliente.divida_dolar - anterior_dolar   %>
+                  <%  saldo_guarani      = cliente.divida_guarani - anterior_guarani   %>
+                  <tr class = "<%= cycle( "cor1", "cor2" )%>"
+                      onMouseOver="javascript:this.style.backgroundColor='#949494'"
+                      onMouseOut="javascript:this.style.backgroundColor=''">
+
+                    <td width="70"><%= check_box_tag "cliente_ids[]", cliente.id   %></td>
+                    <td width="80"  align="center"><%= cliente.data.strftime("%d/%m/%Y")%></td>
+                    <td width="300" align="left"><%= cliente.persona_nome%></td>
+                    <td width="180" align="left"><%= cliente.documento_nome%></td>
+                    <td width="150" align="left"><%= cliente.numero_ordem%></td>
+                    <td width="150" align="center"><%= cliente.documento_numero_01%> - <%= cliente.documento_numero_02%> - <%= cliente.documento_numero%></td>
+                    <td width="80"  align="center"><%= cliente.cota%></td>
+                    <td width="80"  align="center"><%= cliente.vencimento.strftime("%d/%m/%Y")%></td>
+                    <td width="100" align="right"><%= cliente.divida_dolar%></td>
+                    <td width="100" align="right"><%= anterior_dolar%></td>
+                    <td width="100" align="right"><%= saldo_dolar%></td>
+                  </tr>
+            <% end %>
+          </table>
+        </div>
+      <%else%>
+
+        <table>
+          <tr>
+            <td width="70" ></td>
+            <td width="80" align="center">Fecha</td>
+            <td width="300" align="center">Cliente</td>
+            <td width="180" align="center">Documento</td>
+            <td width="150" align="center">N. Doc.</td>
+            <td width="150" align="center">Orden</td>
+            <td width="80" align="center">Couta</td>
+            <td width="80" align="center">Vencimento</td>
+            <td width="100" align="center">Valor Gs.</td>
+            <td width="100" align="center">Anterior Gs.</td>
+            <td width="100" align="center">Saldo Gs.</td>
+
+          </tr>
+        </table>
+        <div class="rolagem" dir="div">
+
+          <table>
+
+            <% for cliente in @cliente %>
+                  <% anterior_dolar     = Cliente.sum(:cobro_dolar, :conditions => ["documento_numero = ? AND cota = ? AND tabela = 'COBROS_DETALHE'",cliente.documento_numero,cliente.cota]) %>
+                  <% anterior_guarani   = Cliente.sum(:cobro_guarani, :conditions => ["documento_numero = ? AND cota = ? AND tabela = 'COBROS_DETALHE'",cliente.documento_numero,cliente.cota]) %>
+                  <% saldo_dolar        = cliente.divida_dolar - anterior_dolar   %>
+                  <% saldo_guarani      = cliente.divida_guarani - anterior_guarani   %>
+                  <tr class = "<%= cycle( "cor1", "cor2" )%>"
+                      onMouseOver="javascript:this.style.backgroundColor='#949494'"
+                      onMouseOut="javascript:this.style.backgroundColor=''">
+
+                    <td width="70"><input id="cliente_ids_" name="cliente_ids[]" type="checkbox" value="<%= cliente.id %>" onclick="SumTotalgs('<%=saldo_guarani%>')" /></td>
+                    <td width="80"  align="center"><%= cliente.data.strftime("%d/%m/%Y")%></td>
+                    <td width="300" align="left"><%= cliente.persona_nome%></td>
+                    <td width="200" align="left"><%= cliente.documento_nome%></td>
+                    <td width="150" align="center"><%= cliente.documento_numero_01%> - <%= cliente.documento_numero_02%> - <%= cliente.documento_numero%></td>
+                    <td width="150"  align="center"><%= cliente.numero_ordem%></td>
+                    <td width="80"  align="center"><%= cliente.cota%></td>
+                    <td width="80"  align="center"><%= cliente.vencimento.strftime("%d/%m/%Y")%></td>
+                    <td width="100" align="right"><%= number_to_currency(cliente.divida_guarani, :format=>' %n ', :precision => 0)%></td>
+                    <td width="100" align="right"><%= number_to_currency(anterior_guarani, :format=>' %n ', :precision => 0)%></td>
+                    <td width="100" align="right"><%= number_to_currency(saldo_guarani, :format=>' %n ', :precision => 0)%></td>                    
+                  
+                  </tr>
+            <% end %>
+          </table>
+
+        </div>                    
+      <td width="480"><%= submit_tag "Filtrar" %> <input type="text" id="totalgs" name="totalgs" value="0"/></td>
+      <%end%>
+
+    </div>
+<% end %>
+<script language="Javascript" type="text/Javascript">
+
+function SumTotalgs(valor){
+  var inputs, x, valor=0;
+  inputs = document.getElementsByTagName('input');
+  for(x=0;x<inputs.length;x++){
+    if(inputs[x].type=='checkbox'){
+      if(inputs[x].checked==true && inputs[x].id == 'cliente_ids_'){
+        valor++;
+      }
+    }
+  }
+  return document.getElementById("totalgs").value =   parseFloat( valor )
+}
+
+function SomarCheck() {
+  
+  if( document.getElementById("cliente_ids_").value ==  document.getElementById("saldo").name)
+    {
+     document.getElementById("total").value =  document.getElementById("total").value - document.getElementById("saldo").value
+    }
+
+else
+  {
+    document.getElementById("total").value = document.getElementById("saldo").value
+  }
+
+  
+
+}
+
+ok=false;
+function CheckAll() {
+        if(!ok){
+          for (var i=0;i<document.form1.elements.length;i++) {
+                var x = document.form1.elements[i];
+                if (x.name == 'cliente_ids[]') {
+                                x.checked = true;
+                                ok=true;
+                        }
+                }
+        }
+        else{
+        for (var i=0;i<document.form1.elements.length;i++) {
+                var x = document.form1.elements[i];
+                if (x.name == 'cliente_ids[]') {
+                                x.checked = false;
+                                ok=false;
+                        }
+                }
+        }
+}
+</script>
+

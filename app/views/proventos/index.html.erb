@@ -1,0 +1,26 @@
+<h1 align="right" id="header">Proventos</h1>
+<%= link_to 'Nuevo', new_provento_path, :id => 'novo'%>
+<div class="group">
+  <table>
+    <tr>
+      <td width="70" align="center">Cod.</td>
+      <td width="250" align="center">Descripcion</td>
+      <td width="100" align="center">Codigo</td>
+
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+
+      <% @proventos.each do |provento| %>
+        <tr class = "<%= cycle("cor1", "cor2")%>">
+          <td width="70" align="center"><%= provento.id %></td>
+          <td width="250" ><%= provento.descripcion %></td>
+          <td width="100" align="center" ><%= provento.cod_contabil %></td>
+          <td><%= link_to 'Editar', edit_provento_path(provento) %></td>
+          <td><%= link_to 'Borrar', provento, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

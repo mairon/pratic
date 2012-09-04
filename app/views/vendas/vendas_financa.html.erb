@@ -1,0 +1,73 @@
+  
+<div class="group_cd">
+
+   <table>
+      <tr>
+         <td align="right">Fecha :</td>
+         <td align="right"><%=h @venda.data.strftime("%d/%m/%Y")  %></td>
+         <td align="right">Total Prod.:  </td>
+         <td align="right"><%=format( "%.3f", @produto_count.to_f )%> </td>
+         <td align="right">Cuenta:  </td>
+         <td align="right"><%=@venda.conta_nome%> </td>
+
+      </tr>
+
+      <tr>
+         <td align="right"><font color="green">Total U$. : </font></td>
+         <td align="right"><font color="green"><%=h number_to_currency(@produto_sum_guarani / @venda.cotacao, :format=>' %n ', :separator => ",")  %> </font></td>
+
+         <td align="right"><font color="red">Total Gs.:</font> </td>
+         <td align="right"><font color="red"><%=h number_to_currency(@produto_sum_guarani, :format=>' %n ',:precision => 0)  %></font> </td>
+         <td align="right">Total IVA.:</td>
+         <td align="right"><%=h number_to_currency(@produto_iva_guarani, :format=>' %n ', :precision => 0)  %></td>
+
+      </tr>
+
+   </table>
+</div>
+Datos Financieros
+<div class="group_cd">
+      <%= render :partial=>"new_financa_E03", :locals=>{:vendas_financa=>VendasFinanca.new(:venda_id=>@venda.id)} %>
+</div>
+
+
+<a href="/vendas/show/<%= @venda.id.to_i %>" > < Volver </a> |
+
+<%= hidden_field_tag :id, @venda.id %>
+
+<script>
+   function TipoVenda(){
+     if( document.getElementById('vendas_financa_tipo').value == 0 )
+       {
+         document.getElementById('tipo_v').innerHTML                                   =  '<span>'+'CONTADO'+'</span>' ;
+        }
+     else
+       {
+         document.getElementById('tipo_v').innerHTML                                   =  '<span>'+'CREDITO'+'</span>' ;
+        }
+   }
+
+
+   function ComprovanteVenda()                //
+   {
+      window.open('/vendas/comprovante/' + document.getElementById('id').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+   }
+   function FaturaVenda()                //
+   {
+      window.open('/vendas/fatura/' + document.getElementById('id').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+   }
+
+   function fecha()
+   {
+      self.close();
+   }
+   //ABRI POPUP-----------------------------------------------------------------
+   document.onkeydown=function(e)
+   {
+      if(e.which == 113)
+         window.open('/personas/persona_venda_financa', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=450');
+   }
+   //FIM ABRI POPUP----------------------------------------------------------------
+
+</script>
+

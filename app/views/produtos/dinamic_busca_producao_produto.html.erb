@@ -1,0 +1,61 @@
+
+<table   class="head_grid">
+   <tr>
+      <td width="80" align="center">Cod.</td>
+      <td width="500" align="center">Producto</td>
+      <td width="80" align="center">Saldo</td>
+      <td width="100" align="center">Costo U$.</td>
+      <td width="100" align="center">Costo Gs.</td>
+
+   </tr>
+</table>
+
+<div class="rolagem" id="div">
+   <table>
+
+      <% @produtos.each do |produto| %>
+         <% deposito = " AND deposito_id = #{params[:busca_depositado]}" unless params[:busca_depositado].blank? %>
+
+         <% stock = Stock.sum( 'entrada - saida',:conditions => ["produto_id = ? #{deposito}",produto.id] ) %>
+         <% if stock.to_i > 0 %>
+           <% last_custo = Stock.last(:select =>"unitario_dolar,unitario_guarani,deposito_id",:conditions => ["produto_id = ? AND STATUS = 0  #{deposito}", produto.id] ) %>
+             <% custo_us = last_custo.unitario_dolar %>
+             <% custo_gs = last_custo.unitario_guarani %>
+             <% dp           = last_custo.deposito_id %>
+         <% else %>
+             <% custo_us = 0 %>
+             <% custo_gs = 0 %>         
+             <% dp           = 0 %>
+         <% end %>
+
+
+         <tr class = "<%= cycle( "cor1", "cor2" )%>"
+             onMouseOver="javascript:this.style.backgroundColor='#949494'"
+             onMouseOut="javascript:this.style.backgroundColor=''"
+             onClick="Fecha( '<%= produto.id %>',
+                   '<%= produto.nome %>',
+                   '<%= produto.clase_id %>',
+                   '<%= produto.grupo_id %>',
+                   '<%= dp %>',
+                   '<%= custo_us %>',
+                   '<%= custo_gs %>',
+                   '<%= stock %>')">
+            <td width="80" align="center"> <%=h produto.id%> </td>
+            <td width="500" align="left">   <%=h produto.nome%> </td>
+            <% if stock.to_i <= 0 %>
+               <td width="80"  align="center"><font color="red"> <%=h format( "%.3f",stock.to_f ) %></font> </td>
+            <%else%>
+               <td width="80"  align="center"><font color="green"> <%=h format( "%.3f",stock.to_f ) %></font> </td>
+            <%end%>
+            <td width="100" align="right">   <%= number_to_currency(custo_us.to_f, :format=>' %n ', :separator => ",")%> </td>
+            <td width="100" align="right">   <%= number_to_currency(custo_gs.to_f, :format=>' %n ', :precision => 0)%> </td>
+         </tr>
+      <% end %>
+   </table>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,88 @@
+<h1 align="right" id="header">Manifestacion de Bienes</h1>
+
+<% form_for(@manifestacao_de_ben) do |f| %>
+  <%= f.error_messages %>
+  <%= link_to 'Volver', manifestacao_de_bens_path %>
+  <div class="group">
+    <table>
+      <tr>
+        <td align="right"><b> Nombre :</b></td>
+ <td><%= f.collection_select :persona_id, Persona.all(:select => 'id,nome',:order => '1'),:id,:nome %></td>
+      </tr>
+      <tr>
+        <td align="right" valign="top"><b>Referencia :</b></td>
+        <td><%= f.select :tipo,
+            (
+            [
+              ["INMUEBLE URBANO", "INMUEBLE URBANO"],
+              ["INMUEBLE RURAL", "INMUEBLE RURAL"],
+              ["EQUIPAMENTOS", "EQUIPAMENTOS"],
+              ["VEHICULOS", "VEHICULOS"],
+              [" OTROS", " OTROS"]
+
+            ]
+          )%>
+        </td>
+
+      </tr>
+      <tr>
+        <td align="right" valign="top"><b> Caracteristicas :</b></td>
+        <td><%= f.text_area :caracteristicas, :size => '35x2' %></td>
+      </tr>
+      <tr>
+        <td align="right"><b> Valor Dolar :</b></td>
+        <td><%= f.text_field :valor_dolar, :size => 15 %></td>
+      </tr>
+      <tr>
+        <td align="right"><b> Valor Gs. :</b></td>
+        <td><%= f.text_field :valor_guarani, :size => 15 %></td>
+      </tr>
+      <tr>
+        <td align="right"><b> Escribania :</b></td>
+        <td><%= f.text_field :escrivania, :size => 25 %></td>
+      </tr>
+      <tr>
+        <td align="right"><b> Escritura :</b></td>
+        <td><%= f.text_field :escritura, :size => 25 %></td>
+      </tr>
+      <tr>
+        <td align="right"><b> Numero :</b></td>
+        <td><%= f.text_field :numero, :size => 25 %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <fieldset>
+            <legend>Hipotecado</legend>
+
+            <%= f.radio_button :hipotecado, 0 ,:Checked => "True" %>Si
+            <%= f.radio_button :hipotecado, 1 %>No
+          </fieldset>
+        </td>
+      </tr>
+      <tr>
+        <td align="right"><b> Favorecido :</b></td>
+        <td><%= f.text_field :favorecido, :size => 25 %></td>
+      </tr>
+      <tr>
+        <td align="right"><b> Rango :</b></td>
+        <td><%= f.text_field :rango, :size => 25 %></td>
+      </tr>
+      <tr>
+        <td align="right"><b> Hipot. Dolar :</b></td>
+        <td><%= f.text_field :hipoteca_dolar, :size => 15 %></td>
+      </tr>
+      <tr>
+        <td align="right"><b> Hipot. Guarani :</b></td>
+        <td><%= f.text_field :hipoteca_guarani, :size => 15 %></td>
+      </tr>
+
+
+    </table>
+
+
+  </div>
+  <%= f.submit "Grabar" %>
+<% end %>
+
+<%= link_to 'Volver', manifestacao_de_bens_path %>

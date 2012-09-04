@@ -1,0 +1,37 @@
+
+<div class="group">
+
+  <table>
+
+      <% totentrada = 0 %>
+      <% totsaida   = 0 %>
+      <% qtd        = 1 %>
+      <% for produto in @stocks %>
+        <tr>
+          <td width="120" align="center"> <%=h produto.data.strftime("%d/%m/%Y")%> </td>
+          <td width="120" align="center"> <%=h produto.codigo%> </td>
+          <td width="80"  align="center"> <%=h produto.status%> </td>
+          <td width="200"  align="left"> <%=h produto.deposito_nome%> </td>
+          <td width="400" align="left">   <%=h produto.produto_nome%> </td>
+          <td width="100" align="right"> <%=h format( "%.3f",produto.entrada.to_f ) %> </td>
+          <td width="100" align="right"> <%=h format( "%.3f",produto.saida.to_f ) %> </td>
+          <td width="100" align="right"></td>
+        </tr>
+        <% totentrada   = totentrada + produto.entrada %>
+        <% totsaida     = totsaida   + produto.saida %>
+        <% qtd          = qtd        + 1 %>
+      <% end %>
+        <tr class="head" height="20">
+          <td colspan="5">Anterior : <%= @saldo_anterior %></td>
+          <td align="right"><%= format( "%.3f",totentrada ) %></td>
+          <td align="right"><%= format( "%.3f",totsaida ) %></td>
+          <td align="right"><%= format( "%.3f", ( @saldo_anterior.to_f + totentrada ) - totsaida  ) %></td>
+        </tr>
+        <tr>
+          <td colspan="5">Cantidad : <%= qtd %></td>
+        </tr>
+    </table>
+</div>
+
+
+

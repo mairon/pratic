@@ -1,0 +1,127 @@
+
+<% form_for(@nota_credito) do |f| %>
+
+  <body onload="DataNota(),CampoNota()">
+    <%= f.hidden_field :concepto,
+                       :value => 'VENTA'%>
+    
+     <h1 align="right" id="header">
+     </h1>
+
+    <%= f.error_messages %>
+
+    <br/>
+
+    <div class="group_cd">              
+        <table>
+        <tr>
+           <td align="right">Fecha :</td>
+           <td>
+            <%= f.date_select :data %>
+            <%= hidden_field_tag('key') %>
+           </td>
+
+         </tr>
+         <tr>
+            <td align="right">Cotizacion :</td>
+            <td>
+               <%= text_field :nota_credito,:cotacao ,
+                                   { :size     => 15,
+                                     :readonly => "readonly",
+                                     :onfocus  => remote_function(:update => "key",
+                                                                  :url    => { :action => :get_moeda },
+                                                                               :with   => "'key='+ key.value " ),
+                                                                               :onblur => "VendedorBuscaId()" } %>
+
+            </td>
+         </tr>
+            
+
+
+          <tr>
+            <td>Cliente :</td>
+            <td colspan="2">              
+              <%= f.hidden_field :persona_id %>
+              <%= f.hidden_field :direcao %>
+              <%= f.hidden_field :cidade_id %>
+              <%= f.hidden_field :cidade %>
+
+              <%= f.text_field :persona_nome,
+                               :size => 40 %>Pulse F2 para buscar.
+            </td>
+          </tr>
+
+          <tr>
+            <td>RUC/CI : </td>
+            <td><%= f.text_field :ruc,
+                                 :size     => 15,
+                                 :readonly => "readonly" %></td>
+
+          </tr>
+          <tr>
+            <td>Telefone:</td>
+            <td><%= f.text_field :telefone,
+                                 :size     => 15,
+                                 :readonly => "readonly" %></td>
+          </tr>
+          <tr>
+             <td></td>
+             <td>
+             <table>
+                <tr>
+                  <td width="200">
+                   <fieldset>
+                     <legend>Operación</legend>
+                     <%= f.radio_button :operacao, 0,  :Checked => "True" %> Devoluciones
+                     <br/>
+                     <%= f.radio_button :operacao, 1 %> Descuentos
+                   </fieldset>
+                  </td>
+                  <td>
+                   <fieldset>
+                     <legend>Moneda</legend>
+                     <%= f.radio_button :moeda, 0,  :Checked => "True" %> Dolar
+                     <br/>
+                     <%= f.radio_button :moeda, 1 %> Guaranis
+                   </fieldset>
+                 </td>
+                 <td>
+                   <fieldset>
+                     <legend>Tipo</legend>
+                     <%= f.radio_button :tipo, 0,  :Checked => "True" %> Contado
+                     <br/>
+                     <%= f.radio_button :tipo, 1 %> Credito
+                   </fieldset>
+                 </td>
+                </tr>
+              </table>
+             </td>
+
+          </tr>
+        </table>
+      </table>
+    </div>
+    <%= link_to '<< Volver', :action => 'index' %><%= f.submit "Seguir>>" %>
+  <%end%>  
+
+  <script>
+    function fecha()
+    {
+      self.close();
+    }
+    //ABRI POPUP-----------------------------------------------------------------
+    document.onkeydown=function(e)
+    {
+      if(e.which == 113)
+        window.open('/personas/persona_nota_credito', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=450');
+    }
+    //FIM ABRI POPUP----------------------------------------------------------------
+
+  </script>
+</body>
+
+
+
+
+
+

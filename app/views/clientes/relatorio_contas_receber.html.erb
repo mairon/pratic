@@ -1,0 +1,141 @@
+
+<table>      
+
+   <% quebra    = "" %>
+   <% subdivida = 0 %>
+   <% subcobro  = 0 %>
+   <% subsaldo  = 0 %>
+   <% totdivida = 0 %>
+   <% totcobro  = 0 %>
+   <% count     = 0 %>
+   <%if params[:detalhe].to_s == "2"%>
+      <%= render :partial => "contas_receber_general"  %>
+   <% else %>
+
+      <% @clientes.each do |cliente|%>
+         <% pp = VendasProduto.all(:select=> 'id,produto_id,produto_nome,persona_nome,quantidade,unitario_guarani,total_guarani',:conditions => ["persona_id = ?",cliente.persona_id.to_i]) if params[:detalhe] == "1"%>
+         <%if quebra != cliente.persona_nome  %>
+
+            <%if quebra != "" %>
+
+               <%subsaldo = subdivida - subcobro%>
+               <tr class="head">
+                  <td colspan="8"></td>
+                  <td align="right"><%= number_to_currency(subdivida, :format=>' %n ', :precision => 0) %></td>
+                  <td align="right"><%= number_to_currency(subcobro, :format=>' %n ', :precision => 0) %></td>
+                  <td align="right"><%= number_to_currency(subsaldo, :format=>' %n ', :precision => 0) %></td>
+               </tr>
+
+               <tr>
+                  <td></td>
+               </tr>
+
+               <% subdivida = 0 %>
+               <% subcobro  = 0 %>
+               <% subsaldo  = 0 %>
+
+            <%end%>
+
+            <td colspan="1"></td>
+            <td class="head" colspan="8"><%=h quebra = cliente.persona_nome%></td>
+
+         <%end%>
+         <% if cliente.cobro_guarani.to_f > 0 %>
+            <% status = " - PG" %>
+         <% end %>
+
+         <% if  cliente.documento_nome == "COMPROBANTE VENTA"%>
+            <% if cliente.tipo == 0 %>
+               <% comprovante = "CVC" %>
+            <% else %>
+            <% comprovante = "CVCR" %>
+            <% end %>
+         <% else %>
+            <% if cliente.tipo == 0 %>
+               <% comprovante = "FVC" %>
+            <% else %>
+            <% comprovante = "FVCR" %>
+            <% end %>
+         <% end %>
+         <% if params[:detalhe] == "1" %>
+            <tr class = "head" height="20">
+            <% else %>
+            <tr>
+            <% end %>
+            <td width="80" align="center">  <%=h cliente.data.strftime("%d/%m/%Y")%> </td>
+            <td width="60" align="center">  <%=h cliente.persona_id%> </td>
+            <td width="70" align="left">    <%=h comprovante %> <%= status %></td>
+            <td width="50" align="left">    <%=h cliente.recibo %></td>
+            <td width="180" align="center">  <%=h cliente.documento_numero_01%> - <%=h cliente.documento_numero_02%> - <%=h cliente.documento_numero%> </td>
+            <td width="80" align="center">  <%=h cliente.cheque%> </td>
+            <td width="20" align="center">  <%=h cliente.cota%> </td>
+            <td width="80" align="center">  <%=h cliente.vencimento.strftime("%d/%m/%Y")%> </td>
+            <td width="80" align="right">   <%=h number_to_currency(cliente.divida_guarani, :format=>' %n ', :precision => 0 )%> </td>
+            <td width="80" align="right">   <%=h number_to_currency(cliente.cobro_guarani,  :format=>' %n ', :precision => 0 )%> </td>
+            <td width="80" align="right"></td>
+         </tr>
+
+         <%  subdivida = subdivida + cliente.divida_guarani.to_f %>
+         <%  subcobro  = subcobro  + cliente.cobro_guarani.to_f %>
+         <%  totdivida = totdivida + cliente.divida_guarani.to_f %>
+         <%  totcobro  = totcobro  + cliente.cobro_guarani.to_f %>
+         <%  count     = count     + 1 %>
+
+         <% if params[:detalhe] == "1" %>
+            <% pp.each do |produto| %>
+               <tr class = "<%= cycle( "cor1", "cor2" )%>">
+                  <td></td>
+                  <td></td>
+                  <td align="left" colspan="6">  <%=h produto.produto_nome %> </td>
+                  <td align="right">  <%=h produto.quantidade %> </td>
+                  <td align="right">  <%=h number_to_currency(produto.unitario_guarani, :format=>' %n ', :precision => 0) %> </td>
+                  <td align="right">  <%=h number_to_currency(produto.total_guarani, :format=>' %n ',  :precision => 0) %> </td>
+               </tr>
+
+            <% end %>
+         <% end %>
+
+
+      <% end %>
+
+      <%  subsaldo = subdivida - subcobro%>
+
+      <tr class="head" >
+         <td colspan="8"></td>
+         <td align="right"><%= number_to_currency(subdivida, :format=>' %n ', :precision => 0) %></td>
+         <td align="right"><%= number_to_currency(subcobro, :format=>' %n ', :precision => 0) %></td>
+         <td align="right"><%= number_to_currency(subsaldo, :format=>' %n ', :precision => 0) %></td>
+      </tr>
+
+      <% subsaldo  = 0 %>
+
+      <%  totsaldo = totdivida - totcobro%>
+
+      <tr class="head"   height="50" >
+         <td colspan="3">Anteriro : <%= number_to_currency( @saldo_anterior.to_f, :format=>' %n ', :precision => 0) %></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td>Total:</td>
+         <td  align="right"><%= number_to_currency(totdivida, :format=>' %n ', :precision => 0) %></td>
+         <td  align="right"><%= number_to_currency(totcobro, :format=>' %n ', :precision => 0) %></td>
+         <td  align="right"><%= number_to_currency(totsaldo.to_f + @saldo_anterior.to_f, :format=>' %n ', :precision => 0) %></td>
+      </tr>
+
+      <tr class="head"   height="10" >
+         <td colspan="3">Total Facturas : <%= count%></td>
+      </tr>
+
+   </table>
+
+<% end %>
+
+<style type="text/css">
+   table {font-size: 10px}
+
+</style>
+
+
+
+

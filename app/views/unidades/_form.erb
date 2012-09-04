@@ -1,0 +1,17 @@
+  <br>
+<div class="group">
+
+
+<% form_for(@unidade) do |f| %>
+  <%= f.error_messages %>
+<h2> Sucursales</h2>
+  <p>
+    <%= f.label :unidade_nome %><br />
+    <%= f.text_field :unidade_nome,:onkeydown => "f(this)", :onkeyup => "f(this)" %>
+  </p>
+  <p>
+    <%= f.submit 'Grabar' %>
+  </p>
+<% end %>
+</div>
+<%= link_to 'Volver', unidades_path %>

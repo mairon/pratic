@@ -1,0 +1,34 @@
+
+<div class="group">
+
+    <table>
+
+      <% @cobros_detalhes.each do |cobros_detalhe| %>
+        <%  ordem = Venda.find_by_id( cobros_detalhe.venda_id ) unless cobros_detalhe.venda_id.blank? %>
+        <tr class = "<%= cycle( "cor1", "cor2" )%>">
+              <%  cobros_detalhe.update_attribute :data, @cobro.data %>
+          <td width="80"  align="center"><%= cobros_detalhe.data.strftime("%d/%m/%Y")%></td>          
+          <td width="250" align="left"><%= cobros_detalhe.persona_nome%></td>
+          <td width="180" align="left"><%= cobros_detalhe.documento_nome%></td>
+          <td width="100" align="center"><%= ordem.numero_ordem%></td>
+          <td width="100" align="center"><%= cobros_detalhe.documento_numero_01%>-<%= cobros_detalhe.documento_numero_02%>-<%= cobros_detalhe.documento_numero%></td>
+          <td width="80"  align="center"><%= cobros_detalhe.cota%></td>
+          <td width="80"  align="center"><%= ordem.data.strftime("%d/%m/%Y")%></td>
+          <% if @cobro.moeda == 0 %>
+             <td width="100" align="right"><%= number_to_currency( cobros_detalhe.cobro_dolar, :format =>' %n ', :separator => ",")%></td>
+          <% else %>
+             <td width="100" align="right"><%= number_to_currency( cobros_detalhe.cobro_guarani, :format =>' %n ', :precision => 0)%></td>
+          <% end %>
+        </tr>
+        <% end %>
+        <tr class="head">
+          <td colspan="7"></td>
+          <td align="right"><%= number_to_currency( @total_cobro_guarani, :format =>' %n ', :precision => 0)%></td>
+        </tr>
+      
+    </table>
+
+  </div>
+</div>
+
+

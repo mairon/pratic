@@ -1,0 +1,74 @@
+<body onload="CampoProdutoE03()">
+<% form_for(vendas_produto) do |f| %>
+  <%= f.error_messages %>
+
+    <%= f.hidden_field :venda_id %>
+    <%= f.hidden_field :produto_id %>
+    <%= f.hidden_field :fabricante_cod %>
+    <%= f.hidden_field :codigo %>    
+    <%= f.hidden_field :tipo %>
+    <%= f.hidden_field :clase_id %>
+    <%= f.hidden_field :grupo_id %>
+    <%= f.hidden_field :saldo %>
+    <%= f.hidden_field :cotacao, :value => @venda.cotacao %>
+    <%= f.hidden_field :data,    :value => @venda.data %>
+    <%= f.hidden_field :vendedor_id,    :value => @venda.vendedor_id %>
+    <%= f.hidden_field :unitario_dolar %>
+    <%= f.hidden_field :unitario_guarani %>
+    <%= f.hidden_field :total_dolar %>
+    <%= f.hidden_field :total_guarani %>
+    <%= f.hidden_field :saldo %>
+    <%= f.hidden_field :taxa %>
+    <%= f.hidden_field :horas %>
+    <%= f.hidden_field :deposito_id, :value => 7 %>
+    <%= f.hidden_field :horas, :value => Time.now.strftime("%H:%M:%S") %>
+
+
+ <div id="field">    
+  Barra:   <%= text_field_tag( 'codigo',
+                                    nil,
+                                    :id => "codigo",
+                                    :onchange   => remote_function( :update     => "codigo",
+                                                                   :url        => { :action     => :get_codigo_barra_produto, :id => 1, :data => @venda.data },
+                                                                   :with       => "'codigo='+this.value"),
+                                                                   :size       => 70,
+                                                                   :onkeypress => "return bloqEnter(event)",
+                                                                   :onkeyup      => "f(this),EnterTab(event,'vendas_produto_quantidade')"  ) %>
+<br />
+ </div>    
+
+<%= hidden_field_tag( :produto_busca ,nil) %>
+
+ <div id="field">    
+
+Prod.:
+            <%= f.hidden_field :produto_nome%>
+
+            <%= text_field_with_auto_complete  :venda_produto_produto_busca,nil ,
+                                               { :onchange => remote_function( :update       => "venda_produto_produto_busca_",
+                                                                               :url          => { :action => :get_produto, :data => @venda.data},
+                                                                               :with         => "'produto_busca='+this.value"),
+                                                                               :onkeyup      => "f(this),EnterTab(event,'vendas_produto_quantidade')",
+                                                                               :onkeypress   => "return bloqEnter(event)",
+                                                                               :size => 50},
+                                                                             { :url          => formatted_produtos_path(:js),
+                                                                               :method       => :get,
+                                                                               :param_name   => 'busca'} %>
+
+Qtd.			    <%= f.text_field :quantidade,    :value => 1, :size => 5, :onkeyup      => "f(this),EnterTab(event,'vendas_produto_submit')",
+                                                                               									:onkeypress   => "return bloqEnter(event)" %>
+
+ </div>  
+
+<div id="field" align="right">  
+    <%= f.submit "      Add      ", :disable_with => "Aguarde..." %>
+</div>
+
+<div id="field">  
+  <div class="preco">
+    Precio : <font color="red"><SPAN ID="red"></SPAN> </font>
+                <font color="green"><SPAN ID="green"></SPAN> </font>
+  </div>
+</div>
+
+<% end %>

@@ -1,0 +1,25 @@
+<h1 align="right" id="header">.</h1>
+<%= link_to 'Nuevo', new_nota_credito_path %>
+<div class="group">
+   <table>
+      <tr>
+         <td width="100" align="center">Fecha</td>
+         <td width="350" align="center">Cliente</td>
+      </tr>
+   </table>
+
+   <div class="rolagem" dir="div">
+
+      <table>
+         <% for nota_credito in @nota_creditos %>
+            <tr class = "<%= cycle("cor1", "cor2") %>">
+               <td width="100" align="left"><%= nota_credito.data.strftime("%d/%m/%Y") %></td>
+               <td width="350" align="left"><%= nota_credito.persona_nome %></td>
+               <td><%= link_to 'Editar', edit_nota_credito_path(nota_credito) %></td>
+               <td><%= link_to 'Borrar', nota_credito, :confirm => 'Vos tiene Certeza?', :method => :delete %></td>
+            </tr>
+         <% end %>
+      </table>
+
+   </div>
+</div>

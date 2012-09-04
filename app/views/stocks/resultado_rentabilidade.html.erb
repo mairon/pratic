@@ -1,0 +1,196 @@
+
+<div class="group">
+
+   <table>
+      <% quebra_clase            = ""%>
+      <% quebra_grupo            = ""%>
+      <% saida                   = 0 %>
+      <% qtdsaida                = 0 %>
+      <% subgrupoqtdsaida        = 0 %>
+      <% subclaseqtdsaida        = 0 %>
+      <% saida                   = 0 %>
+      <% subgrupocustosaida_gs   = 0 %>
+      <% subclasecustosaida_gs   = 0 %>
+      <% promcusto               = 0 %>
+      <% subgrupoprocusto_gs     = 0 %>
+      <% subclaseprocusto_gs     = 0 %>
+      <% difvenda                = 0 %>
+      <% subgrupodifvenda_gs     = 0 %>
+      <% subclasedifvenda_gs     = 0 %>
+      <% renta_gs                = 0 %>
+      <% subgruporenta_gs        = 0 %>
+      <% subclaserenta_gs        = 0 %>
+
+
+      <% @stocks.each do |produto| %>
+
+         <% sum_entrada = Stock.sum(:entrada, :conditions => ["produto_id = #{produto.id} AND data <= '#{params[:final]}'"]) %>
+         <% sum_saida = Stock.sum(:saida, :conditions => ["status = 1 AND TABELA = 'VENDAS_PRODUTOS' AND produto_id = #{produto.id} AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}'"]) %>
+
+       <% if sum_saida.to_f > 0 %>
+         <%if quebra_clase != produto.clase_id or quebra_grupo != produto.grupo_id %>
+
+            <%if quebra_grupo != produto.grupo_id or quebra_clase != produto.clase_id %>
+
+               <%if quebra_grupo != ""  %>
+                  <tr class="head">
+                     <td colspan="3"></td>
+                     <td align="right"><%= number_to_currency( subgrupoqtdsaida,            :format=>' %n ', :precision => 0 ) %></td>
+                     <td align="right"><%= number_to_currency( subgrupocustosaida_gs,       :format=>' %n ', :precision => 0 ) %></td>
+                     <td align="right"><%= number_to_currency( subgrupoprocusto_gs,         :format=>' %n ', :precision => 0 ) %></td>
+                     <td align="right"><%= number_to_currency( subgrupodifvenda_gs,         :format=>' %n ', :precision => 0 ) %></td>
+                     <td align="right"><%= number_to_currency( ((subgrupodifvenda_gs.to_f * 100) /  subgrupoprocusto_gs.to_f )  ,     :format=>' %n ', :precision => 2 ) %> % </td>
+                  </tr>
+                  <tr>
+                     <td></td>
+                  </tr>
+
+                  <% subgrupoqtdsaida            = 0 %>
+                  <% subgrupocustosaida_gs       = 0 %>
+                  <% subgrupoqtdsaida            = 0 %>
+                  <% subgrupoprocusto_gs         = 0 %>
+                  <% subgrupodifvenda_gs         = 0 %>
+                  <% subgruporenta_gs            = 0 %>
+
+                  <tr class="head">
+                     <td colspan="3"></td>
+                     <td align="right"><%= number_to_currency( subclaseqtdsaida,         :format=>' %n ', :precision => 0 ) %></td>
+                     <td align="right"><%= number_to_currency( subclasecustosaida_gs,    :format=>' %n ', :precision => 0 ) %></td>
+                     <td align="right"><%= number_to_currency( subclaseprocusto_gs,      :format=>' %n ', :precision => 0 ) %></td>
+                     <td align="right"><%= number_to_currency( subclasedifvenda_gs,      :format=>' %n ', :precision => 0 ) %></td>
+                     <td align="right"><%= number_to_currency( ((subclasedifvenda_gs.to_f * 100) / subclaseprocusto_gs.to_f ) ,   :format=>' %n ', :precision => 2 ) %> % </td>
+                  </tr>
+
+                  <tr>
+                     <td></td>
+                  </tr>
+
+                  <% subclaseqtdsaida            = 0 %>
+                  <% subclasecustosaida_gs       = 0 %>
+                  <% subclaseqtdsaida            = 0 %>
+                  <% subclaseprocusto_gs         = 0 %>
+                  <% subclasedifvenda_gs         = 0 %>
+                  <% subclaserenta_gs            = 0 %>
+               <%end%>
+
+            <%end%>
+            <tr class="head">
+               <td><%=h quebra_clase = produto.clase_id %> - </td>
+               <td>
+                  <%clase_descricao =  Clase.find_by_id(quebra_clase) %>
+                  <%= clase_descricao.descricao %></td>
+
+            </tr>
+
+            <tr class="head">
+               <td colspan="1"></td>
+               <td><%=h quebra_grupo = produto.grupo_id %> - </td>
+
+               <td>                         <%grupo_descricao =  Grupo.find_by_id(quebra_grupo) %>
+                  <%= grupo_descricao.descricao %></td>
+            </tr>
+            <% end %>
+
+         <% if sum_saida.to_f > 0  %>
+
+            <%
+            #ENTRADA
+            suma_entrada_custo_guarani  = Stock.sum('( entrada * unitario_guarani )', :conditions => ["status = 0 AND produto_id = #{produto.id} AND data <= '#{params[:final]}'"])
+            stock_entrada_custo_guarani = ( suma_entrada_custo_guarani.to_f / sum_entrada.to_f )
+            if sum_entrada.to_f <= 0
+               stock_entrada_custo_guarani = 0
+            end
+
+               #SAIDA
+            stock_saida_custo_guarani  = Stock.sum('unitario_guarani * saida', :conditions => ["status = 1 AND TABELA = 'VENDAS_PRODUTOS' AND produto_id = #{produto.id} AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}'"])
+         %>
+            <tr>
+               <td width="50"></td>
+               <td width="80" align="center">  <%= produto.barra%> </td>
+               <td width="570"  align="left">  <%= produto.nome%> </td>
+               <td width="100" align="right">  <%= number_to_currency( sum_saida.to_f,                                                            :format=>' %n ', :precision => 0) %> </td>
+               <td width="100" align="right">  <%= number_to_currency( stock_saida_custo_guarani.to_f,                                            :format=>' %n ', :precision => 0) %> </td>
+               <td width="100" align="right">  <%= number_to_currency( promedio_total = ( sum_saida.to_f * stock_entrada_custo_guarani.to_f ),    :format=>' %n ', :precision => 0) %> </td>
+               <td width="100" align="right">  <%= number_to_currency( dif =  ( stock_saida_custo_guarani.to_f - promedio_total.to_f)  ,                          :format=>' %n ', :precision => 0) %> </td>
+               <td width="100" align="right">  <%= number_to_currency( renta = ( ( dif.to_f * 100 ) / promedio_total.to_f ) ,:format=>' %n ', :precision => 2) %> % </td>
+            </tr>
+
+            <% qtdsaida                  += sum_saida.to_f %>
+            <% subgrupoqtdsaida          += sum_saida.to_f %>
+            <% subclaseqtdsaida          += sum_saida.to_f %>
+
+            <% saida                     += stock_saida_custo_guarani.to_f %>
+            <% subgrupocustosaida_gs     += stock_saida_custo_guarani.to_f %>
+            <% subclasecustosaida_gs     += stock_saida_custo_guarani.to_f %>
+
+            <% promcusto                 += promedio_total.to_f %>
+            <% subgrupoprocusto_gs       += promedio_total.to_f %>
+            <% subclaseprocusto_gs       += promedio_total.to_f %>
+
+            <% difvenda                  += dif.to_f %>
+            <% subgrupodifvenda_gs       += dif.to_f %>
+            <% subclasedifvenda_gs       += dif.to_f %>
+
+            <% renta_gs                  += renta.to_f %>
+            <% subgruporenta_gs          += renta.to_f %>
+            <% subclaserenta_gs          += renta.to_f %>
+
+	    <%end%>
+	<% end %>
+
+
+      <% end %>
+      <% if  subgrupoqtdsaida.to_f > 0%>	
+      <tr class="head">
+         <td colspan="3"></td>
+         <td align="right"><%= number_to_currency( subgrupoqtdsaida,             :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( subgrupocustosaida_gs,        :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( subgrupoprocusto_gs,        :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( subgrupodifvenda_gs,        :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( ( ( subgrupodifvenda_gs.to_f * 100) /  subgrupoprocusto_gs.to_f), :format=>' %n ', :precision => 2 ) %> %</td>
+      </tr>
+
+      <tr>
+         <td></td>
+      </tr>
+
+      <% subgrupoqtdsaida            = 0 %>
+      <% subgrupocustosaida_gs       = 0 %>
+      <% subgrupoqtdsaida            = 0 %>
+      <% subgrupoprocusto_gs         = 0 %>
+      <% subgrupodifvenda_gs         = 0 %>
+      <% subgruporenta_gs            = 0 %>
+
+      <tr class="head">
+         <td colspan="3"></td>
+         <td align="right"><%= number_to_currency( subclaseqtdsaida,             :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( subclasecustosaida_gs,        :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( subclaseprocusto_gs,        :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( subclasedifvenda_gs,        :format=>' %n ', :precision => 0 ) %> </td>
+         <td align="right"><%= number_to_currency( ((subclasedifvenda_gs * 100) / subclaseprocusto_gs.to_f ), :format=>' %n ', :precision => 2 ) %> %</td>
+      </tr>
+
+      <tr>
+         <td></td>
+      </tr>
+
+      <% subclaseqtdsaida            = 0 %>
+      <% subclasecustosaida_gs       = 0 %>
+      <% subclaseqtdsaida            = 0 %>
+      <% subclaseprocusto_gs         = 0 %>
+      <% subclasedifvenda_gs         = 0 %>
+      <% subclaserenta_gs            = 0 %>
+      <% end %>
+      <tr class="head">
+         <td colspan="3"></td>
+         <td align="right"><%= number_to_currency( qtdsaida,                 :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( saida,                    :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( promcusto,                :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( difvenda,                 :format=>' %n ', :precision => 0 ) %></td>
+         <td align="right"><%= number_to_currency( ((difvenda.to_f * 100) / promcusto.to_f),                 :format=>' %n ', :precision => 2 ) %> % </td>
+      </tr>
+
+   </table>
+</div>
+
+

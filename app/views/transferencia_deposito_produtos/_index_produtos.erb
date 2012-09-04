@@ -1,0 +1,35 @@
+<div class="group">
+    
+
+  <table>
+    <tr>
+      <td width="50" align="center"></td>
+      <td width="150" align="center">Producto</td>
+      <td width="100" align="center">Cantidad</td>      
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+      <% indice = 1 %>
+      <% qtd    = 0 %>
+      <% transferencia_deposito_produtos.each do |transferencia_deposito_produto| %>
+      
+        <tr class = "<%= cycle("cor1", "cor2")%>"> 
+          <td width="50" align="center"><%=h indice %></td>
+          <td width="250" align="left"><%=h transferencia_deposito_produto.produto_nome %></td>
+          <td width="100" align="center"><%=h number_to_currency(transferencia_deposito_produto.quantidade, :format=>' %n ', :precision => 0) %></td>
+          <td><%= link_to 'Editar', edit_transferencia_deposito_produto_path(transferencia_deposito_produto) %></td>
+          <td><%= link_to 'Borrar', transferencia_deposito_produto, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+        </tr>
+        <% indice += 1 %>        
+        <% qtd += transferencia_deposito_produto.quantidade %>
+      <% end %>
+    </table>
+   </div>
+  <table class="">
+      <tr>
+          <td width="350" align="right">Total ==> <%= number_to_currency( qtd, :format=>' %n ', :precision => 0) %></td>
+      </tr>
+  </table>
+</div>
+

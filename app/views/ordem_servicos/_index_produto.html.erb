@@ -1,0 +1,31 @@
+
+<table>
+  <tr>
+    <td width="50" align="center"></td>
+    <td width="100" align="center">Cod.</td>
+    <td width="100" align="center">Cod. Fabri.</td>
+    <td width="100" align="center">Fecha</td>
+    <td width="300" align="center">Producto</td>
+    <td width="100" align="center">Cantidad</td>
+  </tr>
+</table>
+<div class="rolagem" id="div">
+  <table>    
+    <% ordem_servicos_produtos.each.with_index do |ordem_servicos_produto, indice| %>
+    
+      <tr class = "<%= cycle("cor1", "cor2") %>">
+        
+        <td width="50" align="center"> <%= indice + 1 %> </td>
+        <td width="100" align="center"> <%= ordem_servicos_produto.codigo %></td>
+        <td width="100" align="center"> <%= ordem_servicos_produto.fabricante_cod %></td>
+        <td width="70" align="center"> <%= ordem_servicos_produto.data.strftime("%d/%m/%Y") %></td>
+        <td width="300" align="left"> <%= ordem_servicos_produto.produto_nome %></td>
+        <td width="100" align="right"> <%= format("%.3f",ordem_servicos_produto.quantidade.to_f) %></td>        
+        <td><%= link_to 'Editar', edit_ordem_servicos_produto_path(ordem_servicos_produto) %></td>
+        <td><%= link_to 'Borrar', ordem_servicos_produto, :confirm => 'Tem Certeza?', :method => :delete %></td>
+      </tr>
+      
+    <% end %>
+      
+  </table>
+</div>

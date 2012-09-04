@@ -1,0 +1,34 @@
+<h1 align="right" id="header">Sobrantes e Faltantes</h1>
+<%= link_to 'Nuevo', new_sobrantes_faltante_path,:id => 'novo' %>
+<div class="group">
+  
+  <table>
+    <tr>
+      <td width="70" align="center">Cod.</td>
+      <td width="100" align="center">Fecha</td>
+      <td width="150" align="center">Producto</td>
+      <td width="150" align="center">Deposito</td>
+      <td width="150" align="center">Cantidad</td>
+      <td width="50" align="center">Operacion</td>
+
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+
+      <% @sobrantes_faltantes.each do |sobrantes_faltante| %>
+        <tr class = "<%= cycle("cor1", "cor2")%>"> 
+          <td width="70" align="center"><%= sobrantes_faltante.id %></td>
+          <td width="100"><%= sobrantes_faltante.data.strftime("%d/%m/%Y") %></td>
+          <td width="150"><%= sobrantes_faltante.produto_nome %></td>
+          <td width="150"><%= sobrantes_faltante.deposito_nome %></td>
+          <td width="150"><%= sobrantes_faltante.quantidade %></td>
+          <td width="50"><%= sobrantes_faltante.tipo %></td>
+          <td><%= link_to 'Editar', edit_sobrantes_faltante_path(sobrantes_faltante) %></td>
+          <td><%= link_to 'Borrar', sobrantes_faltante, :confirm => 'Tiene Certeza', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>

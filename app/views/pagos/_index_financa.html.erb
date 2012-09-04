@@ -1,0 +1,40 @@
+<div class="group">
+  <table>
+    <tr>
+      <td width="80" align="center">Fecha</td>
+      <td width="250" align="center">Descripcion</td>
+      <td width="250" align="center">Documento</td>
+      <td width="80" align="center">Cheque</td>
+      <% if @pago.moeda == 0 %>
+           <td width="150" align="center">Total U$</td>
+      <% else %>
+           <td width="150" align="center">Total Gs.</td>
+      <% end %>
+      <td width="80" align="center">Vencimento</td>
+    </tr>
+  </table>
+  <div class="rolagem_pago" dir="div">
+    <table>
+    <% pagos_financas.each do |pagos_financa| %>
+      <tr class = "<%= cycle( "cor1", "cor2" )%>">
+        <td width="80"  align="center"><%= pagos_financa.data.strftime("%d/%m/%Y")%></td>
+        <td width="250" align="left"><%= pagos_financa.descricao%></td>
+        <td width="250" align="left"><%= pagos_financa.documento_nome%></td>
+        <td width="80" align="center"><%= pagos_financa.cheque%></td>
+        <% if @pago.moeda == 0 %>
+             <td width="150" align="right"><%= number_to_currency( pagos_financa.valor_dolar,      :format =>' %n ', :precision => 0 )%></td>
+        <% else %>
+             <td width="150" align="right"><%= number_to_currency( pagos_financa.valor_guarani,      :format =>' %n ', :precision => 0 )%></td>
+        <% end %>
+        <td width="80"  align="center"><%= pagos_financa.diferido.strftime("%d/%m/%Y")%></td>
+
+        <td><%= link_to 'Editar', edit_pagos_financa_path(pagos_financa) %></td>
+        <td><%= link_to 'Borrar', pagos_financa, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+  </div>
+
+
+

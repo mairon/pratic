@@ -1,0 +1,104 @@
+
+<table>
+  <tr>
+    <td align="right">Clase:</td>
+    <td colspan="3"><%= f.collection_select :clase_id, Clase.all(:select => 'id,descricao',:order => '1'),:id,:descricao %>
+      Grupo :
+      <%= f.collection_select :grupo_id, Grupo.all(:select => 'id,descricao',:order => '1'),:id,:descricao %></td>
+
+  </tr>
+
+  <tr >
+    <td align="right">Producto :</td>
+    <td colspan="3"><%= f.text_field :nome, :size      => 80,
+                                     :onkeydown => "f(this)",
+                                     :onkeyup   => "f(this)" %>*</td>
+
+  </tr>
+
+  <tr >
+    <td align="right">Barra :</td>
+    <td><%= f.text_field :barra,
+                         :size => 20 %></td>
+    <td align="right">Referencia :</td>
+    <td width="230"><%= f.select :referencia,
+        (
+        [
+          ["UN", "UN"],
+          ["LT", "LT"],
+          ["MT", "MT"],
+          ["KG", "KG"],
+          ["PQ", "PQ"],
+          ["TON", "TON"]
+
+        ]
+      )%><a href="javascript:;" onmousedown="toggleDiv('mydiv');">Detalhes de Ref.</a>
+      <div id="mydiv" style="display:none">
+        <p>UN  = UNIDADE</p>
+        <p>LT  = LITROS</p>
+        <p>MT  = METROS</p>
+        <p>KG  = KILOS</p>
+        <p>PQ  = PAQUETE</p>
+        <p>TON = TONELADA</p>
+
+      </div>
+    </td>
+  </tr>
+
+  <tr >
+    <td align="right">Proveedor :</td>
+    <td><%= f.collection_select :fabricante_id, Persona.all(:select => 'id,nome',:conditions =>['tipo_fornecedor = 1'],:order => '1'),:id,:nome %></td>
+
+  </tr>
+
+  <tr >
+               <td align="right">Iva :</td>
+               <td width="230"><%= f.select :taxa,
+                    (
+                     [
+                        [0, 0],
+                        [5, 5],
+                        [10,10]
+
+                     ]
+                  )%></td>
+
+  </tr>
+  <tr>
+    <td></td>
+    <td><%= f.check_box :status%>Desativar</td>
+  </tr>
+
+ 	<tr>
+
+     <td align="right">Saldo Inicial:</td>
+     <td><%= f.text_field :stock_inicial,
+                          :size   => 15 %> * </td>
+
+   </tr>
+
+
+ 	<tr>
+
+     <td align="right">Costo Gs.:</td>
+     <td><%= f.text_field :custo_produto_guarani_iva,
+                          :size   => 15 %> * </td>
+
+   </tr>
+
+   <tr>
+
+     <td align="right">Precio Venta Gs.:</td>
+     <td><%= f.text_field :preco_venda_guarani,
+                          :size   => 15,
+                          :onchange => "ProdutoDolar()" %> * </td>
+
+   </tr>
+ </table>
+
+
+
+
+
+
+

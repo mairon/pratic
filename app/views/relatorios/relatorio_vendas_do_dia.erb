@@ -1,0 +1,152 @@
+<body onload="DataInicio(),DataFinal(),CampoInicio()">
+   <h1 align="right" id="header">.</h1>
+   Relatorio Ventas do Dia
+   <div class="group">
+      <h2>
+         <%form_tag resultado_relatorio_vendas_do_dia_relatorios_path, :method => "get" do%>
+            <table>
+
+               <tr>
+                  <td align="right"> Fecha:</td>
+                  <td>
+                     <input name="inicio" id="inicio"  size="10"  onkeyup="Formatadata(this,event)" />
+                      Hasta
+                     <input name="final"  id="final"   size="10" onkeyup="Formatadata(this,event)"/>                     
+                  </td>
+               </tr>
+               <tr>
+
+                  <td align="right">Vendedor :</td>
+               <td><%=   select("busca", "vend", Usuario.all(:select => 'id,usuario_nome').collect {|p| [ p.usuario_nome, p.id ] },
+                                                                                          { :include_blank => true },
+                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                            :onkeyup       => "EnterTab(event,'campo_turno')" })   %></td>
+
+               </tr>
+
+                 
+                  <td align="right">Turno :</td>
+               <td><%=   select("busca", "turno", Turno.all(:select => 'id,nome').collect {|p| [ p.nome, p.id ] },
+                                                                                          { :include_blank => true },
+                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                            :onkeyup       => "EnterTab(event,'campo_grupo')" })   %></td>
+
+               </tr>
+
+               <tr>
+                  <td align="right">Clase :</td>
+                  <td><%=   select("busca", "clase", Clase.all(:select => 'id,descricao',:order => 'descricao').collect {|p| [ p.descricao, p.id ] },
+                                                                                          { :include_blank => true },
+                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                            :onkeyup       => "EnterTab(event,'campo_grupo')" })   %></td>
+
+               </tr>
+
+               <tr>
+                  <td align="right">Grupo :</td>
+                  <td><%=   select("busca", "grupo", Grupo.all(:select => 'id,descricao',:order => 'descricao').collect {|p| [ p.descricao, p.id ] },
+                                                                                          { :include_blank => true },
+                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                            :onkeyup       => "EnterTab(event,'campo_grupo')" })   %></td>
+
+               </tr>
+
+               <tr>
+                  <td align="right">Producto :</td>
+                  <td><%=   select("busca", "produto", Produto.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] },
+                                                                                          { :include_blank => true },
+                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                            :onkeyup       => "EnterTab(event,'campo_grupo')" })   %></td>
+
+               </tr>
+
+             <tr>
+               <td></td>
+               <td>
+                 <fieldset>
+                   <legend>Filtros</legend>
+                   <input id         = "filtro"
+                          name       = "filtro"
+                          type       = "radio"
+                          value      = "0"
+                          checked
+                          onkeypress = "return bloqEnter(event)"
+                          onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Contado
+
+                   <input id    ="filtro"
+                          name  ="filtro"
+                          type  ="radio"
+                          value ="1"
+                          onkeypress = "return bloqEnter(event)"
+                          onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Credito
+
+                   <input id         = "filtro"
+                          name       = "filtro"
+                          type       = "radio"
+                          value      = "2"
+                          onkeypress = "return bloqEnter(event)"
+                          onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Todos
+                 </fieldset>
+               </td>
+             </tr>
+
+             <tr>
+               <td></td>
+               <td>
+                 <fieldset>
+                   <legend>Tipo</legend>
+                   <input id         = "status"
+                          name       = "status"
+                          type       = "radio"
+                          value      = "0"
+                          checked
+                          onkeypress = "return bloqEnter(event)"
+                          onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Resumen
+
+                   <input id    ="status"
+                          name  ="status"
+                          type  ="radio"
+                          value ="1"
+                          onkeypress = "return bloqEnter(event)"
+                          onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Detalhado
+
+                   <input id    ="status"
+                          name  ="status"
+                          type  ="radio"
+                          value ="2"
+                          onkeypress = "return bloqEnter(event)"
+                          onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Resumen Por Producto
+
+
+                 </fieldset>
+               </td>
+             </tr>
+
+
+              <tr>
+                <td></td>
+                <td>
+                  <input  id      ="button"
+                          type    ="submit"
+                          value   ="            Informe           "
+                          onclick = "Tipo('0')"/>
+
+                  <input type     = "submit"
+                         value    = "            Excel            "
+                         onclick  = "Tipo('1')"/>
+                </td>
+              </tr>
+
+          <input type  = "hidden"
+                 name  = "tipo"
+                 id    = "tipo"
+                 size  = "5"
+                 value = "0"/>
+
+            </table>
+         <% end %>
+         </h2>
+      </div>
+   </body>
+
+

@@ -1,0 +1,22 @@
+<h1 align="right" id="header">Turnos</h1>
+
+<% form_for(@turno) do |f| %>
+  <%= f.error_messages %>
+<div class="group">
+
+  <table>
+    <tr>
+      <td>Descripcion :</td>
+            <td><%= f.text_field :nome,
+                           :size => '30',
+                           :onkeydown => "f(this)",
+                           :onkeyup => "f(this)"%></td>
+
+    </tr>
+  </table>
+</div>
+  
+    <%= f.submit "Grabar" %> <%= link_to 'Volver', turnos_path %>
+<% end %>
+
+

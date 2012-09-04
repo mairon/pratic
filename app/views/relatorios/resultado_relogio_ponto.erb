@@ -1,0 +1,178 @@
+
+<div class="group">
+
+   <div>
+
+      <table>
+
+         <% qb_usuario  = ""%>
+         <% qb_data     = ""%>
+         <% subentrada_h     = 0%>
+         <% subentrada_m     = 0%>
+         <% subentrada_s     = 0%>
+         <% totentrada_h     = 0%>
+         <% totentrada_m     = 0%>
+         <% totentrada_s     = 0%>
+         <% subsaida_h       = 0%>
+         <% subsaida_m       = 0%>
+         <% subsaida_s       = 0%>
+         <% totsaida_h       = 0%>
+         <% totsaida_m       = 0%>
+         <% totsaida_s       = 0%>
+
+         <% @relogio.each do |fechamento|%>
+
+            <!--QUEBRAS !-->
+            <% if ( qb_usuario != fechamento.usuario_nome.to_s ) or ( qb_data != fechamento.data.to_s )%>
+
+               <% if ( qb_data != fechamento.data.to_s )or ( qb_usuario != fechamento.usuario_nome.to_s )  %>
+                  <% if qb_data != "" %>
+
+
+                     <%  subinicio        = ( subentrada_h.to_i * 3600 ) + ( subentrada_m.to_i * 60 ) + subentrada_s
+                     subfinal         = ( subsaida_h.to_i  * 3600 ) + ( subsaida_m.to_i  * 60 )+ subsaida_s
+
+                     subtotal         = subfinal - subinicio
+
+                     subtotal_hora                   = subtotal.to_i / 3600
+                     subtotal_minuto                 = subtotal.to_i % 3600
+                     subtotal_minuto                 = subtotal_minuto.to_i / 60
+                     subtotal_segundo                = 0%>
+
+                     <%  totinicio        = ( totentrada_h.to_i * 3600 ) + ( totentrada_m.to_i * 60 ) + totentrada_s
+                     totfinal         = ( totsaida_h.to_i  * 3600 ) + ( totsaida_m.to_i  * 60 )+ totsaida_s
+
+                     tottotal         = totfinal - totinicio
+
+                     tottotal_hora                   = tottotal.to_i / 3600
+                     tottotal_minuto                 = tottotal.to_i % 3600
+                     tottotal_minuto                 = tottotal_minuto.to_i / 60
+                     tottotal_segundo                = 0%>
+
+                     <tr class="head">
+                        <td colspan="3"></td>
+                        <td class="head" align="center"> <%= subentrada_h.ljust(2 - subentrada_h.to_s.size,"0" )+':'+subentrada_m.ljust(2 - subentrada_m.to_s.size,"0" )+':'+subentrada_s.ljust(2 - subentrada_s.to_s.size,"0" ) %></td>
+                        <td class="head" align="center"> <%= subsaida_h.ljust(2 - subsaida_h.to_s.size,"0" )+':'+subsaida_m.to_s.ljust(2 - subsaida_m.to_s.size,"0" )+':'+subsaida_s.to_s.ljust(2 - subsaida_s.to_s.size,"0" ) %></td>
+                        <td class="head" align="center"> <%= subtotal_hora.to_s.ljust(2 - subtotal_hora.to_s.size,"0" )+':'+subtotal_minuto.to_s.ljust(2 - subtotal_minuto.to_s.size,"0" )+':'+subtotal_segundo.to_s.ljust(2 - subtotal_segundo.to_s.size,"0" ) %></td>
+                        <% subentrada_h     = 0%>
+                        <% subentrada_m     = 0%>
+                        <% subentrada_s     = 0%>
+                        <% subsaida_h       = 0%>
+                        <% subsaida_m       = 0%>
+                        <% subsaida_s       = 0%>
+                     </tr>
+
+
+                  <% end %>
+               <% end %>
+
+               <% if ( qb_usuario != fechamento.usuario_nome.to_s ) %>
+                  <% if qb_usuario != "" %>
+
+                     <tr class="head" height="20">
+                        <td colspan="3"></td>
+                        <td class="head" align="center"> <%= totentrada_h.to_s.ljust(2 - totentrada_h.to_s.size,"0" )+':'+totentrada_m.to_s.ljust(2 - totentrada_m.to_s.size,"0" )+':'+totentrada_s.to_s.ljust(2 - totentrada_s.to_s.size,"0" ) %></td>
+                        <td class="head" align="center"> <%= totsaida_h.to_s.ljust(2 - totsaida_h.to_s.size,"0" )+':'+totsaida_m.to_s.ljust(2 - totsaida_m.to_s.size,"0" )+':'+totsaida_s.to_s.ljust(2 - totsaida_s.to_s.size,"0" ) %></td>
+                        <td class="head" align="center"> <%= tottotal_hora.to_s.ljust(2 - tottotal_hora.to_s.size,"0" )+':'+tottotal_minuto.to_s.ljust(2 - tottotal_minuto.to_s.size,"0" )+':'+tottotal_segundo.to_s.ljust(2 - tottotal_segundo.to_s.size,"0" ) %></td>
+                     </tr>
+
+                  <% end %>
+               <% end %>
+
+               <tr class="head">
+                  <td>
+                     <% if qb_usuario != fechamento.usuario_nome.to_s %>
+                        <%= qb_usuario = fechamento.usuario_nome.to_s  %>
+                     <% end %>
+                  </td>
+               </tr>
+
+               <tr class="head">
+                  <td></td>
+                  <td>
+                     <% if qb_data != fechamento.data.to_s %>
+                        <% qb_data = fechamento.data.to_s  %>
+                        <%= fechamento.data.strftime("%d/%m/%Y")  %>
+                     <% end %>
+                  </td>
+               </tr>
+            <% end %>
+
+            <tr class = "<%= cycle("cor1", "cor2") %>">
+               <td width="50" align="left"></td>
+               <td width="100" align="left"> <%=  fechamento.turno_nome%></td>
+               <% if fechamento.status == 0 %>
+                  <td width="100" align="center">Inicio</td>
+                  <td width="100" align="center"> <%=  fechamento.hora.strftime("%H:%M:%S")%></td>
+                  <td width="100" align="center"> </td>
+
+                  <% subentrada_h     = subentrada_h.to_i + fechamento.hora.strftime("%H").to_i%>
+                  <% subentrada_m     = subentrada_m.to_i + fechamento.hora.strftime("%M").to_i%>
+                  <% subentrada_s     = subentrada_s.to_i + fechamento.hora.strftime("%S").to_i%>
+
+                  <% totentrada_h     = totentrada_h.to_i + fechamento.hora.strftime("%H").to_i%>
+                  <% totentrada_m     = totentrada_m.to_i + fechamento.hora.strftime("%M").to_i%>
+                  <% totentrada_s     = totentrada_s.to_i + fechamento.hora.strftime("%S").to_i%>
+
+               <% else %>
+                  <td width="100" align="center">Cierre</td>
+                  <td width="100" align="center"> </td>
+                  <td width="100" align="center"> <%=  fechamento.hora.strftime("%H:%M:%S")%></td>
+
+                  <% subsaida_h     = subsaida_h.to_i + fechamento.hora.strftime("%H").to_i%>
+                  <% subsaida_m     = subsaida_m.to_i + fechamento.hora.strftime("%M").to_i%>
+                  <% subsaida_s     = subsaida_s.to_i + fechamento.hora.strftime("%S").to_i%>
+
+                  <% totsaida_h     = totsaida_h.to_i + fechamento.hora.strftime("%H").to_i%>
+                  <% totsaida_m     = totsaida_m.to_i + fechamento.hora.strftime("%M").to_i%>
+                  <% totsaida_s     = totsaida_s.to_i + fechamento.hora.strftime("%S").to_i%>
+
+               <% end %>
+            </tr>
+         <% end %>
+
+         <%  subinicio        = ( subentrada_h.to_i * 3600 ) + ( subentrada_m.to_i * 60 ) + subentrada_s
+         subfinal         = ( subsaida_h.to_i  * 3600 ) + ( subsaida_m.to_i  * 60 )+ subsaida_s
+
+         subtotal         = subfinal - subinicio
+
+         subtotal_hora                   = subtotal.to_i / 3600
+         subtotal_minuto                 = subtotal.to_i % 3600
+         subtotal_minuto                 = subtotal_minuto.to_i / 60
+         subtotal_segundo                = 0%>
+
+         <%  totinicio        = ( totentrada_h.to_i * 3600 ) + ( totentrada_m.to_i * 60 ) + totentrada_s
+         totfinal         = ( totsaida_h.to_i  * 3600 ) + ( totsaida_m.to_i  * 60 )+ totsaida_s
+
+         tottotal         = totfinal - totinicio
+
+         tottotal_hora                   = tottotal.to_i / 3600
+         tottotal_minuto                 = tottotal.to_i % 3600
+         tottotal_minuto                 = tottotal_minuto.to_i / 60
+         tottotal_segundo                = 0%>
+
+         <tr class="head">
+            <td colspan="3"></td>
+            <td class="head" align="center"> <%= subentrada_h.to_s.ljust(2 - subentrada_h.to_s.size,"0" )+':'+subentrada_m.to_s.ljust(2 - subentrada_m.to_s.size,"0" )+':'+subentrada_s.to_s.ljust(2 - subentrada_s.to_s.size,"0" ) %></td>
+            <td class="head" align="center"> <%= subsaida_h.to_s.ljust(2 - subsaida_h.to_s.size,"0" )+':'+subsaida_m.to_s.ljust(2 - subsaida_m.to_s.size,"0" )+':'+subsaida_s.to_s.ljust(2 - subsaida_s.to_s.size,"0" ) %></td>
+            <td class="head" align="center"> <%= subtotal_hora.to_s.ljust(2 - subtotal_hora.to_s.size,"0" )+':'+subtotal_minuto.to_s.ljust(2 - subtotal_minuto.to_s.size,"0" )+':'+subtotal_segundo.to_s.ljust(2 - subtotal_segundo.to_s.size,"0" ) %></td>
+            <% subentrada_h     = 0%>
+            <% subentrada_m     = 0%>
+            <% subentrada_s     = 0%>
+            <% subsaida_h       = 0%>
+            <% subsaida_m       = 0%>
+            <% subsaida_s       = 0%>
+
+
+         </tr>
+
+         <tr class="head" height="20">
+            <td colspan="3"></td>
+            <td class="head" align="center"> <%= totentrada_h.to_s.ljust(2 - totentrada_h.to_s.size,"0" )+':'+totentrada_m.to_s.ljust(2 - totentrada_m.to_s.size,"0" )+':'+totentrada_s.to_s.ljust(2 - totentrada_s.to_s.size,"0" ) %></td>
+            <td class="head" align="center"> <%= totsaida_h.to_s.ljust(2 - totsaida_h.to_s.size,"0" )+':'+totsaida_m.to_s.ljust(2 - totsaida_m.to_s.size,"0" )+':'+totsaida_s.to_s.ljust(2 - totsaida_s.to_s.size,"0" ) %></td>
+            <td class="head" align="center"> <%= tottotal_hora.to_s.ljust(2 - tottotal_hora.to_s.size,"0" )+':'+tottotal_minuto.to_s.ljust(2 - tottotal_minuto.to_s.size,"0" )+':'+tottotal_segundo.to_s.ljust(2 - tottotal_segundo.to_s.size,"0" ) %></td>
+         </tr>
+      </table>
+   </div>
+</div>
+

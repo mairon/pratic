@@ -1,0 +1,83 @@
+<body onload="DataPago(),CampoPago()">
+  <h1 align="right" id="header">Pagos</h1>
+  Pago Edicion
+  <% form_for(@pago) do |f| %>
+    <%= f.error_messages %>
+    <div class="group">
+      <table>
+        <tr>
+          <td>Fecha:</td>
+          <td><%= f.date_select :data %></td>
+        </tr>
+
+        <%= hidden_field_tag( 'key',
+                              nil,
+                             :id => "key" ) %>
+
+        <tr>
+          <td>Cotacion :</td>
+          <td>
+            <% if params[:action] == 'new'%>
+              <%= text_field :pago,
+                             :cotacao ,
+                             { :size    => 15,
+                               :onfocus => remote_function(:update => "key",
+                                                           :url    => { :action => :get_moeda},
+                                                           :with   => "'key='+ key.value ")}%>
+            <%else%>
+              <%= f.text_field :cotacao  %>
+              <%= f.hidden_field :conta_id  %>
+              <%= f.hidden_field :documento_id  %>
+
+            <%end%>
+          </td>
+        </tr>
+
+        <table>
+          <tr>
+            <td>
+              <fieldset>
+                <legend>Moneda</legend>
+                <%= f.radio_button :moeda, 1,  :Checked => "True" %> Gs.
+                <%= f.radio_button :moeda, 0%> Dolar
+                
+              </fieldset>
+            </td>
+          </tr>
+        </table>
+
+
+        <table>
+          <tr>
+            <td>Cliente :</td>
+            <%= f.hidden_field :persona_id %>
+            <td><%= f.text_field :persona_nome, :size => 40 %>Pulse F2 para Busca.</td>
+          </tr>
+
+          <tr>
+            <td>Ruc:</td>
+            <td><%= f.text_field :ruc, :size => 20 %></td>
+          </tr>
+        </table>
+        
+      </table>
+    </div>
+
+    <%= f.submit "Seguir >> " %> | <%= link_to 'Volver', pagos_path %>
+  <% end %>
+
+  
+</body>
+
+<script>
+
+
+    //ABRI POPUP-----------------------------------------------------------------
+    document.onkeydown=function(e)
+    {
+      if(e.which == 113)
+        window.open('/personas/persona_pago', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=400');
+    }
+    //FIM ABRI POPUP----------------------------------------------------------------
+
+</script>

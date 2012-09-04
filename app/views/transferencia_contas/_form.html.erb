@@ -1,0 +1,146 @@
+<h1 align="right" id="header">Tranferencia Entre Cuentas</h1>
+
+Transferencia - Edicion
+
+<% form_for(@transferencia_conta) do |f| %>
+  <%= f.error_messages %>
+<body onload="TransferenciaFocoData()">
+
+<div class="group">
+  <table>
+    <tr>     
+      <td colspan="3">
+       <fieldset>
+        <table>          
+          <tr>            
+            <td>
+
+            <tr>
+              <td align="right">Fecha : </td>
+                <td><%= f.date_select :data,{},{:onblur => "TransferenciaDataCotacao()"} %></td>
+                  <%= hidden_field_tag( 'key' ) %>
+
+            </tr>
+
+            <tr>
+              <td align="right">Cotización :</td>
+              <td>             <%= text_field :transferencia_conta,
+                                              :cotacao ,
+                                              { :size    => 15,
+                                                :value   => @transferencia_conta.cotacao,
+                                                :onfocus  => remote_function(:update => "key",
+                                                                            :url    => { :action => :get_moeda},
+                                                                                          :with   => "'key='+ key.value ") } %>
+              </td>
+            </tr>
+
+              <tr>
+                <td align="right">Documento :</td>
+                <td><%= f.collection_select :documento_id, Documento.all( :select => ' id,
+                                                                                       nome',
+                                                                          :order  => '2' ), :id,
+                                                                                            :nome %></td>
+              </tr>
+            </td>           
+          </tr>         
+        </table>
+       </fieldset>
+      </td>      
+    </tr>
+      
+<!--CONTA ORIGEM !-->
+      <tr>        
+        <td width="310">
+          <fieldset>
+            <legend>Origem</legend>
+            <table>
+
+              <tr>
+                <td align="right">Cuenta :</td>
+                <td><%= f.collection_select :ingreso_id, Conta.all( :select => ' id,
+                                                                               nome',
+                                                                  :order  => '2' ), :id,
+                                                                                    :nome %></td>
+
+              </tr>
+
+              <tr>
+                <td></td>
+                <td>
+                  <fieldset>
+                    <legend>Moneda</legend>
+                    <%= f.radio_button :ingreso_moeda, 1,  :Checked => "True" %> Gs.
+                    <%= f.radio_button :ingreso_moeda, 0 %> Dolar
+
+                  </fieldset>
+                </td>
+              </tr>
+
+            </table>
+          </fieldset>
+        </td>
+
+<!--DESTINO CONTA!-->
+        <td width="310">
+          <fieldset>
+            <legend>Destino</legend>
+            <table>
+              <tr>
+                <td align="right">Cuenta :</td>
+                <td><%= f.collection_select :destino_id, Conta.all( :select => ' id,
+                                                                               nome',
+                                                                  :order  => '2' ), :id,
+                                                                                    :nome %></td>
+
+              </tr>
+
+              <tr>
+                <td></td>
+                <td>
+                  <fieldset>
+                    <legend>Moneda</legend>
+                    <%= f.radio_button :destino_moeda, 1,  :Checked => "True" %> Gs.
+                    <%= f.radio_button :destino_moeda, 0 %> Dolar
+
+                  </fieldset>
+                </td>
+
+              </tr>
+            </table>
+          </fieldset>
+        </td>
+
+      </tr>
+      <td colspan="2">
+          <fieldset>
+            <legend>Valores</legend>
+            <table>
+              <tr>
+                <td>Gs.:</td>
+                <td><%= f.text_field :valor_guarani,
+                                     :onchange => "TransferenciaGuaraniDolar()"%></td>
+                <td>U$.:</td>
+                <td><%= f.text_field :valor_dolar,
+                                     :onchange => "TransferenciaDolarGuarani()"%></td>
+
+              </tr>
+            </table>
+          </fieldset>
+        </td>    
+  </table>
+  <table>
+          <tr>
+            <td valign="top">Concepto :</td>
+                <td><%= f.text_area  :concepto,
+                                     :size      => '74x5',
+                                     :onkeydown => "f(this)",
+                                     :onkeyup   => "f(this)"%></td>
+
+      </tr>
+
+  </table>
+</div>
+    <%= f.submit 'Grabar' %> | <%= link_to 'Volver', transferencia_contas_path %>
+<% end %>
+
+</body>

@@ -1,0 +1,31 @@
+<h1 align="right" id="header">Acientos Contables</h1>
+<%= link_to 'Nuevo', new_diario_path,:id => 'novo' %>
+<div class="group">
+  <table>
+    <tr>
+      <td width="50" align="center">Numero</td>
+      <td width="150" align="center">Processo</td>
+      <td width="150" align="center">Documento</td>
+      <td width="100" align="center">Debito</td>
+      <td width="100" align="center">Credito</td>
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+      <% @diarios.each do |diario| %>
+         <% valor_debe  = DiarioDebe.sum(:valor_guarani, :conditions => ["diario_id = #{diario.id}"]) %>
+         <% valor_haber = DiarioHaber.sum(:valor_guarani, :conditions => ["diario_id = #{diario.id}"]) %>
+        <tr class = "<%= cycle("cor1", "cor2") %>">
+          <td width="50" align="center"><%= diario.id %></td>
+          <td width="150" align="left"><%= diario.tabela_nome %></td>
+          <td width="150" align="left"><%= diario.documento_nome %></td>          
+          <td width="100" align="right"><%= number_to_currency(valor_debe, :format=>' %n ', :precision => 0)   %></td>
+          <td width="100" align="right"><%= number_to_currency(valor_haber, :format=>' %n ', :precision => 0)   %></td>
+          <td><%= link_to 'Editar', edit_diario_path(diario) %></td>
+          <td><%= link_to 'Borrar', diario, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<%= will_paginate @diarios, :prev_label => '<< Anterior',:next_label => 'Próximo >>'%>

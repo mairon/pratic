@@ -1,0 +1,45 @@
+<h1 align="right" id="header">Contaciones</h1>
+Cotizacion - Edicion
+<% form_for(@moeda) do |f| %>
+  <%= f.error_messages %>
+  <div class="group">
+    <h2>Cotacion</h2>
+    <table>
+      <tr>
+        <td valign="top" width="700">
+
+          <table>
+            
+              <tr>
+                <td>Fecha</td>
+                <td><%= f.date_select :data %></td>
+              </tr>
+              <tr>
+                <td>Dolar Compra :</td>
+                <td><%= f.text_field :dolar_compra,
+                                     :size => 15  %></td>
+              </tr>
+              <tr>
+                <td>Dolar Venda :</td>
+                <td><%= f.text_field :dolar_venda,
+                                     :size => 15 %></td>
+              </tr>
+            
+          </table>
+
+        </td>
+
+        <td>
+
+          <iframe name="I2" width="300" height="193" src="http://www.cambioschaco.com.py/php/chaco_cotizaciones_nuevo.php" scrolling="no" border="0" frameborder="0" style="border: 1px dotted #CCCCCC; padding-left: 1px; padding-right: 1px; padding-top: 1px; padding-bottom: 1">
+          </iframe>
+
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <%= f.submit "Grabar" %> |
+  <%= link_to 'Volver', moedas_path %>
+<% end %>

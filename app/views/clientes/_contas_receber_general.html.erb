@@ -1,0 +1,33 @@
+
+<table>      
+
+   <% totsaldo  = 0 %>
+
+   <% @clientes.each do |cliente|%>
+       <% saldo = Cliente.sum('divida_guarani - cobro_guarani',:conditions => ["persona_id = ?",cliente.id]) %>
+      <% if saldo.to_f > 0 %>
+      <tr>
+         <td width="80" align="center">   <%=h cliente.id%> </td>
+         <td width="300" align="left">    <%=h cliente.nome%> </td>
+         <td width="100" align="right">   <%=h number_to_currency(saldo.to_f, :format=>' %n ', :precision => 0 )%> </td>
+         <% totsaldo = totsaldo.to_f + saldo.to_f %>
+      </tr>
+      <% end %>
+
+   <% end %>
+   <tr class="head" >
+      <td colspan="2"></td>
+      <td align="right"><%= number_to_currency(totsaldo.to_f, :format=>' %n ', :precision => 0) %></td>
+   </tr>
+</table>
+
+
+
+<style type="text/css">
+   table {font-size: 11px}
+
+</style>
+
+
+
+

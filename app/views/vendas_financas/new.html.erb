@@ -1,0 +1,10 @@
+<h1 align="right" id="header">Vendas</h1>
+<body onload="CotaMaiorExibeDivVendaCota()">
+  Venta Financa - Edicion
+  <% form_for(@vendas_financa) do |f| %>
+    <%= f.error_messages %>
+<a href="/vendas/vendas_financa/<%= @vendas_financa.venda.id.to_i %>"> << Volver </a>
+<% end %>
+
+
+</body>

@@ -1,0 +1,18 @@
+<h1>Listing ordem_servicos_produtos</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% for ordem_servicos_produto in @ordem_servicos_produtos %>
+  <tr>
+    <td><%= link_to 'Show', ordem_servicos_produto %></td>
+    <td><%= link_to 'Edit', edit_ordem_servicos_produto_path(ordem_servicos_produto) %></td>
+    <td><%= link_to 'Destroy', ordem_servicos_produto, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ordem_servicos_produto', new_ordem_servicos_produto_path %>

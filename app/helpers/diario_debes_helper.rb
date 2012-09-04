@@ -1,0 +1,2 @@
+module DiarioDebesHelper
+end

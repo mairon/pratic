@@ -1,0 +1,28 @@
+   
+<div class="group">
+  <table>
+        
+        <% total_guarani     = 0 %>
+
+        <% for cb in @cobros %>
+               <%  ordem = Venda.find_by_id( cb.venda_id ) unless cb.venda_id.blank? %>
+          <tr class = "<%= cycle("cor1", "cor2") %>">
+            <td width="80" align="center">    <%= cb.id%></td>
+            <td width="80" align="center">    <%= cb.data.strftime("%d/%m/%Y")%></td>
+            <td width="300" align="left">     <%= cb.persona_nome%></td>
+            <td width="150" align="left">     <%= cb.documento_numero_01%> - <%= cb.documento_numero_02%> - <%= cb.documento_numero%></td>
+            <td width="100" align="right">    <%=h number_to_currency(cb.cobro_guarani, :format=>' %n ', :precision => 0 )  %></td>
+            
+            <% total_guarani     = total_guarani + cb.cobro_guarani.to_f %>
+          </tr>
+
+        <% end %>
+
+        <tr class="head" height="30">
+          <td colspan="6"></td>
+          <td align="right"><%= number_to_currency(total_guarani, :format=>' %n ', :precision => 0 )%></td>
+        </tr>
+  </table>
+</div>
+
+
